@@ -7,8 +7,9 @@ import { disableDraftMode } from "@/app/action";
 export function DisableDraftMode() {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
-  
-  if (window !== window.parent || !!window.opener) {
+
+  // Check if we're in the browser environment before accessing window
+  if (typeof window !== 'undefined' && (window !== window.parent || !!window.opener)) {
     return null;
   }
 
