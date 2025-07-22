@@ -11,12 +11,27 @@ export interface DropdownItem {
   title: string;
   href: string;
   description?: string;
+  image?: {
+    asset: SanityImageSource;
+    alt?: string;
+  };
+  badge?: {
+    text: string;
+    color: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray';
+  };
+}
+
+export interface DropdownLayout {
+  columns: 1 | 2 | 3 | 4;
+  showImages: boolean;
+  width: 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
 export interface NavigationLink {
   title: string;
   href?: string;
   hasDropdown: boolean;
+  dropdownLayout?: DropdownLayout;
   dropdownItems?: DropdownItem[];
 }
 

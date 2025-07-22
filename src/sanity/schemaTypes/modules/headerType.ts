@@ -75,6 +75,50 @@ export const headerType = defineType({
               initialValue: false,
             }),
             defineField({
+              name: 'dropdownLayout',
+              title: 'Dropdown Layout',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'columns',
+                  title: 'Number of Columns',
+                  type: 'number',
+                  options: {
+                    list: [
+                      { title: '1 Column', value: 1 },
+                      { title: '2 Columns', value: 2 },
+                      { title: '3 Columns', value: 3 },
+                      { title: '4 Columns', value: 4 },
+                    ],
+                  },
+                  initialValue: 1,
+                  validation: (Rule) => Rule.min(1).max(4),
+                }),
+                defineField({
+                  name: 'showImages',
+                  title: 'Show Images in Dropdown',
+                  type: 'boolean',
+                  initialValue: false,
+                }),
+                defineField({
+                  name: 'width',
+                  title: 'Dropdown Width',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Small (320px)', value: 'sm' },
+                      { title: 'Medium (480px)', value: 'md' },
+                      { title: 'Large (640px)', value: 'lg' },
+                      { title: 'Extra Large (800px)', value: 'xl' },
+                      { title: 'Full Width', value: 'full' },
+                    ],
+                  },
+                  initialValue: 'md',
+                }),
+              ],
+              hidden: ({ parent }) => !parent?.hasDropdown,
+            }),
+            defineField({
               name: 'dropdownItems',
               title: 'Dropdown Items',
               type: 'array',
@@ -100,7 +144,66 @@ export const headerType = defineType({
                       type: 'text',
                       rows: 2,
                     }),
+                    defineField({
+                      name: 'image',
+                      title: 'Item Image',
+                      type: 'image',
+                      options: {
+                        hotspot: true,
+                      },
+                      fields: [
+                        defineField({
+                          name: 'alt',
+                          title: 'Alt Text',
+                          type: 'string',
+                        }),
+                      ],
+                      description: 'Only visible when "Show Images in Dropdown" is enabled for this navigation item',
+                    }),
+                    defineField({
+                      name: 'badge',
+                      title: 'Badge',
+                      type: 'object',
+                      fields: [
+                        defineField({
+                          name: 'text',
+                          title: 'Badge Text',
+                          type: 'string',
+                        }),
+                        defineField({
+                          name: 'color',
+                          title: 'Badge Color',
+                          type: 'string',
+                          options: {
+                            list: [
+                              { title: 'Blue', value: 'blue' },
+                              { title: 'Green', value: 'green' },
+                              { title: 'Red', value: 'red' },
+                              { title: 'Yellow', value: 'yellow' },
+                              { title: 'Purple', value: 'purple' },
+                              { title: 'Gray', value: 'gray' },
+                            ],
+                          },
+                          initialValue: 'blue',
+                        }),
+                      ],
+                    }),
                   ],
+                  preview: {
+                    select: {
+                      title: 'title',
+                      description: 'description',
+                      image: 'image',
+                      badge: 'badge.text',
+                    },
+                    prepare({ title, description, image, badge }) {
+                      return {
+                        title,
+                        subtitle: badge ? `${description || ''} • ${badge}` : description,
+                        media: image,
+                      };
+                    },
+                  },
                 },
               ],
               hidden: ({ parent }) => !parent?.hasDropdown,

@@ -20,6 +20,17 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // Pages
+      S.listItem()
+        .title('Pages')
+        .child(
+          S.list()
+            .title('Page Management')
+            .items([
+              S.documentTypeListItem('page').title('All Pages'),
+            ])
+        ),
+
       // Site Configuration
       S.listItem()
         .title('Site Configuration')
@@ -50,6 +61,6 @@ export const structure: StructureResolver = (S) =>
 
       // Filter out the documents we've already included above
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['post', 'category', 'author', 'header', 'footer', 'siteLayout'].includes(item.getId()!),
+        (item) => item.getId() && !['post', 'category', 'author', 'header', 'footer', 'siteLayout', 'page'].includes(item.getId()!),
       ),
     ])

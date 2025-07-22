@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { urlFor } from "@/sanity/lib/image";
-import type { HeaderProps, CTAButton, NavigationLink } from "@/types/header";
+import type { HeaderProps, CTAButton, NavigationLink, DropdownItem } from "@/types/header";
 
 export function Header({ data, sticky = true, transparent = false, className }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,8 +46,81 @@ export function Header({ data, sticky = true, transparent = false, className }: 
     );
   };
 
+  const getDropdownWidth = (width: string) => {
+    const widthMap = {
+      sm: 'w-80',
+      md: 'w-96',
+      lg: 'w-[640px]',
+      xl: 'w-[800px]',
+      full: 'w-screen max-w-7xl',
+    };
+    return widthMap[width as keyof typeof widthMap] || 'w-96';
+  };
+
+  const getGridColumns = (columns: number) => {
+    const columnMap = {
+      1: 'grid-cols-1',
+      2: 'grid-cols-2',
+      3: 'grid-cols-3',
+      4: 'grid-cols-4',
+    };
+    return columnMap[columns as keyof typeof columnMap] || 'grid-cols-1';
+  };
+
+  const renderDropdownItem = (item: DropdownItem, showImages: boolean) => {
+  
+
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        className="block p-4 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors rounded-lg"
+      >
+        <div className="flex items-start space-x-3">
+          {showImages && item.image && (
+            <div className="flex-shrink-0">
+              <Image
+                src={urlFor(item.image.asset).width(48).height(48).url()}
+                alt={item.image.alt || item.title}
+                width={48}
+                height={48}
+                className="rounded-lg object-cover"
+              />
+            </div>
+          )}
+        
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center space-x-2">
+            <div className="font-medium">{item.title}</div>
+            {item.badge && (
+              <span className={cn(
+                "px-2 py-1 text-xs font-medium rounded-full",
+                {
+                  'bg-blue-100 text-blue-800': item.badge.color === 'blue',
+                  'bg-green-100 text-green-800': item.badge.color === 'green',
+                  'bg-red-100 text-red-800': item.badge.color === 'red',
+                  'bg-yellow-100 text-yellow-800': item.badge.color === 'yellow',
+                  'bg-purple-100 text-purple-800': item.badge.color === 'purple',
+                  'bg-gray-100 text-gray-800': item.badge.color === 'gray',
+                }
+              )}>
+                {item.badge.text}
+              </span>
+            )}
+          </div>
+          {item.description && (
+            <div className="text-sm text-gray-500 mt-1">{item.description}</div>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
+};
+
   const renderNavigationLink = (link: NavigationLink, isMobile = false) => {
     if (link.hasDropdown && link.dropdownItems?.length) {
+      const layout = link.dropdownLayout || { columns: 1, showImages: false, width: 'md' };
+
       return (
         <div key={link.title} className={cn("relative", isMobile ? "w-full" : "group")}>
           <button
@@ -60,28 +133,21 @@ export function Header({ data, sticky = true, transparent = false, className }: 
             {link.title}
             <ChevronDown className={cn("ml-2 h-4 w-4", isMobile && openDropdown === link.title && "rotate-180")} />
           </button>
-          
-          {/* Desktop Dropdown */}
+
           {!isMobile && (
-            <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <div className="py-2">
-                {link.dropdownItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
-                  >
-                    <div className="font-medium">{item.title}</div>
-                    {item.description && (
-                      <div className="text-sm text-gray-500 mt-1">{item.description}</div>
-                    )}
-                  </Link>
-                ))}
+            <div className={cn(
+              "absolute left-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50",
+              getDropdownWidth(layout.width)
+            )}>
+              <div className={cn(
+                "p-4 grid gap-2",
+                getGridColumns(layout.columns)
+              )}>
+                {link.dropdownItems.map((item) => renderDropdownItem(item, layout.showImages))}
               </div>
             </div>
           )}
           
-          {/* Mobile Dropdown */}
           {isMobile && openDropdown === link.title && (
             <div className="pl-4 border-l-2 border-gray-100 ml-4">
               {link.dropdownItems.map((item) => (
@@ -153,7 +219,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-black"
             aria-label="Toggle mobile menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

@@ -25,10 +25,26 @@ export const HEADER_QUERY = defineQuery(`
       title,
       href,
       hasDropdown,
+      dropdownLayout {
+        columns,
+        showImages,
+        width
+      },
       dropdownItems[] {
         title,
         href,
-        description
+        description,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        badge {
+          text,
+          color
+        }
       }
     },
     ctaButtons[] {
@@ -69,10 +85,26 @@ export const DEFAULT_HEADER_QUERY = defineQuery(`
       title,
       href,
       hasDropdown,
+      dropdownLayout {
+        columns,
+        showImages,
+        width
+      },
       dropdownItems[] {
         title,
         href,
-        description
+        description,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        badge {
+          text,
+          color
+        }
       }
     },
     ctaButtons[] {
@@ -119,10 +151,26 @@ export const SITE_LAYOUT_HEADER_QUERY = defineQuery(`
             title,
             href,
             hasDropdown,
+            dropdownLayout {
+              columns,
+              showImages,
+              width
+            },
             dropdownItems[] {
               title,
               href,
-              description
+              description,
+              image {
+                asset-> {
+                  _id,
+                  url
+                },
+                alt
+              },
+              badge {
+                text,
+                color
+              }
             }
           },
           ctaButtons[] {

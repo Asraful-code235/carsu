@@ -7,7 +7,8 @@ import {authorType} from './authorType'
 import {headerType} from './modules/headerType'
 import {footerType} from './modules/footerType'
 import {layoutType} from './layoutType'
+import {pageType} from './pageType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType, headerType, footerType, layoutType],
+  types: [blockContentType, categoryType, postType, authorType, headerType, footerType, layoutType, pageType],
 }
