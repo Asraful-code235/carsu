@@ -18,6 +18,18 @@ export function SanityConfigDebug() {
         <div>Is Production: <span className="text-red-400">{studioConfig.isProduction ? 'Yes' : 'No'}</span></div>
         <div>Window Origin: <span className="text-purple-400">{typeof window !== 'undefined' ? window.location.origin : 'N/A'}</span></div>
       </div>
+      <div className="mt-2 pt-2 border-t border-gray-600">
+        <div className="text-xs text-gray-400">Test Links:</div>
+        <div className="mt-1">
+          <a
+            href="/api/draft-mode/enable"
+            className="text-blue-400 hover:text-blue-300 underline"
+            target="_blank"
+          >
+            Test Draft Enable
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

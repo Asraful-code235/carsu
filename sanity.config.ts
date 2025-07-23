@@ -26,8 +26,8 @@ export default defineConfig({
         origin: previewOrigin,
         preview: "/",
         previewMode: {
-          enable: "/api/draft-mode/enable",
-          disable: "/api/draft-mode/disable",
+          enable: previewOrigin+"/api/draft-mode/enable",
+          disable: previewOrigin+"/api/draft-mode/disable",
         },
       },
     }),
