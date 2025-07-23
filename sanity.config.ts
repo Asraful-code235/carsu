@@ -10,6 +10,7 @@ import { apiVersion, dataset, projectId } from "./src/sanity/env";
 import { schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 import { presentationTool } from "sanity/presentation";
+import { previewOrigin } from "./src/sanity/config/environment";
 
 export default defineConfig({
   basePath: "/studio",
@@ -22,7 +23,7 @@ export default defineConfig({
     colorInput(),
     presentationTool({
       previewUrl: {
-        origin: process.env.SANITY_STUDIO_PREVIEW_ORIGIN || "http://localhost:3000",
+        origin: previewOrigin,
         preview: "/",
         previewMode: {
           enable: "/api/draft-mode/enable",

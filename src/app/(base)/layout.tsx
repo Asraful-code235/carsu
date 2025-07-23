@@ -4,6 +4,7 @@ import { VisualEditing } from "next-sanity";
 import { DisableDraftMode } from "@/components/molecules/presentation/disableDraftMode";
 import { HeaderWrapper } from "@/components/organisms/layout/HeaderWrapper";
 import { ErrorBoundary } from "@/components/molecules/presentation/ErrorBoundary";
+import { SanityConfigDebug } from "@/components/debug/SanityConfigDebug";
 
 import { SanityLive } from "@/sanity/lib/live";
 
@@ -30,6 +31,7 @@ export default async function RootLayout({
           <DisableDraftMode />
         </>
       )}
+      <SanityConfigDebug />
     </ErrorBoundary>
   );
 }
