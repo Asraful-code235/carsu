@@ -22,10 +22,11 @@ export default defineConfig({
     colorInput(),
     presentationTool({
       previewUrl: {
-        origin: process.env.SANITY_STUDIO_PREVIEW_ORIGIN,
+        origin: process.env.SANITY_STUDIO_PREVIEW_ORIGIN || "http://localhost:3000",
         preview: "/",
         previewMode: {
           enable: "/api/draft-mode/enable",
+          disable: "/api/draft-mode/disable",
         },
       },
     }),

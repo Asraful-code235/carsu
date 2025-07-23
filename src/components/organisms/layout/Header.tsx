@@ -92,7 +92,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
         <div className="flex-1 min-w-0">
           <div className="flex items-center space-x-2">
             <div className="font-medium">{item.title}</div>
-            {item.badge && (
+            {/* {item?.badge ? (
               <span className={cn(
                 "px-2 py-1 text-xs font-medium rounded-full",
                 {
@@ -106,7 +106,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
               )}>
                 {item.badge.text}
               </span>
-            )}
+            ):null} */}
           </div>
           {item.description && (
             <div className="text-sm text-gray-500 mt-1">{item.description}</div>

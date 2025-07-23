@@ -3,6 +3,7 @@ import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 import { DisableDraftMode } from "@/components/molecules/presentation/disableDraftMode";
 import { HeaderWrapper } from "@/components/organisms/layout/HeaderWrapper";
+import { ErrorBoundary } from "@/components/molecules/presentation/ErrorBoundary";
 
 import { SanityLive } from "@/sanity/lib/live";
 
@@ -16,17 +17,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isDraftMode = (await draftMode()).isEnabled;
+
   return (
-    <>
+    <ErrorBoundary>
       <HeaderWrapper />
       {children}
       <SanityLive />
-      {(await draftMode()).isEnabled && (
+      {isDraftMode && (
         <>
           <VisualEditing />
           <DisableDraftMode />
         </>
       )}
-    </>
+    </ErrorBoundary>
   );
 }
