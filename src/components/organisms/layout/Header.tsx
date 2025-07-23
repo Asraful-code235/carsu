@@ -48,10 +48,10 @@ export function Header({ data, sticky = true, transparent = false, className }: 
 
   const getDropdownWidth = (width: string) => {
     const widthMap = {
-      sm: 'w-[320px]', // Exactly 320px
-      md: 'w-[480px]', // Exactly 480px
-      lg: 'w-[640px]', // Exactly 640px
-      xl: 'w-[800px]', // Exactly 800px
+      sm: 'w-[120px]', 
+      md: 'w-[480px]', 
+      lg: 'w-[640px]', 
+      xl: 'w-[800px]', 
       full: 'w-screen max-w-7xl',
     };
     console.log('🔧 Dropdown width setting:', width, '→', widthMap[width as keyof typeof widthMap]);
@@ -75,15 +75,15 @@ export function Header({ data, sticky = true, transparent = false, className }: 
         href={item.href}
         className="block p-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors rounded-lg"
       >
-        <div className="flex items-start space-x-3">
+        <div className="flex items-center space-x-2">
           {showImages && item.image && (
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 overflow-hidden">
               <Image
                 src={urlFor(item.image.asset).width(48).height(48).url()}
                 alt={item.image.alt || item.title}
                 width={48}
                 height={48}
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover object-center"
               />
             </div>
           )}
@@ -91,21 +91,6 @@ export function Header({ data, sticky = true, transparent = false, className }: 
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2">
               <div className="font-medium text-sm truncate">{item.title}</div>
-              {item?.badge && (
-                <span className={cn(
-                  "px-2 py-1 text-xs font-medium rounded-full flex-shrink-0",
-                  {
-                    'bg-blue-100 text-blue-800': item.badge.color === 'blue',
-                    'bg-green-100 text-green-800': item.badge.color === 'green',
-                    'bg-red-100 text-red-800': item.badge.color === 'red',
-                    'bg-yellow-100 text-yellow-800': item.badge.color === 'yellow',
-                    'bg-purple-100 text-purple-800': item.badge.color === 'purple',
-                    'bg-gray-100 text-gray-800': item.badge.color === 'gray',
-                  }
-                )}>
-                  {item.badge.text}
-                </span>
-              )}
             </div>
             {item.description && (
               <div className="text-xs text-gray-500 mt-1 line-clamp-2">{item.description}</div>
