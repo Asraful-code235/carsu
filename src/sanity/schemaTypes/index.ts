@@ -19,6 +19,9 @@ import { paddingControlsObject } from './objects/paddingControls'
 import { featureListItemObject } from './objects/featureListItem'
 import { colorFieldObject, backgroundColorObject } from './objects/colorField'
 
+// Shared types
+import { badgeType } from './shared/badgeType'
+
 // Section types
 import { heroSectionType } from './sections/heroSectionType'
 import { aboutSectionType } from './sections/aboutSectionType'
@@ -52,6 +55,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     featureListItemObject,
     colorFieldObject,
     backgroundColorObject,
+
+    // Shared types
+    badgeType,
 
     // Section types
     heroSectionType,

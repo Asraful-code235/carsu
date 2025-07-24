@@ -109,6 +109,15 @@ export interface AboutSection {
 export interface FeatureSection {
   type: 'feature';
   layout: 'contentLeft' | 'contentRight';
+  badge?: {
+    text: string;
+    color: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'indigo' | 'gray' | 'custom';
+    customColor?: {
+      hex: string;
+    };
+    variant: 'filled' | 'outline' | 'soft';
+    size: 'sm' | 'md' | 'lg';
+  };
   title: any[];
   subtitle?: string;
   description?: any[];

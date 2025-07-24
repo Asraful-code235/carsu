@@ -181,6 +181,15 @@ export const HOME_PAGE_QUERY = defineQuery(`
       _type == 'featureSection' => {
         type,
         layout,
+        badge {
+          text,
+          color,
+          customColor {
+            hex
+          },
+          variant,
+          size
+        },
         title,
         subtitle,
         description,
@@ -495,6 +504,15 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
       _type == 'featureSection' => {
         type,
         layout,
+        badge {
+          text,
+          color,
+          customColor {
+            hex
+          },
+          variant,
+          size
+        },
         title,
         subtitle,
         description,

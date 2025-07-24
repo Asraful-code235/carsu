@@ -26,6 +26,12 @@ export const featureSectionType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'badge',
+      title: 'Section Badge',
+      type: 'badge',
+      description: 'Optional badge that appears bellow the title',
+    }),
+    defineField({
       name: 'title',
       title: 'Section Title',
       type: 'richTextBlock',
@@ -155,20 +161,23 @@ export const featureSectionType = defineType({
   preview: {
     select: {
       title: 'title',
+      badge: 'badge.text',
       layout: 'layout',
       image: 'image.image',
       features: 'features',
     },
-    prepare({ title, layout, image, features }) {
+    prepare({ title, badge, layout, image, features }) {
       // Extract plain text from rich text for preview
       const titleText = title?.[0]?.children?.map((child: any) => child.text).join('') || 'Feature Section';
       const featureCount = features?.length || 0;
       const layoutText = layout === 'contentLeft' ? 'Content Left' :
                         layout === 'contentRight' ? 'Content Right' : 'Content Center';
 
+      const badgeText = badge ? ` • ${badge}` : '';
+
       return {
         title: titleText,
-        subtitle: `${layoutText} • ${featureCount} feature${featureCount !== 1 ? 's' : ''}`,
+        subtitle: `${layoutText} • ${featureCount} feature${featureCount !== 1 ? 's' : ''}${badgeText}`,
         media: image,
       };
     },

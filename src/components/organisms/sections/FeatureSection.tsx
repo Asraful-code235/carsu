@@ -1,26 +1,51 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { CheckIcon, StarIcon, ArrowRightIcon, PlusIcon } from '@heroicons/react/24/outline';
-import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
-import { urlFor } from '@/sanity/lib/image';
-import { cn } from '@/lib/utils/cn';
+import Image from "next/image";
+import Link from "next/link";
+import {
+  CheckIcon,
+  StarIcon,
+  ArrowRightIcon,
+  PlusIcon,
+} from "@heroicons/react/24/outline";
+import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
+import { Badge } from "@/components/atoms/ui/Badge";
+import { urlFor } from "@/sanity/lib/image";
+import { cn } from "@/lib/utils/cn";
 
 interface FeatureSectionProps {
   data: {
-    type: 'feature';
-    layout: 'contentLeft' | 'contentRight';
+    type: "feature";
+    layout: "contentLeft" | "contentRight";
+    badge?: {
+      text: string;
+      color:
+        | "primary"
+        | "success"
+        | "warning"
+        | "error"
+        | "info"
+        | "purple"
+        | "pink"
+        | "indigo"
+        | "gray"
+        | "custom";
+      customColor?: {
+        hex: string;
+      };
+      variant: "filled" | "outline" | "soft";
+      size: "sm" | "md" | "lg";
+    };
     title: any[];
     subtitle?: string;
     description?: any[];
     features?: Array<{
       text: string;
-      icon: 'check' | 'star' | 'arrowRight' | 'plus';
+      icon: "check" | "star" | "arrowRight" | "plus";
     }>;
     subdescription?: any[];
     ctaButtons?: Array<{
       text: string;
       href: string;
-      variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+      variant: "primary" | "secondary" | "outline" | "ghost";
       openInNewTab: boolean;
     }>;
     image?: {
@@ -54,26 +79,26 @@ interface FeatureSectionProps {
       centerContent?: boolean;
       imageAspectRatio?: string;
       textAlignment?: {
-        desktop: 'left' | 'center' | 'right';
-        mobile: 'left' | 'center' | 'right';
+        desktop: "left" | "center" | "right";
+        mobile: "left" | "center" | "right";
       };
     };
   };
 }
 
 const paddingClasses = {
-  none: 'py-0',
-  small: 'py-8',
-  medium: 'py-12',
-  large: 'py-16',
-  xl: 'py-24',
+  none: "py-0",
+  small: "py-8",
+  medium: "py-12",
+  large: "py-16",
+  xl: "py-24",
 };
 
 const buttonVariants = {
-  primary: 'bg-blue-600 text-white hover:bg-blue-700 border-blue-600',
-  secondary: 'bg-gray-600 text-white hover:bg-gray-700 border-gray-600',
-  outline: 'bg-transparent text-blue-600 hover:bg-blue-50 border-blue-600',
-  ghost: 'bg-transparent text-gray-600 hover:bg-gray-50 border-transparent',
+  primary: "bg-blue-600 text-white hover:bg-blue-700 border-blue-600",
+  secondary: "bg-gray-600 text-white hover:bg-gray-700 border-gray-600",
+  outline: "bg-transparent text-blue-600 hover:bg-blue-50 border-blue-600",
+  ghost: "bg-transparent text-gray-600 hover:bg-gray-50 border-transparent",
 };
 
 const iconComponents = {
@@ -86,6 +111,7 @@ const iconComponents = {
 export function FeatureSection({ data }: FeatureSectionProps) {
   const {
     layout,
+    badge,
     title,
     subtitle,
     description,
@@ -98,22 +124,29 @@ export function FeatureSection({ data }: FeatureSectionProps) {
     settings,
   } = data;
 
-
-
   const topPadding = paddingClasses[padding.top as keyof typeof paddingClasses];
-  const bottomPadding = paddingClasses[padding.bottom as keyof typeof paddingClasses];
+  const bottomPadding =
+    paddingClasses[padding.bottom as keyof typeof paddingClasses];
 
-  const isContentLeft = layout === 'contentLeft';
+  const isContentLeft = layout === "contentLeft";
 
   // Text alignment classes
-  const desktopAlignment = settings?.textAlignment?.desktop || 'left';
-  const mobileAlignment = settings?.textAlignment?.mobile || 'center';
+  const desktopAlignment = settings?.textAlignment?.desktop || "left";
+  const mobileAlignment = settings?.textAlignment?.mobile || "center";
 
   const getAlignmentClasses = () => {
-    const desktop = desktopAlignment === 'center' ? 'md:text-center' :
-                   desktopAlignment === 'right' ? 'md:text-right' : 'md:text-left';
-    const mobile = mobileAlignment === 'center' ? 'text-center' :
-                  mobileAlignment === 'right' ? 'text-right' : 'text-left';
+    const desktop =
+      desktopAlignment === "center"
+        ? "md:text-center"
+        : desktopAlignment === "right"
+          ? "md:text-right"
+          : "md:text-left";
+    const mobile =
+      mobileAlignment === "center"
+        ? "text-center"
+        : mobileAlignment === "right"
+          ? "text-right"
+          : "text-left";
     return `${mobile} ${desktop}`;
   };
 
@@ -123,11 +156,21 @@ export function FeatureSection({ data }: FeatureSectionProps) {
     <div className="flex flex-col justify-center w-full">
       {/* Title */}
       <div className={alignmentClasses}>
-        <RichTextRenderer
-          content={title}
-          className="mb-4"
-        />
+        <RichTextRenderer content={title} className="mb-4" />
       </div>
+
+      {/* Badge */}
+      {badge && (
+        <div className={cn("mb-4", alignmentClasses)}>
+          <Badge
+            text={badge.text}
+            color={badge.color}
+            customColor={badge.customColor?.hex}
+            variant={badge.variant}
+            size={badge.size}
+          />
+        </div>
+      )}
 
       {/* Subtitle */}
       {subtitle && (
@@ -167,7 +210,12 @@ export function FeatureSection({ data }: FeatureSectionProps) {
 
       {/* CTA Buttons */}
       {ctaButtons && ctaButtons.length > 0 && (
-        <div className={cn("flex flex-col w-full sm:flex-row gap-4", alignmentClasses)}>
+        <div
+          className={cn(
+            "flex flex-col w-full sm:flex-row gap-4",
+            alignmentClasses
+          )}
+        >
           {ctaButtons.map((button, index) => {
             // Skip buttons with null/undefined href
             if (!button.href) {
@@ -178,10 +226,10 @@ export function FeatureSection({ data }: FeatureSectionProps) {
               <Link
                 key={index}
                 href={button.href}
-                target={button.openInNewTab ? '_blank' : undefined}
-                rel={button.openInNewTab ? 'noopener noreferrer' : undefined}
+                target={button.openInNewTab ? "_blank" : undefined}
+                rel={button.openInNewTab ? "noopener noreferrer" : undefined}
                 className={cn(
-                  'inline-flex max-sm:w-full !text-center max-sm:text-center items-center justify-center px-6 py-3 border rounded-full font-medium transition-colors',
+                  "inline-flex max-sm:w-full !text-center max-sm:text-center items-center justify-center px-6 py-3 border rounded-full font-medium transition-colors",
                   buttonVariants[button.variant]
                 )}
               >
@@ -205,13 +253,21 @@ export function FeatureSection({ data }: FeatureSectionProps) {
         <Image
           src={urlFor(image.image.asset).url()}
           alt={image.alt || "Feature image"}
-          width={image.width || image.image.asset.metadata?.dimensions?.width || 600}
-          height={image.height || image.image.asset.metadata?.dimensions?.height || 400}
+          width={
+            image.width || image.image.asset.metadata?.dimensions?.width || 600
+          }
+          height={
+            image.height ||
+            image.image.asset.metadata?.dimensions?.height ||
+            400
+          }
           className=" object-contain w-full h-auto "
           priority={image.priority}
         />
         {image.caption && (
-          <p className="text-sm text-gray-600 mt-2 text-center">{image.caption}</p>
+          <p className="text-sm text-gray-600 mt-2 text-center">
+            {image.caption}
+          </p>
         )}
       </div>
     );
@@ -231,9 +287,14 @@ export function FeatureSection({ data }: FeatureSectionProps) {
             <ContentSection />
           </div>
         ) : (
-          <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-12 items-center",
-            isContentLeft ? 'max-md:flex max-md:flex-col' : 'max-md:flex max-md:flex-col-reverse'
-          )}>
+          <div
+            className={cn(
+              "grid grid-cols-1 md:grid-cols-2 gap-12 items-center",
+              isContentLeft
+                ? "max-md:flex max-md:flex-col"
+                : "max-md:flex max-md:flex-col-reverse"
+            )}
+          >
             {isContentLeft ? (
               <>
                 <ContentSection />
