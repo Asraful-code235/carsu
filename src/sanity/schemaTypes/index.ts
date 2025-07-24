@@ -22,6 +22,8 @@ import { colorFieldObject, backgroundColorObject } from './objects/colorField'
 // Section types
 import { heroSectionType } from './sections/heroSectionType'
 import { aboutSectionType } from './sections/aboutSectionType'
+import { pageHeroSectionType } from './sections/pageHeroSectionType'
+import { contentSectionType } from './sections/contentSectionType'
 import { featureSectionType } from './sections/featureSectionType'
 import { testimonialSectionType } from './sections/testimonialSectionType'
 import { servicesSectionType } from './sections/servicesSectionType'
@@ -54,6 +56,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     // Section types
     heroSectionType,
     aboutSectionType,
+    pageHeroSectionType,
+    contentSectionType,
     featureSectionType,
     testimonialSectionType,
     servicesSectionType,

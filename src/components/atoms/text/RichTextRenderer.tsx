@@ -17,7 +17,7 @@ const colorClasses = {
 
 const components: PortableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="text-[#4D525E] leading-relaxed">{children}</p>,
+    normal: ({ children }) => <p className="text-[#4D525E] leading-relaxed text-lg">{children}</p>,
     h1: ({ children }) => <h1 className="text-4xl md:text-[56px] font-bold text-[#363849]">{children}</h1>,
     h2: ({ children }) => <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{children}</h2>,
     h3: ({ children }) => <h3 className="text-2xl font-semibold text-gray-900">{children}</h3>,

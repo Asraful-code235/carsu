@@ -113,6 +113,71 @@ export const HOME_PAGE_QUERY = defineQuery(`
         title,
         content
       },
+      _type == 'pageHeroSection' => {
+        type,
+        title,
+        description,
+        textAlign,
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        }
+      },
+      _type == 'contentSection' => {
+        type,
+        content,
+        backgroundImage {
+          image {
+            asset-> {
+              _id,
+              url
+            }
+          },
+          alt,
+          position,
+          size,
+          opacity,
+          repeat
+        },
+        backgroundOverlay {
+          color {
+            hex
+          },
+          opacity
+        },
+        sectionItems[] {
+          text,
+          description,
+          icon,
+          iconColor,
+          highlighted,
+          link {
+            href,
+            text,
+            openInNewTab
+          }
+        },
+        ctaButtons[] {
+          text,
+          href,
+          variant,
+          size,
+          openInNewTab,
+          icon,
+          disabled
+        },
+        textAlign,
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        }
+      },
       _type == 'featureSection' => {
         type,
         layout,
@@ -361,6 +426,71 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
         type,
         title,
         content
+      },
+      _type == 'pageHeroSection' => {
+        type,
+        title,
+        description,
+        textAlign,
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        }
+      },
+      _type == 'contentSection' => {
+        type,
+        content,
+        backgroundImage {
+          image {
+            asset-> {
+              _id,
+              url
+            }
+          },
+          alt,
+          position,
+          size,
+          opacity,
+          repeat
+        },
+        backgroundOverlay {
+          color {
+            hex
+          },
+          opacity
+        },
+        sectionItems[] {
+          text,
+          description,
+          icon,
+          iconColor,
+          highlighted,
+          link {
+            href,
+            text,
+            openInNewTab
+          }
+        },
+        ctaButtons[] {
+          text,
+          href,
+          variant,
+          size,
+          openInNewTab,
+          icon,
+          disabled
+        },
+        textAlign,
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        }
       },
       _type == 'featureSection' => {
         type,

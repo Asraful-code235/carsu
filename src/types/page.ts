@@ -225,7 +225,74 @@ export interface ServicesSection {
   };
 }
 
-export type PageSection = HeroSection | AboutSection | FeatureSection | ServicesSection | TestimonialsSection;
+export interface PageHeroSection {
+  type: 'pageHero';
+  title: any[]; // Rich text array (Portable Text)
+  description: any[]; // Rich text array (Portable Text)
+  textAlign: 'left' | 'center' | 'right';
+  backgroundColor?: {
+    hex: string;
+  };
+  padding: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export interface ContentSection {
+  type: 'content';
+  content: any[]; // Rich text array (Portable Text)
+  backgroundImage?: {
+    image?: {
+      asset?: {
+        _id: string;
+        url: string;
+      };
+    };
+    alt?: string;
+    position?: string;
+    size?: string;
+    opacity?: number;
+    repeat?: string;
+  };
+  backgroundOverlay?: {
+    color?: {
+      hex: string;
+    };
+    opacity?: number;
+  };
+  sectionItems?: Array<{
+    text: string;
+    description?: string;
+    icon: string;
+    iconColor: 'primary' | 'success' | 'warning' | 'error' | 'gray';
+    highlighted: boolean;
+    link?: {
+      href: string;
+      text: string;
+      openInNewTab: boolean;
+    };
+  }>;
+  ctaButtons?: Array<{
+    text: string;
+    href: string;
+    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    size?: 'sm' | 'md' | 'lg';
+    openInNewTab: boolean;
+    icon?: string;
+    disabled?: boolean;
+  }>;
+  textAlign: 'left' | 'center' | 'right';
+  backgroundColor?: {
+    hex: string;
+  };
+  padding: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export type PageSection = HeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection;
 
 export interface PageConfiguration {
   _id: string;
