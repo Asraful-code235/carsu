@@ -65,7 +65,6 @@ export const featureListItemObject = {
           name: 'href',
           title: 'URL',
           type: 'string',
-          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: 'text',

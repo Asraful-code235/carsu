@@ -22,19 +22,25 @@ interface FeatureSectionProps {
       variant: 'primary' | 'secondary' | 'outline' | 'ghost';
       openInNewTab: boolean;
     }>;
-    image: {
-      asset: {
-        _id: string;
-        url: string;
-        metadata?: {
-          dimensions: {
-            width: number;
-            height: number;
+    image?: {
+      image?: {
+        asset?: {
+          _id: string;
+          url: string;
+          metadata?: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
           };
-        };
-      };
-      alt: string;
-    };
+        } | null;
+      } | null;
+      alt?: string;
+      caption?: string;
+      width?: number;
+      height?: number;
+      priority?: boolean;
+    } | null;
     backgroundColor?: {
       hex: string;
     };
@@ -80,6 +86,8 @@ export function FeatureSection({ data }: FeatureSectionProps) {
     padding,
   } = data;
 
+
+
   const topPadding = paddingClasses[padding.top as keyof typeof paddingClasses];
   const bottomPadding = paddingClasses[padding.bottom as keyof typeof paddingClasses];
 
@@ -90,12 +98,12 @@ export function FeatureSection({ data }: FeatureSectionProps) {
       {/* Title */}
       <RichTextRenderer 
         content={title} 
-        className="mb-4"
+        className="mb-4 max-md:text-center"
       />
 
       {/* Subtitle */}
       {subtitle && (
-        <p className="text-xl text-gray-600 mb-6">
+        <p className="text-lg text-[#4D525E] mb-6 max-md:text-center">
           {subtitle}
         </p>
       )}
@@ -103,7 +111,7 @@ export function FeatureSection({ data }: FeatureSectionProps) {
       {/* Description */}
       {description && (
         <div className="mb-6">
-          <RichTextRenderer content={description} />
+          <RichTextRenderer content={description} className='max-md:text-center' />
         </div>
       )}
 
@@ -124,7 +132,7 @@ export function FeatureSection({ data }: FeatureSectionProps) {
 
       {/* CTA Buttons */}
       {ctaButtons && ctaButtons.length > 0 && (
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-col w-full sm:flex-row gap-4 max-md:justify-center">
           {ctaButtons.map((button, index) => (
             <Link
               key={index}
@@ -132,8 +140,8 @@ export function FeatureSection({ data }: FeatureSectionProps) {
               target={button.openInNewTab ? '_blank' : undefined}
               rel={button.openInNewTab ? 'noopener noreferrer' : undefined}
               className={cn(
-                'inline-flex items-center px-6 py-3 border rounded-lg font-medium transition-colors',
-                buttonVariants[button.variant]
+                'inline-flex max-sm:w-full !text-center max-sm:text-center items-center justify-center px-6 py-3 border rounded-full font-medium transition-colors',
+                buttonVariants[button.variant] , ''
               )}
             >
               {button.text}
@@ -144,18 +152,28 @@ export function FeatureSection({ data }: FeatureSectionProps) {
     </div>
   );
 
-  const ImageSection = () => (
-    <div className="relative">
-      <Image
-        src={urlFor(image.asset).width(600).height(400).url()}
-        alt={image.alt}
-        width={image.asset.metadata?.dimensions.width || 600}
-        height={image.asset.metadata?.dimensions.height || 400}
-        className="rounded-lg shadow-lg object-cover w-full h-auto"
-        priority
-      />
-    </div>
-  );
+  const ImageSection = () => {
+    // Don't render anything if image or image.image.asset is null
+    if (!image || !image.image || !image.image.asset) {
+      return null;
+    }
+
+    return (
+      <div className="relative">
+        <Image
+          src={urlFor(image.image.asset).url()}
+          alt={image.alt || "Feature image"}
+          width={image.width || image.image.asset.metadata?.dimensions?.width || 600}
+          height={image.height || image.image.asset.metadata?.dimensions?.height || 400}
+          className=" object-contain w-full h-auto "
+          priority={image.priority}
+        />
+        {image.caption && (
+          <p className="text-sm text-gray-600 mt-2 text-center">{image.caption}</p>
+        )}
+      </div>
+    );
+  };
 
   return (
     <section
@@ -165,19 +183,28 @@ export function FeatureSection({ data }: FeatureSectionProps) {
       }}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {isContentLeft ? (
-            <>
-              <ContentSection />
-              <ImageSection />
-            </>
-          ) : (
-            <>
-              <ImageSection />
-              <ContentSection />
-            </>
-          )}
-        </div>
+        {/* If no image, use single column layout */}
+        {!image || !image.image || !image.image.asset ? (
+          <div className="max-w-4xl mx-auto">
+            <ContentSection />
+          </div>
+        ) : (
+          <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-12 items-center",
+            isContentLeft ? 'max-md:flex max-md:flex-col' : 'max-md:flex max-md:flex-col-reverse'
+          )}>
+            {isContentLeft ? (
+              <>
+                <ContentSection />
+                <ImageSection />
+              </>
+            ) : (
+              <>
+                <ImageSection />
+                <ContentSection />
+              </>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

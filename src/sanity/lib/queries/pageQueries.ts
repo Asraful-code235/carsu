@@ -130,17 +130,23 @@ export const HOME_PAGE_QUERY = defineQuery(`
           openInNewTab
         },
         image {
-          asset-> {
-            _id,
-            url,
-            metadata {
-              dimensions {
-                width,
-                height
+          image {
+            asset-> {
+              _id,
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
               }
             }
           },
-          alt
+          alt,
+          caption,
+          width,
+          height,
+          priority
         },
         backgroundColor {
           hex
@@ -326,17 +332,23 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
           openInNewTab
         },
         image {
-          asset-> {
-            _id,
-            url,
-            metadata {
-              dimensions {
-                width,
-                height
+          image {
+            asset-> {
+              _id,
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
               }
             }
           },
-          alt
+          alt,
+          caption,
+          width,
+          height,
+          priority
         },
         backgroundColor {
           hex
