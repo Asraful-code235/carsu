@@ -123,6 +123,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
           text,
           icon
         },
+        subdescription,
         ctaButtons[] {
           text,
           href,
@@ -154,6 +155,15 @@ export const HOME_PAGE_QUERY = defineQuery(`
         padding {
           top,
           bottom
+        },
+        settings {
+          fullWidth,
+          centerContent,
+          imageAspectRatio,
+          textAlignment {
+            desktop,
+            mobile
+          }
         }
       },
       _type == 'testimonialSection' => {
@@ -325,6 +335,7 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
           text,
           icon
         },
+        subdescription,
         ctaButtons[] {
           text,
           href,
@@ -356,6 +367,15 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
         padding {
           top,
           bottom
+        },
+        settings {
+          fullWidth,
+          centerContent,
+          imageAspectRatio,
+          textAlignment {
+            desktop,
+            mobile
+          }
         }
       },
       _type == 'testimonialSection' => {

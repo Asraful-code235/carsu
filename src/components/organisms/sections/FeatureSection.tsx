@@ -16,6 +16,7 @@ interface FeatureSectionProps {
       text: string;
       icon: 'check' | 'star' | 'arrowRight' | 'plus';
     }>;
+    subdescription?: any[];
     ctaButtons?: Array<{
       text: string;
       href: string;
@@ -47,6 +48,15 @@ interface FeatureSectionProps {
     padding: {
       top: string;
       bottom: string;
+    };
+    settings?: {
+      fullWidth?: boolean;
+      centerContent?: boolean;
+      imageAspectRatio?: string;
+      textAlignment?: {
+        desktop: 'left' | 'center' | 'right';
+        mobile: 'left' | 'center' | 'right';
+      };
     };
   };
 }
@@ -80,10 +90,12 @@ export function FeatureSection({ data }: FeatureSectionProps) {
     subtitle,
     description,
     features,
+    subdescription,
     ctaButtons,
     image,
     backgroundColor,
     padding,
+    settings,
   } = data;
 
 
@@ -93,31 +105,47 @@ export function FeatureSection({ data }: FeatureSectionProps) {
 
   const isContentLeft = layout === 'contentLeft';
 
+  // Text alignment classes
+  const desktopAlignment = settings?.textAlignment?.desktop || 'left';
+  const mobileAlignment = settings?.textAlignment?.mobile || 'center';
+
+  const getAlignmentClasses = () => {
+    const desktop = desktopAlignment === 'center' ? 'md:text-center' :
+                   desktopAlignment === 'right' ? 'md:text-right' : 'md:text-left';
+    const mobile = mobileAlignment === 'center' ? 'text-center' :
+                  mobileAlignment === 'right' ? 'text-right' : 'text-left';
+    return `${mobile} ${desktop}`;
+  };
+
+  const alignmentClasses = getAlignmentClasses();
+
   const ContentSection = () => (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center w-full">
       {/* Title */}
-      <RichTextRenderer 
-        content={title} 
-        className="mb-4 max-md:text-center"
-      />
+      <div className={alignmentClasses}>
+        <RichTextRenderer
+          content={title}
+          className="mb-4"
+        />
+      </div>
 
       {/* Subtitle */}
       {subtitle && (
-        <p className="text-lg text-[#4D525E] mb-6 max-md:text-center">
+        <p className={cn("text-lg text-[#4D525E] mb-6", alignmentClasses)}>
           {subtitle}
         </p>
       )}
 
       {/* Description */}
       {description && (
-        <div className="mb-6">
-          <RichTextRenderer content={description} className='max-md:text-center' />
+        <div className={cn("mb-6", alignmentClasses)}>
+          <RichTextRenderer content={description} />
         </div>
       )}
 
       {/* Features List */}
       {features && features.length > 0 && (
-        <ul className="space-y-3 mb-8">
+        <ul className={cn("space-y-3 mb-8", alignmentClasses)}>
           {features.map((feature, index) => {
             const IconComponent = iconComponents[feature.icon];
             return (
@@ -130,9 +158,16 @@ export function FeatureSection({ data }: FeatureSectionProps) {
         </ul>
       )}
 
+      {/* Sub Description */}
+      {subdescription && (
+        <div className={cn("mb-6", alignmentClasses)}>
+          <RichTextRenderer content={subdescription} />
+        </div>
+      )}
+
       {/* CTA Buttons */}
       {ctaButtons && ctaButtons.length > 0 && (
-        <div className="flex flex-col w-full sm:flex-row gap-4 max-md:justify-center">
+        <div className={cn("flex flex-col w-full sm:flex-row gap-4", alignmentClasses)}>
           {ctaButtons.map((button, index) => (
             <Link
               key={index}
@@ -141,7 +176,7 @@ export function FeatureSection({ data }: FeatureSectionProps) {
               rel={button.openInNewTab ? 'noopener noreferrer' : undefined}
               className={cn(
                 'inline-flex max-sm:w-full !text-center max-sm:text-center items-center justify-center px-6 py-3 border rounded-full font-medium transition-colors',
-                buttonVariants[button.variant] , ''
+                buttonVariants[button.variant]
               )}
             >
               {button.text}

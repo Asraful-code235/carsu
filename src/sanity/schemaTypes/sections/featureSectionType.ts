@@ -54,6 +54,12 @@ export const featureSectionType = defineType({
       validation: (Rule) => Rule.max(10),
     }),
     defineField({
+      name: 'subdescription',
+      title: 'Sub Description',
+      type: 'richTextBlock',
+      description: 'Additional description text that appears below the feature list',
+    }),
+    defineField({
       name: 'ctaButtons',
       title: 'Call-to-Action Buttons',
       type: 'array',
@@ -108,6 +114,40 @@ export const featureSectionType = defineType({
             ],
           },
           initialValue: 'auto',
+        }),
+        defineField({
+          name: 'textAlignment',
+          title: 'Text Alignment',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'desktop',
+              title: 'Desktop Alignment',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Left', value: 'left' },
+                  { title: 'Center', value: 'center' },
+                  { title: 'Right', value: 'right' },
+                ],
+              },
+              initialValue: 'left',
+            }),
+            defineField({
+              name: 'mobile',
+              title: 'Mobile Alignment',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Left', value: 'left' },
+                  { title: 'Center', value: 'center' },
+                  { title: 'Right', value: 'right' },
+                ],
+              },
+              initialValue: 'center',
+            }),
+          ],
+          description: 'Text alignment for title, subtitle, description, features, and subdescription',
         }),
       ],
     }),
