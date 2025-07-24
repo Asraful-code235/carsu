@@ -5,6 +5,7 @@ interface RichTextRendererProps {
   content: any[];
   className?: string;
   extraClassName?:string
+  textWhite?: boolean;
 }
 
 const colorClasses = {
@@ -16,9 +17,9 @@ const colorClasses = {
   error: 'text-red-500',
 };
 
-const createComponents = (extraClassName?: string): PortableTextComponents => ({
+const createComponents = (extraClassName?: string,textWhite?: boolean): PortableTextComponents => ({
   block: {
-    normal: ({ children }) => <p className="text-[#4D525E] leading-relaxed text-lg">{children}</p>,
+    normal: ({ children }) => <p className={cn("text-[#4D525E] leading-relaxed text-lg",textWhite ? "!text-white text-left":"")}>{children}</p>,
     h1: ({ children }) => <h1 className={cn("text-4xl md:text-[56px] font-bold text-[#363849]", extraClassName)}>{children}</h1>,
     h2: ({ children }) => <h2 className={cn("text-3xl md:text-4xl font-bold text-gray-900", extraClassName)}>{children}</h2>,
     h3: ({ children }) => <h3 className="text-2xl font-semibold text-gray-900">{children}</h3>,
@@ -66,12 +67,12 @@ const createComponents = (extraClassName?: string): PortableTextComponents => ({
   },
 });
 
-export function RichTextRenderer({ content, className, extraClassName }: RichTextRendererProps) {
+export function RichTextRenderer({ content, className, extraClassName,textWhite = false }: RichTextRendererProps) {
   if (!content || content.length === 0) {
     return null;
   }
 
-  const components = createComponents(extraClassName);
+  const components = createComponents(extraClassName,textWhite);
 
   return (
     <div className={cn("prose prose-gray max-w-none", className)}>

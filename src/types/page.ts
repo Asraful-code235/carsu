@@ -301,7 +301,55 @@ export interface ContentSection {
   };
 }
 
-export type PageSection = HeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection;
+export interface TryCarsuBannerSection {
+  type: 'tryCarsuBanner';
+  title?: any[]; // Rich text array
+  description?: any[]; // Rich text array
+  ctaButton?: {
+    text: string;
+    href: string;
+    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    openInNewTab: boolean;
+  };
+  backgroundColor?: {
+    hex: string;
+  };
+  mainImage?: {
+    image: {
+      asset: {
+        _id: string;
+        url: string;
+      };
+    };
+    alt: string;
+  };
+  glowImage?: {
+    image: {
+      asset: {
+        _id: string;
+        url: string;
+      };
+    };
+    alt: string;
+  };
+  padding?: {
+    top: string;
+    bottom: string;
+    left: string;
+    right: string;
+  };
+  settings?: {
+    fullWidth?: boolean;
+    borderRadius?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+    textAlignment?: {
+      desktop: 'left' | 'center';
+      mobile: 'left' | 'center';
+    };
+    imagePosition?: 'left' | 'right';
+  };
+}
+
+export type PageSection = HeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection;
 
 export interface PageConfiguration {
   _id: string;

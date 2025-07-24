@@ -23,7 +23,9 @@ export default async function RootLayout({
   return (
     <ErrorBoundary>
       <HeaderWrapper />
-      {children}
+       <main className="bg-white">
+          {children}
+       </main>
       <FooterWrapper />
       <SanityLive />
       {isDraftMode && (

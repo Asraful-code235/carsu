@@ -318,6 +318,67 @@ export const HOME_PAGE_QUERY = defineQuery(`
             bottom
           }
         }
+      },
+      _type == 'tryCarsuBanner' => {
+        type,
+        title,
+        description,
+        ctaButton {
+          text,
+          href,
+          variant,
+          openInNewTab
+        },
+        backgroundColor {
+          hex
+        },
+        mainImage {
+          image {
+            asset-> {
+              _id,
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
+              }
+            }
+          },
+          alt,
+          width,
+          height
+        },
+        glowImage {
+          image {
+            asset-> {
+              _id,
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
+              }
+            }
+          },
+          alt
+        },
+        padding {
+          top,
+          bottom,
+          left,
+          right
+        },
+        settings {
+          fullWidth,
+          borderRadius,
+          textAlignment {
+            desktop,
+            mobile
+          },
+          imagePosition
+        }
       }
     }
   }
@@ -640,6 +701,67 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
             top,
             bottom
           }
+        }
+      },
+      _type == 'tryCarsuBanner' => {
+        type,
+        title,
+        description,
+        ctaButton {
+          text,
+          href,
+          variant,
+          openInNewTab
+        },
+        backgroundColor {
+          hex
+        },
+        mainImage {
+          image {
+            asset-> {
+              _id,
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
+              }
+            }
+          },
+          alt,
+          width,
+          height
+        },
+        glowImage {
+          image {
+            asset-> {
+              _id,
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
+              }
+            }
+          },
+          alt
+        },
+        padding {
+          top,
+          bottom,
+          left,
+          right
+        },
+        settings {
+          fullWidth,
+          borderRadius,
+          textAlignment {
+            desktop,
+            mobile
+          },
+          imagePosition
         }
       }
     }
