@@ -217,7 +217,7 @@ export function FeatureSection({ data }: FeatureSectionProps) {
         backgroundColor: backgroundColor?.hex || undefined,
       }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 lg:px-24">
         {/* If no image, use single column layout */}
         {!image || !image.image || !image.image.asset ? (
           <div className="max-w-4xl mx-auto">
