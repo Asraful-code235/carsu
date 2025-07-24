@@ -149,6 +149,13 @@ export const contentSectionType = defineType({
       description: "Optional CTA buttons for the section",
     }),
     defineField({
+      name: "isContentCenter",
+      title: "Content Center Mode",
+      type: "boolean",
+      initialValue: false,
+      description: "When enabled, only shows centered rich text content without grid layout or other elements",
+    }),
+    defineField({
       name: "textAlign",
       title: "Text Alignment",
       type: "string",
@@ -160,7 +167,7 @@ export const contentSectionType = defineType({
         ],
       },
       initialValue: "left",
-      description: "Text alignment for content and items",
+      description: "Text alignment for content and items (ignored when Content Center Mode is enabled)",
     }),
     defineField({
       name: "backgroundColor",

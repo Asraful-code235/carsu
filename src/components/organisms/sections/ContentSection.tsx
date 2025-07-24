@@ -42,6 +42,7 @@ interface ContentSectionProps {
   data: {
     type: "content";
     content: any[]; // Rich text array (Portable Text)
+    isContentCenter?: boolean;
     backgroundImage?: {
       image?: {
         asset?: {
@@ -119,6 +120,7 @@ const iconColorClasses = {
 export function ContentSection({ data }: ContentSectionProps) {
   const {
     content,
+    isContentCenter = false,
     backgroundImage,
     backgroundOverlay,
     sectionItems,
@@ -172,6 +174,38 @@ export function ContentSection({ data }: ContentSectionProps) {
   };
 
   const backgroundImageStyles = getBackgroundImageStyles();
+
+  if (isContentCenter) {
+    return (
+      <section
+        className={cn(topPadding, bottomPadding, "relative")}
+        style={{
+          backgroundColor: backgroundColor?.hex || undefined,
+          ...backgroundImageStyles,
+        }}
+      >
+        {backgroundOverlay?.color && (
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundColor: backgroundOverlay.color.hex,
+              opacity: backgroundOverlay.opacity || 0.5,
+            }}
+          />
+        )}
+
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-24 py-16 md:py-32">
+          <div className="text-center">
+            <RichTextRenderer
+              content={content}
+              textWhite={true}
+              className="prose prose-lg max-w-none"
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section

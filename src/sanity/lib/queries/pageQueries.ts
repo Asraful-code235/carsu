@@ -129,6 +129,7 @@ export const HOME_PAGE_QUERY = defineQuery(`
       _type == 'contentSection' => {
         type,
         content,
+        isContentCenter,
         backgroundImage {
           image {
             asset-> {
@@ -513,6 +514,7 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
       _type == 'contentSection' => {
         type,
         content,
+        isContentCenter,
         backgroundImage {
           image {
             asset-> {

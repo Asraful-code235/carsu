@@ -251,6 +251,7 @@ export interface PageHeroSection {
 export interface ContentSection {
   type: 'content';
   content: any[]; // Rich text array (Portable Text)
+  isContentCenter?: boolean;
   backgroundImage?: {
     image?: {
       asset?: {
