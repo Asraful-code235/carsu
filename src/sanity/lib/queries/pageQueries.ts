@@ -166,6 +166,43 @@ export const HOME_PAGE_QUERY = defineQuery(`
           }
         }
       },
+      _type == 'servicesSection' => {
+        type,
+        title,
+        description,
+        services[] {
+          title,
+          description,
+          icon
+        },
+        backgroundColor {
+          hex
+        },
+        backgroundImage {
+          image {
+            asset-> {
+              _id,
+              url
+            }
+          },
+          alt,
+          position,
+          size,
+          opacity,
+          repeat
+        },
+        padding {
+          top,
+          bottom
+        },
+        settings {
+          layout,
+          textAlignment {
+            desktop,
+            mobile
+          }
+        }
+      },
       _type == 'testimonialSection' => {
         type,
         title,
@@ -372,6 +409,43 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
           fullWidth,
           centerContent,
           imageAspectRatio,
+          textAlignment {
+            desktop,
+            mobile
+          }
+        }
+      },
+      _type == 'servicesSection' => {
+        type,
+        title,
+        description,
+        services[] {
+          title,
+          description,
+          icon
+        },
+        backgroundColor {
+          hex
+        },
+        backgroundImage {
+          image {
+            asset-> {
+              _id,
+              url
+            }
+          },
+          alt,
+          position,
+          size,
+          opacity,
+          repeat
+        },
+        padding {
+          top,
+          bottom
+        },
+        settings {
+          layout,
           textAlignment {
             desktop,
             mobile

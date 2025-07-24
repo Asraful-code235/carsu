@@ -187,7 +187,45 @@ export interface TestimonialsSection {
   };
 }
 
-export type PageSection = HeroSection | AboutSection | FeatureSection | TestimonialsSection;
+export interface ServicesSection {
+  type: 'services';
+  title: any[];
+  description?: any[];
+  services: Array<{
+    title: string;
+    description: string;
+    icon: string;
+  }>;
+  backgroundColor?: {
+    hex: string;
+  };
+  backgroundImage?: {
+    image?: {
+      asset?: {
+        _id: string;
+        url: string;
+      };
+    };
+    alt?: string;
+    position?: string;
+    size?: string;
+    opacity?: number;
+    repeat?: string;
+  };
+  padding: {
+    top: string;
+    bottom: string;
+  };
+  settings?: {
+    layout: 'grid-2' | 'grid-3' | 'grid-4' | 'list';
+    textAlignment?: {
+      desktop: 'left' | 'center' | 'right';
+      mobile: 'left' | 'center' | 'right';
+    };
+  };
+}
+
+export type PageSection = HeroSection | AboutSection | FeatureSection | ServicesSection | TestimonialsSection;
 
 export interface PageConfiguration {
   _id: string;

@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/organisms/sections/HeroSection";
 import { AboutSection } from "@/components/organisms/sections/AboutSection";
 import { FeatureSection } from "@/components/organisms/sections/FeatureSection";
+import { ServicesSection } from "@/components/organisms/sections/ServicesSection";
 import { TestimonialsSection } from "@/components/organisms/sections/TestimonialsSection";
 import type { PageSection } from "@/types/page";
 
@@ -34,6 +35,8 @@ export function PageSectionsRenderer({ sections }: PageSectionsRendererProps) {
             return <AboutSection key={index} data={section} />;
           case 'feature':
             return <FeatureSection key={index} data={section} />;
+          case 'services':
+            return <ServicesSection key={index} data={section} />;
           case 'testimonials':
             return <TestimonialsSection key={index} data={section} />;
           default:

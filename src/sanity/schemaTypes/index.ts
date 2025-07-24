@@ -24,6 +24,7 @@ import { heroSectionType } from './sections/heroSectionType'
 import { aboutSectionType } from './sections/aboutSectionType'
 import { featureSectionType } from './sections/featureSectionType'
 import { testimonialSectionType } from './sections/testimonialSectionType'
+import { servicesSectionType } from './sections/servicesSectionType'
 
 // Legacy block content (keeping for backward compatibility)
 import { blockContentType } from './blockContentType'
@@ -55,6 +56,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     aboutSectionType,
     featureSectionType,
     testimonialSectionType,
+    servicesSectionType,
 
     // Legacy types (for backward compatibility)
     blockContentType,
