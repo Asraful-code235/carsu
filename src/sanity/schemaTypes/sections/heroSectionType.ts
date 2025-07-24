@@ -1,9 +1,11 @@
+import { StarIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
 export const heroSectionType = defineType({
   name: 'heroSection',
   title: 'Hero Section',
   type: 'object',
+  icon: StarIcon,
   fields: [
     defineField({
       name: 'type',

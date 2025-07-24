@@ -175,7 +175,7 @@ export function HeroSection({ data }: HeroSectionProps) {
 
           {/* Hero Image */}
           {heroImage && heroImage.image && heroImage.image.asset && (
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-7xl mx-auto w-full ">
               <div className="relative">
                 <Image
                   src={urlFor(heroImage.image.asset).width(2304).height(1440).url()}
