@@ -168,20 +168,27 @@ export function FeatureSection({ data }: FeatureSectionProps) {
       {/* CTA Buttons */}
       {ctaButtons && ctaButtons.length > 0 && (
         <div className={cn("flex flex-col w-full sm:flex-row gap-4", alignmentClasses)}>
-          {ctaButtons.map((button, index) => (
-            <Link
-              key={index}
-              href={button.href}
-              target={button.openInNewTab ? '_blank' : undefined}
-              rel={button.openInNewTab ? 'noopener noreferrer' : undefined}
-              className={cn(
-                'inline-flex max-sm:w-full !text-center max-sm:text-center items-center justify-center px-6 py-3 border rounded-full font-medium transition-colors',
-                buttonVariants[button.variant]
-              )}
-            >
-              {button.text}
-            </Link>
-          ))}
+          {ctaButtons.map((button, index) => {
+            // Skip buttons with null/undefined href
+            if (!button.href) {
+              return null;
+            }
+
+            return (
+              <Link
+                key={index}
+                href={button.href}
+                target={button.openInNewTab ? '_blank' : undefined}
+                rel={button.openInNewTab ? 'noopener noreferrer' : undefined}
+                className={cn(
+                  'inline-flex max-sm:w-full !text-center max-sm:text-center items-center justify-center px-6 py-3 border rounded-full font-medium transition-colors',
+                  buttonVariants[button.variant]
+                )}
+              >
+                {button.text}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>

@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils/cn';
 interface RichTextRendererProps {
   content: any[];
   className?: string;
+  extraClassName?:string
 }
 
 const colorClasses = {
@@ -15,11 +16,11 @@ const colorClasses = {
   error: 'text-red-500',
 };
 
-const components: PortableTextComponents = {
+const createComponents = (extraClassName?: string): PortableTextComponents => ({
   block: {
     normal: ({ children }) => <p className="text-[#4D525E] leading-relaxed text-lg">{children}</p>,
-    h1: ({ children }) => <h1 className="text-4xl md:text-[56px] font-bold text-[#363849]">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{children}</h2>,
+    h1: ({ children }) => <h1 className={cn("text-4xl md:text-[56px] font-bold text-[#363849]", extraClassName)}>{children}</h1>,
+    h2: ({ children }) => <h2 className={cn("text-3xl md:text-4xl font-bold text-gray-900", extraClassName)}>{children}</h2>,
     h3: ({ children }) => <h3 className="text-2xl font-semibold text-gray-900">{children}</h3>,
     h4: ({ children }) => <h4 className="text-xl font-semibold text-gray-900">{children}</h4>,
   },
@@ -63,12 +64,14 @@ const components: PortableTextComponents = {
     bullet: ({ children }) => <li>{children}</li>,
     number: ({ children }) => <li>{children}</li>,
   },
-};
+});
 
-export function RichTextRenderer({ content, className }: RichTextRendererProps) {
+export function RichTextRenderer({ content, className, extraClassName }: RichTextRendererProps) {
   if (!content || content.length === 0) {
     return null;
   }
+
+  const components = createComponents(extraClassName);
 
   return (
     <div className={cn("prose prose-gray max-w-none", className)}>

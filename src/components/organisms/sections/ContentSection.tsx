@@ -1,5 +1,16 @@
 import Link from "next/link";
-import { CheckIcon, StarIcon, ArrowRightIcon, PlusIcon, HeartIcon, ShieldCheckIcon, BoltIcon, GlobeAltIcon, CogIcon, UserIcon } from "@heroicons/react/24/outline";
+import {
+  CheckIcon,
+  StarIcon,
+  ArrowRightIcon,
+  PlusIcon,
+  HeartIcon,
+  ShieldCheckIcon,
+  BoltIcon,
+  GlobeAltIcon,
+  CogIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
@@ -79,7 +90,7 @@ const alignmentClasses = {
 
 const buttonVariants = {
   primary: "bg-blue-600 text-white hover:bg-blue-700 border-blue-600",
-  secondary: "bg-gray-600 text-white hover:bg-gray-700 border-gray-600",
+  secondary: "bg-white text-black hover:bg-gray-100 border-white",
   outline: "bg-transparent text-blue-600 hover:bg-blue-50 border-blue-600",
   ghost: "bg-transparent text-gray-600 hover:bg-gray-50 border-transparent",
 };
@@ -118,8 +129,12 @@ export function ContentSection({ data }: ContentSectionProps) {
   } = data;
 
   // Get padding classes
-  const topPadding = paddingClasses[padding.top as keyof typeof paddingClasses] || paddingClasses.large;
-  const bottomPadding = paddingClasses[padding.bottom as keyof typeof paddingClasses] || paddingClasses.large;
+  const topPadding =
+    paddingClasses[padding.top as keyof typeof paddingClasses] ||
+    paddingClasses.large;
+  const bottomPadding =
+    paddingClasses[padding.bottom as keyof typeof paddingClasses] ||
+    paddingClasses.large;
 
   // Get alignment classes
   const alignmentClass = alignmentClasses[textAlign] || alignmentClasses.left;
@@ -177,86 +192,103 @@ export function ContentSection({ data }: ContentSectionProps) {
         />
       )}
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-24">
-        <div className={cn("max-w-4xl", alignmentClass, {
-          "mx-auto": textAlign === "center",
-          "ml-0": textAlign === "left",
-          "mr-0": textAlign === "right",
-        })}>
-          {/* Main Content */}
-          <div className="mb-8">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-24 py-16 md:py-32">
+        {/* Two column grid layout for md+ screens */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+          {/* Left Column - Rich Text Content */}
+          <div className={cn("order-1", alignmentClass)}>
             <RichTextRenderer
               content={content}
-              className="prose-p:text-lg prose-p:text-[#4D525E] prose-p:leading-relaxed"
+              extraClassName="text-[48px] md:text-[64px] xl:!text-[92px] text-white leading-none max-md:text-center max-md:whitespace-nowrap"
             />
           </div>
 
-          {/* Section Items/Features */}
-          {sectionItems && sectionItems.length > 0 && (
-            <div className="mb-8">
-              <ul className={cn("space-y-4", alignmentClass)}>
+          {/* Right Column - Section Items/Features */}
+          <div className="order-2 space-y-16 md:space-y-8 h-full flex flex-col justify-center items-center md:items-start ">
+            {sectionItems && sectionItems.length > 0 && (
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-8 ">
                 {sectionItems.map((item, index) => {
-                  const IconComponent = iconComponents[item.icon as keyof typeof iconComponents] || CheckIcon;
-                  const iconColorClass = iconColorClasses[item.iconColor] || iconColorClasses.primary;
-                  
+                  const IconComponent =
+                    iconComponents[item.icon as keyof typeof iconComponents] ||
+                    CheckIcon;
+                  const iconColorClass =
+                    iconColorClasses[item.iconColor] ||
+                    iconColorClasses.primary;
+
                   return (
-                    <li
+                    <div
                       key={index}
                       className={cn(
-                        "flex items-start",
-                        item.highlighted && "bg-blue-50 p-4 rounded-lg",
-                        textAlign === "center" && "justify-center",
-                        textAlign === "right" && "justify-end"
+                        "flex flex-col items-center text-center gap-8 "
                       )}
                     >
-                      <IconComponent className={cn("w-5 h-5 mr-3 flex-shrink-0 mt-0.5", iconColorClass)} />
-                      <div className="flex-1">
-                        <span className="text-gray-900 font-medium">{item.text}</span>
+                      <div className="flex flex-col gap-8">
+                        <h3 className="text-white font-semibold text-[22px]">
+                          {item.text}
+                        </h3>
                         {item.description && (
-                          <p className="text-gray-600 text-sm mt-1">{item.description}</p>
+                          <p className="text-white/80 text-sm leading-relaxed">
+                            {item.description}
+                          </p>
                         )}
-                        {item.link && (
+                        {item.link && item.link.href && (
                           <Link
                             href={item.link.href}
-                            target={item.link.openInNewTab ? "_blank" : undefined}
-                            rel={item.link.openInNewTab ? "noopener noreferrer" : undefined}
-                            className="text-blue-600 hover:text-blue-800 text-sm underline mt-1 inline-block"
+                            target={
+                              item.link.openInNewTab ? "_blank" : undefined
+                            }
+                            rel={
+                              item.link.openInNewTab
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
+                            className="text-blue-400 hover:text-blue-300 text-sm underline mt-2 inline-block"
                           >
                             {item.link.text}
                           </Link>
                         )}
                       </div>
-                    </li>
+
+                      {/* Icon */}
+                      <div className="">
+                        <IconComponent
+                          className={cn("w-8 h-8", iconColorClass)}
+                        />
+                      </div>
+                    </div>
                   );
                 })}
-              </ul>
-            </div>
-          )}
+              </div>
+            )}
 
-          {/* CTA Buttons */}
-          {ctaButtons && ctaButtons.length > 0 && (
-            <div className={cn("flex flex-wrap gap-4", {
-              "justify-center": textAlign === "center",
-              "justify-start": textAlign === "left",
-              "justify-end": textAlign === "right",
-            })}>
-              {ctaButtons.map((button, index) => (
-                <Link
-                  key={index}
-                  href={button.href}
-                  target={button.openInNewTab ? "_blank" : undefined}
-                  rel={button.openInNewTab ? "noopener noreferrer" : undefined}
-                  className={cn(
-                    "px-6 py-3 rounded-full transition-all duration-200 font-medium border",
-                    buttonVariants[button.variant],
-                    button.disabled && "opacity-50 cursor-not-allowed"
-                  )}
-                >
-                  {button.text}
-                </Link>
-              ))}
-            </div>
-          )}
+            {ctaButtons && ctaButtons.length > 0 && (
+              <div className="flex flex-col sm:flex-row gap-6 ">
+                {ctaButtons.map((button, index) => {
+                  if (!button.href) {
+                    return null;
+                  }
+
+                  return (
+                    <Link
+                      key={index}
+                      href={button.href}
+                      target={button.openInNewTab ? "_blank" : undefined}
+                      rel={
+                        button.openInNewTab ? "noopener noreferrer" : undefined
+                      }
+                      className={cn(
+                        "px-6 py-3 rounded-full transition-all duration-200 font-medium border text-center",
+                        buttonVariants[button.variant],
+                        button.disabled && "opacity-50 cursor-not-allowed"
+                      )}
+                    >
+                      {button.text}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

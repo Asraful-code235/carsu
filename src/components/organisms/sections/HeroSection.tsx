@@ -156,20 +156,27 @@ export function HeroSection({ data }: HeroSectionProps) {
           {/* CTA Buttons */}
           {ctaButtons && ctaButtons.length > 0 && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-              {ctaButtons.map((button, index) => (
-                <Link
-                  key={index}
-                  href={button.href}
-                  className={cn(
-                    "px-8 py-4 rounded-full transition-all duration-200 text-lg font-medium max-sm:w-full min-w-[140px]",
-                    button.variant === 'primary'
-                      ? "bg-blue-600 text-white hover:bg-blue-700"
-                      : "border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-                  )}
-                >
-                  {button.text}
-                </Link>
-              ))}
+              {ctaButtons.map((button, index) => {
+                // Skip buttons with null/undefined href
+                if (!button.href) {
+                  return null;
+                }
+
+                return (
+                  <Link
+                    key={index}
+                    href={button.href}
+                    className={cn(
+                      "px-8 py-4 rounded-full transition-all duration-200 text-lg font-medium max-sm:w-full min-w-[140px]",
+                      button.variant === 'primary'
+                        ? "bg-blue-600 text-white hover:bg-blue-700"
+                        : "border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    )}
+                  >
+                    {button.text}
+                  </Link>
+                );
+              })}
             </div>
           )}
 
