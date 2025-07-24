@@ -59,13 +59,9 @@ export const layoutType = defineType({
               transparent: 'transparent',
             },
             prepare({ headerTitle, sticky, transparent }) {
-              const features = [];
-              if (sticky) features.push('sticky');
-              if (transparent) features.push('transparent');
-              
               return {
                 title: 'Header Section',
-                subtitle: `${headerTitle || 'No header selected'}${features.length ? ` (${features.join(', ')})` : ''}`,
+                subtitle: `${headerTitle || 'No header selected'}${sticky ? ' • Sticky' : ''}${transparent ? ' • Transparent' : ''}`,
               };
             },
           },
@@ -102,31 +98,15 @@ export const layoutType = defineType({
             },
           },
         },
-      
       ],
-      options: {
-        sortable: true,
-      },
+      validation: (Rule) => Rule.required().min(1),
+      description: 'Configure the global layout sections for your site',
     }),
     defineField({
       name: 'seo',
-      title: 'SEO Settings',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'includeInSitemap',
-          title: 'Include in Sitemap',
-          type: 'boolean',
-          initialValue: true,
-        }),
-        defineField({
-          name: 'noIndex',
-          title: 'No Index',
-          type: 'boolean',
-          description: 'Prevent search engines from indexing pages using this layout',
-          initialValue: false,
-        }),
-      ],
+      title: 'Global SEO Settings',
+      type: 'seoFields',
+      description: 'Default SEO settings that apply to all pages unless overridden',
     }),
   ],
   preview: {

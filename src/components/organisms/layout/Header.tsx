@@ -54,7 +54,6 @@ export function Header({ data, sticky = true, transparent = false, className }: 
       xl: 'w-[800px]', 
       full: 'w-screen max-w-7xl',
     };
-    console.log('🔧 Dropdown width setting:', width, '→', widthMap[width as keyof typeof widthMap]);
     return widthMap[width as keyof typeof widthMap] || 'w-[480px]';
   };
 

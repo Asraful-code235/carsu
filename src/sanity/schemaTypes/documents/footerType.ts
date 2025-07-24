@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity';
 import { ComponentIcon } from '@sanity/icons';
+import { socialIconOptions } from '../shared/iconOptions';
 
 export const footerType = defineType({
   name: 'footer',
@@ -49,13 +50,12 @@ export const footerType = defineType({
     defineField({
       name: 'description',
       title: 'Footer Description',
-      type: 'text',
-      rows: 3,
-      description: 'Brief description or tagline for the footer',
+      type: 'richTextBlock',
+      description: 'Brief description or tagline for your company',
     }),
     defineField({
-      name: 'linkColumns',
-      title: 'Link Columns',
+      name: 'columns',
+      title: 'Footer Columns',
       type: 'array',
       of: [
         {
@@ -69,7 +69,7 @@ export const footerType = defineType({
             }),
             defineField({
               name: 'links',
-              title: 'Links',
+              title: 'Column Links',
               type: 'array',
               of: [
                 {
@@ -108,6 +108,7 @@ export const footerType = defineType({
                   },
                 },
               ],
+              validation: (Rule) => Rule.max(10),
             }),
           ],
           preview: {
@@ -140,14 +141,7 @@ export const footerType = defineType({
               title: 'Platform',
               type: 'string',
               options: {
-                list: [
-                  { title: 'Facebook', value: 'facebook' },
-                  { title: 'Twitter', value: 'twitter' },
-                  { title: 'Instagram', value: 'instagram' },
-                  { title: 'LinkedIn', value: 'linkedin' },
-                  { title: 'YouTube', value: 'youtube' },
-                  { title: 'GitHub', value: 'github' },
-                ],
+                list: socialIconOptions,
               },
               validation: (Rule) => Rule.required(),
             }),
@@ -172,6 +166,7 @@ export const footerType = defineType({
           },
         },
       ],
+      validation: (Rule) => Rule.max(8),
     }),
     defineField({
       name: 'copyrightText',
@@ -186,15 +181,56 @@ export const footerType = defineType({
       type: 'boolean',
       initialValue: true,
     }),
+    defineField({
+      name: 'newsletter',
+      title: 'Newsletter Signup',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'enabled',
+          title: 'Enable Newsletter Signup',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'title',
+          title: 'Newsletter Title',
+          type: 'string',
+          initialValue: 'Subscribe to our newsletter',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Newsletter Description',
+          type: 'text',
+          rows: 2,
+          initialValue: 'Get the latest updates and news delivered to your inbox.',
+        }),
+        defineField({
+          name: 'placeholder',
+          title: 'Email Placeholder',
+          type: 'string',
+          initialValue: 'Enter your email address',
+        }),
+        defineField({
+          name: 'buttonText',
+          title: 'Subscribe Button Text',
+          type: 'string',
+          initialValue: 'Subscribe',
+        }),
+      ],
+    }),
   ],
   preview: {
     select: {
       title: 'title',
       logo: 'logo.image',
+      columns: 'columns',
     },
-    prepare({ title, logo }) {
+    prepare({ title, logo, columns }) {
+      const columnCount = columns?.length || 0;
       return {
         title,
+        subtitle: `${columnCount} column${columnCount !== 1 ? 's' : ''}`,
         media: logo,
       };
     },

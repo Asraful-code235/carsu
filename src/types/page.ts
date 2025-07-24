@@ -13,29 +13,61 @@ export interface PageCTAButton {
 }
 
 export interface BackgroundElement {
-  image: SanityImageSource;
+  image: {
+    asset: {
+      _id: string;
+      url: string;
+      metadata?: {
+        dimensions: {
+          width: number;
+          height: number;
+        };
+      };
+    };
+  };
   position: {
     top?: string;
     left?: string;
     right?: string;
     bottom?: string;
   };
-  size: 'sm' | 'md' | 'lg';
+  size: 'sm' | 'md' | 'lg' | 'xl';
   opacity: number;
   rotation: number;
+  zIndex?: number;
 }
 
 export interface HeroSection {
   type: 'hero';
-  heading: {
-    line1: string;
-    line2: string;
-  };
+  heading: any[]; // Rich text array (Portable Text)
   subtitle: string;
-  ctaButtons: PageCTAButton[];
-  dashboardImage: {
-    asset: SanityImageSource;
+  ctaButtons?: Array<{
+    text: string;
+    href: string;
+    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    size?: 'sm' | 'md' | 'lg';
+    openInNewTab: boolean;
+    icon?: string;
+    disabled?: boolean;
+  }>;
+  heroImage: {
+    image: {
+      asset: {
+        _id: string;
+        url: string;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
     alt: string;
+    caption?: string;
+    width?: number;
+    height?: number;
+    priority?: boolean;
   };
   backgroundColor?: {
     hex: string;
@@ -60,6 +92,12 @@ export interface HeroSection {
     };
   };
   backgroundElements?: BackgroundElement[];
+  settings?: {
+    fullHeight?: boolean;
+    centerContent?: boolean;
+    showScrollIndicator?: boolean;
+    parallaxEffect?: boolean;
+  };
 }
 
 export interface AboutSection {
@@ -68,7 +106,88 @@ export interface AboutSection {
   content?: string;
 }
 
-export type PageSection = HeroSection | AboutSection;
+export interface FeatureSection {
+  type: 'feature';
+  layout: 'contentLeft' | 'contentRight';
+  title: any[];
+  subtitle?: string;
+  description?: any[];
+  features?: Array<{
+    text: string;
+    icon: 'check' | 'star' | 'arrowRight' | 'plus';
+  }>;
+  ctaButtons?: Array<{
+    text: string;
+    href: string;
+    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    openInNewTab: boolean;
+  }>;
+  image: {
+    asset: {
+      _id: string;
+      url: string;
+      metadata?: {
+        dimensions: {
+          width: number;
+          height: number;
+        };
+      };
+    };
+    alt: string;
+  };
+  backgroundColor?: {
+    hex: string;
+  };
+  padding: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export interface TestimonialsSection {
+  type: 'testimonials';
+  title: any[];
+  subtitle?: string;
+  testimonials: Array<{
+    _id: string;
+    name: string;
+    title?: string;
+    company?: string;
+    quote: string;
+    avatar?: {
+      asset: {
+        _id: string;
+        url: string;
+      };
+      alt: string;
+    };
+    rating: number;
+  }>;
+  displaySettings: {
+    itemsPerView: {
+      mobile: number;
+      tablet: number;
+      desktop: number;
+    };
+    autoplay: boolean;
+    autoplaySpeed: number;
+    showDots: boolean;
+    showArrows: boolean;
+    infiniteLoop: boolean;
+  };
+  styling: {
+    backgroundColor?: {
+      hex: string;
+    };
+    textAlign: 'left' | 'center' | 'right';
+    padding: {
+      top: string;
+      bottom: string;
+    };
+  };
+}
+
+export type PageSection = HeroSection | AboutSection | FeatureSection | TestimonialsSection;
 
 export interface PageConfiguration {
   _id: string;

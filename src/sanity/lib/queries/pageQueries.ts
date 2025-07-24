@@ -25,28 +25,35 @@ export const HOME_PAGE_QUERY = defineQuery(`
     sections[] {
       _type == 'heroSection' => {
         type,
-        heading {
-          line1,
-          line2
-        },
+        heading,
         subtitle,
         ctaButtons[] {
           text,
           href,
-          variant
+          variant,
+          size,
+          openInNewTab,
+          icon,
+          disabled
         },
-        dashboardImage {
-          asset-> {
-            _id,
-            url,
-            metadata {
-              dimensions {
-                width,
-                height
+        heroImage {
+          image {
+            asset-> {
+              _id,
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
               }
             }
           },
-          alt
+          alt,
+          caption,
+          width,
+          height,
+          priority
         },
         backgroundColor {
           hex,
@@ -91,13 +98,99 @@ export const HOME_PAGE_QUERY = defineQuery(`
           },
           size,
           opacity,
-          rotation
+          rotation,
+          zIndex
+        },
+        settings {
+          fullHeight,
+          centerContent,
+          showScrollIndicator,
+          parallaxEffect
         }
       },
       _type == 'aboutSection' => {
         type,
         title,
         content
+      },
+      _type == 'featureSection' => {
+        type,
+        layout,
+        title,
+        subtitle,
+        description,
+        features[] {
+          text,
+          icon
+        },
+        ctaButtons[] {
+          text,
+          href,
+          variant,
+          openInNewTab
+        },
+        image {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              dimensions {
+                width,
+                height
+              }
+            }
+          },
+          alt
+        },
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        }
+      },
+      _type == 'testimonialSection' => {
+        type,
+        title,
+        subtitle,
+        testimonials[]-> {
+          _id,
+          name,
+          title,
+          company,
+          quote,
+          avatar {
+            asset-> {
+              _id,
+              url
+            },
+            alt
+          },
+          rating
+        },
+        displaySettings {
+          itemsPerView {
+            mobile,
+            tablet,
+            desktop
+          },
+          autoplay,
+          autoplaySpeed,
+          showDots,
+          showArrows,
+          infiniteLoop
+        },
+        styling {
+          backgroundColor {
+            hex
+          },
+          textAlign,
+          padding {
+            top,
+            bottom
+          }
+        }
       }
     }
   }
@@ -128,28 +221,35 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
     sections[] {
       _type == 'heroSection' => {
         type,
-        heading {
-          line1,
-          line2
-        },
+        heading,
         subtitle,
         ctaButtons[] {
           text,
           href,
-          variant
+          variant,
+          size,
+          openInNewTab,
+          icon,
+          disabled
         },
-        dashboardImage {
-          asset-> {
-            _id,
-            url,
-            metadata {
-              dimensions {
-                width,
-                height
+        heroImage {
+          image {
+            asset-> {
+              _id,
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
               }
             }
           },
-          alt
+          alt,
+          caption,
+          width,
+          height,
+          priority
         },
         backgroundColor {
           hex,
@@ -194,13 +294,99 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
           },
           size,
           opacity,
-          rotation
+          rotation,
+          zIndex
+        },
+        settings {
+          fullHeight,
+          centerContent,
+          showScrollIndicator,
+          parallaxEffect
         }
       },
       _type == 'aboutSection' => {
         type,
         title,
         content
+      },
+      _type == 'featureSection' => {
+        type,
+        layout,
+        title,
+        subtitle,
+        description,
+        features[] {
+          text,
+          icon
+        },
+        ctaButtons[] {
+          text,
+          href,
+          variant,
+          openInNewTab
+        },
+        image {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              dimensions {
+                width,
+                height
+              }
+            }
+          },
+          alt
+        },
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        }
+      },
+      _type == 'testimonialSection' => {
+        type,
+        title,
+        subtitle,
+        testimonials[]-> {
+          _id,
+          name,
+          title,
+          company,
+          quote,
+          avatar {
+            asset-> {
+              _id,
+              url
+            },
+            alt
+          },
+          rating
+        },
+        displaySettings {
+          itemsPerView {
+            mobile,
+            tablet,
+            desktop
+          },
+          autoplay,
+          autoplaySpeed,
+          showDots,
+          showArrows,
+          infiniteLoop
+        },
+        styling {
+          backgroundColor {
+            hex
+          },
+          textAlign,
+          padding {
+            top,
+            bottom
+          }
+        }
       }
     }
   }

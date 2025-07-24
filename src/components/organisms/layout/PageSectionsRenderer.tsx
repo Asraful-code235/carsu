@@ -1,5 +1,7 @@
 import { HeroSection } from "@/components/organisms/sections/HeroSection";
 import { AboutSection } from "@/components/organisms/sections/AboutSection";
+import { FeatureSection } from "@/components/organisms/sections/FeatureSection";
+import { TestimonialsSection } from "@/components/organisms/sections/TestimonialsSection";
 import type { PageSection } from "@/types/page";
 
 interface PageSectionsRendererProps {
@@ -30,6 +32,10 @@ export function PageSectionsRenderer({ sections }: PageSectionsRendererProps) {
             return <HeroSection key={index} data={section} />;
           case 'about':
             return <AboutSection key={index} data={section} />;
+          case 'feature':
+            return <FeatureSection key={index} data={section} />;
+          case 'testimonials':
+            return <TestimonialsSection key={index} data={section} />;
           default:
             return (
               <div key={index} className="py-8 bg-yellow-50 border border-yellow-200">

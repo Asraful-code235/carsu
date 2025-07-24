@@ -50,7 +50,7 @@ export const headerType = defineType({
     }),
     defineField({
       name: 'navigation',
-      title: 'Navigation Links',
+      title: 'Navigation Menu',
       type: 'array',
       of: [
         {
@@ -58,7 +58,7 @@ export const headerType = defineType({
           fields: [
             defineField({
               name: 'title',
-              title: 'Link Title',
+              title: 'Menu Item Title',
               type: 'string',
               validation: (Rule) => Rule.required(),
             }),
@@ -66,11 +66,11 @@ export const headerType = defineType({
               name: 'href',
               title: 'Link URL',
               type: 'string',
-              description: 'Use relative paths for internal links (e.g., /about)',
+              validation: (Rule) => Rule.required(),
             }),
             defineField({
               name: 'hasDropdown',
-              title: 'Has Dropdown',
+              title: 'Has Dropdown Menu',
               type: 'boolean',
               initialValue: false,
             }),
@@ -91,8 +91,7 @@ export const headerType = defineType({
                       { title: '4 Columns', value: 4 },
                     ],
                   },
-                  initialValue: 1,
-                  validation: (Rule) => Rule.min(1).max(4),
+                  initialValue: 2,
                 }),
                 defineField({
                   name: 'showImages',
@@ -106,14 +105,13 @@ export const headerType = defineType({
                   type: 'string',
                   options: {
                     list: [
-                      { title: 'Small (320px)', value: 'sm' },
-                      { title: 'Medium (480px)', value: 'md' },
-                      { title: 'Large (640px)', value: 'lg' },
-                      { title: 'Extra Large (800px)', value: 'xl' },
-                      { title: 'Full Width', value: 'full' },
+                      { title: 'Small (300px)', value: 'small' },
+                      { title: 'Medium (500px)', value: 'medium' },
+                      { title: 'Large (700px)', value: 'large' },
+                      { title: 'Extra Large (900px)', value: 'xl' },
                     ],
                   },
-                  initialValue: 'md',
+                  initialValue: 'medium',
                 }),
               ],
               hidden: ({ parent }) => !parent?.hasDropdown,
@@ -140,25 +138,14 @@ export const headerType = defineType({
                     }),
                     defineField({
                       name: 'description',
-                      title: 'Description',
+                      title: 'Item Description',
                       type: 'text',
                       rows: 2,
                     }),
                     defineField({
                       name: 'image',
                       title: 'Item Image',
-                      type: 'image',
-                      options: {
-                        hotspot: true,
-                      },
-                      fields: [
-                        defineField({
-                          name: 'alt',
-                          title: 'Alt Text',
-                          type: 'string',
-                        }),
-                      ],
-                      description: 'Only visible when "Show Images in Dropdown" is enabled for this navigation item',
+                      type: 'imageWithAlt',
                     }),
                     defineField({
                       name: 'badge',
@@ -169,6 +156,7 @@ export const headerType = defineType({
                           name: 'text',
                           title: 'Badge Text',
                           type: 'string',
+                          validation: (Rule) => Rule.max(10),
                         }),
                         defineField({
                           name: 'color',
@@ -178,10 +166,9 @@ export const headerType = defineType({
                             list: [
                               { title: 'Blue', value: 'blue' },
                               { title: 'Green', value: 'green' },
-                              { title: 'Red', value: 'red' },
                               { title: 'Yellow', value: 'yellow' },
+                              { title: 'Red', value: 'red' },
                               { title: 'Purple', value: 'purple' },
-                              { title: 'Gray', value: 'gray' },
                             ],
                           },
                           initialValue: 'blue',
@@ -193,91 +180,44 @@ export const headerType = defineType({
                     select: {
                       title: 'title',
                       description: 'description',
-                      image: 'image',
                       badge: 'badge.text',
                     },
-                    prepare({ title, description, image, badge }) {
+                    prepare({ title, description, badge }) {
                       return {
                         title,
-                        subtitle: badge ? `${description || ''} • ${badge}` : description,
-                        media: image,
+                        subtitle: `${description || 'No description'}${badge ? ` • ${badge}` : ''}`,
                       };
                     },
                   },
                 },
               ],
               hidden: ({ parent }) => !parent?.hasDropdown,
+              validation: (Rule) => Rule.max(12),
             }),
           ],
           preview: {
             select: {
               title: 'title',
               hasDropdown: 'hasDropdown',
+              dropdownItems: 'dropdownItems',
             },
-            prepare({ title, hasDropdown }) {
+            prepare({ title, hasDropdown, dropdownItems }) {
+              const itemCount = dropdownItems?.length || 0;
               return {
                 title,
-                subtitle: hasDropdown ? 'Has dropdown' : 'Simple link',
+                subtitle: hasDropdown ? `Dropdown (${itemCount} items)` : 'Link',
               };
             },
           },
         },
       ],
+      validation: (Rule) => Rule.max(8).warning('Consider limiting to 8 main navigation items'),
     }),
     defineField({
       name: 'ctaButtons',
       title: 'CTA Buttons',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'title',
-              title: 'Button Text',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'href',
-              title: 'Button URL',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'variant',
-              title: 'Button Style',
-              type: 'string',
-              options: {
-                list: [
-                  { title: 'Primary', value: 'primary' },
-                  { title: 'Secondary', value: 'secondary' },
-                  { title: 'Outline', value: 'outline' },
-                ],
-              },
-              initialValue: 'primary',
-            }),
-            defineField({
-              name: 'openInNewTab',
-              title: 'Open in New Tab',
-              type: 'boolean',
-              initialValue: false,
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'title',
-              variant: 'variant',
-            },
-            prepare({ title, variant }) {
-              return {
-                title,
-                subtitle: `${variant} button`,
-              };
-            },
-          },
-        },
-      ],
+      of: [{ type: 'ctaButton' }],
       validation: (Rule) => Rule.max(3).warning('Consider limiting to 3 CTA buttons for better UX'),
     }),
     defineField({
@@ -310,10 +250,13 @@ export const headerType = defineType({
     select: {
       title: 'title',
       logo: 'logo.image',
+      navigation: 'navigation',
     },
-    prepare({ title, logo }) {
+    prepare({ title, logo, navigation }) {
+      const navCount = navigation?.length || 0;
       return {
         title,
+        subtitle: `${navCount} navigation item${navCount !== 1 ? 's' : ''}`,
         media: logo,
       };
     },
