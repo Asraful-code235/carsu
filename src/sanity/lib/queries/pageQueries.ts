@@ -380,6 +380,57 @@ export const HOME_PAGE_QUERY = defineQuery(`
           },
           imagePosition
         }
+      },
+      _type == 'contactFormSection' => {
+        type,
+        title,
+        badge {
+          text,
+          color,
+          customColor {
+            hex
+          },
+          variant,
+          size
+        },
+        features[] {
+          text,
+          description,
+          icon,
+          iconColor,
+          highlighted,
+          link {
+            href,
+            text,
+            openInNewTab
+          }
+        },
+        formHeading,
+        formFields[] {
+          name,
+          label,
+          placeholder,
+          type,
+          required,
+          width
+        },
+        submitButton {
+          text,
+          href,
+          variant,
+          openInNewTab
+        },
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        },
+        settings {
+          layout,
+          fullWidth
+        }
       }
     }
   }
@@ -764,6 +815,57 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
             mobile
           },
           imagePosition
+        }
+      },
+      _type == 'contactFormSection' => {
+        type,
+        title,
+        badge {
+          text,
+          color,
+          customColor {
+            hex
+          },
+          variant,
+          size
+        },
+        features[] {
+          text,
+          description,
+          icon,
+          iconColor,
+          highlighted,
+          link {
+            href,
+            text,
+            openInNewTab
+          }
+        },
+        formHeading,
+        formFields[] {
+          name,
+          label,
+          placeholder,
+          type,
+          required,
+          width
+        },
+        submitButton {
+          text,
+          href,
+          variant,
+          openInNewTab
+        },
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        },
+        settings {
+          layout,
+          fullWidth
         }
       }
     }

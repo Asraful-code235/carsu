@@ -350,7 +350,59 @@ export interface TryCarsuBannerSection {
   };
 }
 
-export type PageSection = HeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection;
+export interface ContactFormSection {
+  type: 'contactForm';
+  title?: any[]; // Rich text array
+  badge?: {
+    text: string;
+    color: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'indigo' | 'gray' | 'custom';
+    customColor?: {
+      hex: string;
+    };
+    variant: 'filled' | 'outline' | 'soft';
+    size: 'sm' | 'md' | 'lg';
+  };
+  features?: Array<{
+    text: string;
+    description?: string;
+    icon: string;
+    iconColor: 'primary' | 'success' | 'warning' | 'error' | 'gray';
+    highlighted: boolean;
+    link?: {
+      href: string;
+      text: string;
+      openInNewTab: boolean;
+    };
+  }>;
+  formHeading?: any[]; // Rich text array
+  formFields: Array<{
+    name: string;
+    label: string;
+    placeholder: string;
+    type: 'text' | 'email' | 'tel' | 'textarea';
+    required: boolean;
+    width: 'half' | 'full';
+  }>;
+  submitButton: {
+    text: string;
+    href: string;
+    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    openInNewTab: boolean;
+  };
+  backgroundColor?: {
+    hex: string;
+  };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+  settings?: {
+    layout: 'contentLeft' | 'contentRight';
+    fullWidth?: boolean;
+  };
+}
+
+export type PageSection = HeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection;
 
 export interface PageConfiguration {
   _id: string;

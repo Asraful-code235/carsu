@@ -6,6 +6,7 @@ import { FeatureSection } from "@/components/organisms/sections/FeatureSection";
 import { ServicesSection } from "@/components/organisms/sections/ServicesSection";
 import { TestimonialsSection } from "@/components/organisms/sections/TestimonialsSection";
 import { TryCarsuBanner } from "@/components/organisms/sections/TryCarsuBanner";
+import { ContactFormSection } from "@/components/organisms/sections/ContactFormSection";
 import type { PageSection } from "@/types/page";
 
 interface PageSectionsRendererProps {
@@ -48,6 +49,8 @@ export function PageSectionsRenderer({ sections }: PageSectionsRendererProps) {
             return <TestimonialsSection key={index} data={section} />;
           case 'tryCarsuBanner':
             return <TryCarsuBanner key={index} {...section} />;
+          case 'contactForm':
+            return <ContactFormSection key={index} {...section} />;
           default:
             return (
               <div key={index} className="py-8 bg-yellow-50 border border-yellow-200">
