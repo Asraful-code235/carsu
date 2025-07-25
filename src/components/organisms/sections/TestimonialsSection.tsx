@@ -144,7 +144,7 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-purple-500 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-24">
+      <div className="relative container mx-auto px-6 lg:px-24">
         {/* Header */}
         <div className={cn("mb-16 lg:mb-20", `text-${styling.textAlign}`)}>
           <div className="mb-6">

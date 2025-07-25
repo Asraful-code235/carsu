@@ -50,7 +50,7 @@ export function PageHeroSection({ data }: PageHeroSectionProps) {
         backgroundColor: backgroundColor?.hex || undefined,
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-24">
+      <div className="container mx-auto px-6 lg:px-24">
         {/* Two column grid layout for md+ screens */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Left Column - Content */}

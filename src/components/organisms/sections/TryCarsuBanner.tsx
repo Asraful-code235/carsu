@@ -124,7 +124,7 @@ export function TryCarsuBanner({
     : { backgroundColor: '#2563eb' }; // Default blue
 
   return (
-    <section className={cn('py-16 px-6 lg:px-20 relative ', !fullWidth && 'max-w-7xl mx-auto')}>
+    <section className={cn('py-16 px-6 lg:px-20 relative ', !fullWidth && 'container mx-auto')}>
       <div className={containerClasses}>
         {/* Glow Effect */}
         {glowImage && glowImage.image && glowImage.image.asset && (

@@ -12,7 +12,7 @@ export async function FooterWrapper() {
       // Return a minimal footer if no data is found
       return (
         <footer className="bg-white py-20 px-6 lg:px-24">
-          <div className="max-w-7xl mx-auto text-center">
+          <div className="container mx-auto text-center">
             <p className="text-gray-400">
               © {new Date().getFullYear()} Your Company Name. All rights reserved.
             </p>
@@ -27,7 +27,7 @@ export async function FooterWrapper() {
     
     return (
       <footer className="bg-white py-20 px-6 lg:px-24">
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="container mx-auto text-center">
           <p className="text-gray-400">
             © {new Date().getFullYear()} Your Company Name. All rights reserved.
           </p>

@@ -173,7 +173,7 @@ export function ServicesSection({ data }: ServicesSectionProps) {
         ...backgroundImageStyles,
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-24">
+      <div className="container mx-auto px-6 lg:px-24">
         {/* Header */}
         <div className={cn("mb-16", alignmentClasses)}>
           {/* Title */}

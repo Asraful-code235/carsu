@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { cn } from '@/lib/utils/cn';
-import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
-import { Badge } from '@/components/atoms/ui/Badge';
-import Link from 'next/link';
+import { useState } from "react";
+import { cn } from "@/lib/utils/cn";
+import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
+import { Badge } from "@/components/atoms/ui/Badge";
+import Link from "next/link";
 
 interface FormField {
   name: string;
   label: string;
   placeholder: string;
-  type: 'text' | 'email' | 'tel' | 'textarea';
+  type: "text" | "email" | "tel" | "textarea";
   required: boolean;
-  width: 'half' | 'full';
+  width: "half" | "full";
 }
 
 interface FeatureListItem {
   text: string;
   description?: string;
   icon: string;
-  iconColor: 'primary' | 'success' | 'warning' | 'error' | 'gray';
+  iconColor: "primary" | "success" | "warning" | "error" | "gray";
   highlighted: boolean;
   link?: {
     href: string;
@@ -32,12 +32,22 @@ interface ContactFormSectionProps {
   title?: any[]; // Rich text array
   badge?: {
     text: string;
-    color: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'indigo' | 'gray' | 'custom';
+    color:
+      | "primary"
+      | "success"
+      | "warning"
+      | "error"
+      | "info"
+      | "purple"
+      | "pink"
+      | "indigo"
+      | "gray"
+      | "custom";
     customColor?: {
       hex: string;
     };
-    variant: 'filled' | 'outline' | 'soft';
-    size: 'sm' | 'md' | 'lg';
+    variant: "filled" | "outline" | "soft";
+    size: "sm" | "md" | "lg";
   };
   features?: FeatureListItem[];
   formHeading?: any[]; // Rich text array
@@ -45,7 +55,7 @@ interface ContactFormSectionProps {
   submitButton: {
     text: string;
     href: string;
-    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    variant: "primary" | "secondary" | "outline" | "ghost";
     openInNewTab: boolean;
   };
   backgroundColor?: {
@@ -56,17 +66,17 @@ interface ContactFormSectionProps {
     bottom: string;
   };
   settings?: {
-    layout: 'contentLeft' | 'contentRight';
+    layout: "contentLeft" | "contentRight";
     fullWidth?: boolean;
   };
 }
 
 const paddingClasses = {
-  none: 'py-0',
-  small: 'py-8',
-  medium: 'py-12',
-  large: 'py-16',
-  xl: 'py-24',
+  none: "py-0",
+  small: "py-8",
+  medium: "py-12",
+  large: "py-16",
+  xl: "py-24",
 };
 
 export function ContactFormSection({
@@ -83,36 +93,44 @@ export function ContactFormSection({
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const {
-    layout = 'contentLeft',
-    fullWidth = false,
-  } = settings || {};
+  const { layout = "contentLeft", fullWidth = false } = settings || {};
 
   // Get padding classes
-  const topPadding = paddingClasses[padding?.top as keyof typeof paddingClasses] || paddingClasses.large;
-  const bottomPadding = paddingClasses[padding?.bottom as keyof typeof paddingClasses] || paddingClasses.large;
+  const topPadding =
+    paddingClasses[padding?.top as keyof typeof paddingClasses] ||
+    paddingClasses.large;
+  const bottomPadding =
+    paddingClasses[padding?.bottom as keyof typeof paddingClasses] ||
+    paddingClasses.large;
 
   const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Here you would typically send the form data to your backend
     // For now, we'll just simulate a submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    console.log('Form submitted:', formData);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    console.log("Form submitted:", formData);
     setIsSubmitting(false);
-    
+
     // Reset form or show success message
     setFormData({});
   };
 
   const ContentColumn = () => (
     <div className="space-y-8">
+      {title && (
+        <RichTextRenderer
+          content={title}
+          className="prose prose-gray max-w-none"
+        />
+      )}
+
       {badge && (
         <Badge
           text={badge.text}
@@ -122,18 +140,11 @@ export function ContactFormSection({
           size={badge.size}
         />
       )}
-      
-      {title && (
-        <RichTextRenderer
-          content={title}
-          className="prose prose-gray max-w-none"
-        />
-      )}
 
       {features && features.length > 0 && (
         <div className="space-y-6">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-start gap-3">
+            <div key={index} className="flex items-start gap-3 max-w-[355px]">
               {/* Dot bullet point */}
               <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0" />
               <div className="flex-1">
@@ -148,8 +159,12 @@ export function ContactFormSection({
                 {feature.link && feature.link.href && (
                   <Link
                     href={feature.link.href}
-                    target={feature.link.openInNewTab ? '_blank' : undefined}
-                    rel={feature.link.openInNewTab ? 'noopener noreferrer' : undefined}
+                    target={feature.link.openInNewTab ? "_blank" : undefined}
+                    rel={
+                      feature.link.openInNewTab
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                     className="text-blue-600 hover:text-blue-700 text-sm underline mt-2 inline-block"
                   >
                     {feature.link.text}
@@ -164,7 +179,7 @@ export function ContactFormSection({
   );
 
   const FormColumn = () => (
-    <div className="bg-white rounded-2xl shadow-lg p-8">
+    <div className="">
       {formHeading && (
         <div className="mb-6">
           <RichTextRenderer
@@ -178,25 +193,35 @@ export function ContactFormSection({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {formFields.map((field, index) => {
             const fieldClasses = cn(
-              'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors',
-              field.width === 'full' && 'md:col-span-2'
+              "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors",
+              field.width === "full" && "md:col-span-2"
             );
 
             return (
-              <div key={index} className={field.width === 'full' ? 'md:col-span-2' : ''}>
-                <label htmlFor={field.name} className="block text-sm font-medium text-gray-700 mb-2">
+              <div
+                key={index}
+                className={field.width === "full" ? "md:col-span-2" : ""}
+              >
+                <label
+                  htmlFor={field.name}
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   {field.label}
-                  {field.required && <span className="text-red-500 ml-1">*</span>}
+                  {field.required && (
+                    <span className="text-red-500 ml-1">*</span>
+                  )}
                 </label>
-                
-                {field.type === 'textarea' ? (
+
+                {field.type === "textarea" ? (
                   <textarea
                     id={field.name}
                     name={field.name}
                     placeholder={field.placeholder}
                     required={field.required}
-                    value={formData[field.name] || ''}
-                    onChange={(e) => handleInputChange(field.name, e.target.value)}
+                    value={formData[field.name] || ""}
+                    onChange={(e) =>
+                      handleInputChange(field.name, e.target.value)
+                    }
                     rows={4}
                     className={fieldClasses}
                   />
@@ -207,8 +232,10 @@ export function ContactFormSection({
                     type={field.type}
                     placeholder={field.placeholder}
                     required={field.required}
-                    value={formData[field.name] || ''}
-                    onChange={(e) => handleInputChange(field.name, e.target.value)}
+                    value={formData[field.name] || ""}
+                    onChange={(e) =>
+                      handleInputChange(field.name, e.target.value)
+                    }
                     className={fieldClasses}
                   />
                 )}
@@ -221,11 +248,11 @@ export function ContactFormSection({
           type="submit"
           disabled={isSubmitting}
           className={cn(
-            'w-full px-8 py-4 rounded-full font-medium transition-all duration-200',
-            'bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed'
+            "w-fit px-8 py-4 rounded-full font-medium transition-all duration-200",
+            "bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           )}
         >
-          {isSubmitting ? 'Submitting...' : submitButton.text}
+          {isSubmitting ? "Submitting..." : submitButton.text}
         </button>
       </form>
     </div>
@@ -236,8 +263,8 @@ export function ContactFormSection({
       className={cn(
         topPadding,
         bottomPadding,
-        'relative',
-        fullWidth ? 'w-full' : 'max-w-7xl mx-auto'
+        "relative",
+        fullWidth ? "w-full" : "container mx-auto"
       )}
       style={{
         backgroundColor: backgroundColor?.hex || undefined,
@@ -245,7 +272,7 @@ export function ContactFormSection({
     >
       <div className="px-6 lg:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {layout === 'contentLeft' ? (
+          {layout === "contentLeft" ? (
             <>
               <ContentColumn />
               <FormColumn />

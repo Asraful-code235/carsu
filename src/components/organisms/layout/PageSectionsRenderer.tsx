@@ -54,7 +54,7 @@ export function PageSectionsRenderer({ sections }: PageSectionsRendererProps) {
           default:
             return (
               <div key={index} className="py-8 bg-yellow-50 border border-yellow-200">
-                <div className="max-w-7xl mx-auto px-6 text-center">
+                <div className="container mx-auto px-6 text-center">
                   <p className="text-yellow-800">
                     Unknown section type: {(section as unknown as any).type}
                   </p>

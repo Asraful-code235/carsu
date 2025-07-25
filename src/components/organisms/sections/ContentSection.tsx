@@ -194,7 +194,7 @@ export function ContentSection({ data }: ContentSectionProps) {
           />
         )}
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-24 py-16 md:py-32">
+        <div className="relative container mx-auto px-6 lg:px-24 py-16 md:py-32">
           <div className="text-center">
             <RichTextRenderer
               content={content}
@@ -228,7 +228,7 @@ export function ContentSection({ data }: ContentSectionProps) {
         />
       )}
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-24 py-16 md:py-32">
+      <div className="relative container mx-auto px-6 lg:px-24 py-16 md:py-32">
         {/* Two column grid layout for md+ screens */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Left Column - Rich Text Content */}

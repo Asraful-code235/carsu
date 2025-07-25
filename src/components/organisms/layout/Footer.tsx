@@ -86,7 +86,7 @@ export function Footer({ data }: FooterProps) {
 
   return (
     <footer className="bg-white py-20 px-6 relative">
-      <div className="max-w-7xl mx-auto px-6 lg:px-24">
+      <div className="container mx-auto px-6 lg:px-24">
         <div className="grid lg:grid-cols-4 gap-12 lg:gap-16">
           {/* Left Column - Logo, Description, and Social Links */}
           <div className="lg:col-span-1">

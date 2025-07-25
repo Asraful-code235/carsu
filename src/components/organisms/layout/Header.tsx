@@ -52,7 +52,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
       md: 'w-[480px]', 
       lg: 'w-[640px]', 
       xl: 'w-[800px]', 
-      full: 'w-screen max-w-7xl',
+      full: 'w-screen container',
     };
     console.log('🔧 Dropdown width setting:', width, '→', widthMap[width as keyof typeof widthMap]);
     return widthMap[width as keyof typeof widthMap] || 'w-[480px]';
@@ -174,7 +174,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
         className
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-24">
+      <div className="container mx-auto px-6 lg:px-24">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
