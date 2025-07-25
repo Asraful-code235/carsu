@@ -199,7 +199,9 @@ export function ContentSection({ data }: ContentSectionProps) {
             <RichTextRenderer
               content={content}
               textWhite={true}
-              className="prose prose-lg max-w-none"
+              textCenter={true}
+              extraClassName="mb-8"
+              className="prose prose-lg max-w-none text-center"
             />
           </div>
         </div>
@@ -232,6 +234,7 @@ export function ContentSection({ data }: ContentSectionProps) {
           {/* Left Column - Rich Text Content */}
           <div className={cn("order-1", alignmentClass)}>
             <RichTextRenderer
+              
               content={content}
               extraClassName="text-[48px] md:text-[64px] xl:!text-[92px] text-white leading-none max-md:text-center max-md:whitespace-nowrap"
             />
