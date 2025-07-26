@@ -136,12 +136,13 @@ export const faqSectionType = defineType({
           type: 'string',
           options: {
             list: [
+              { title: 'Side by Side (Questions Left, Answer Right)', value: 'sideBySide' },
               { title: 'Two Column Grid', value: 'twoColumn' },
               { title: 'Single Column', value: 'singleColumn' },
               { title: 'Tabbed Categories', value: 'tabbed' },
             ],
           },
-          initialValue: 'twoColumn',
+          initialValue: 'sideBySide',
           description: 'Choose how to display the FAQ content',
         }),
         defineField({

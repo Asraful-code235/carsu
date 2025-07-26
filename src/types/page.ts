@@ -422,7 +422,7 @@ export interface FAQSection {
     bottom: string;
   };
   settings?: {
-    layout: 'twoColumn' | 'singleColumn' | 'tabbed';
+    layout: 'sideBySide' | 'twoColumn' | 'singleColumn' | 'tabbed';
     showCategoryTabs?: boolean;
     allowMultipleOpen?: boolean;
     highlightFeatured?: boolean;

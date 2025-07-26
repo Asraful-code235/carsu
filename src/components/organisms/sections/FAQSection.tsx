@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils/cn';
 import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, ChevronUpIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
 interface FAQQuestion {
   question: string;
@@ -28,7 +29,7 @@ interface FAQSectionProps {
     bottom: string;
   };
   settings?: {
-    layout: 'twoColumn' | 'singleColumn' | 'tabbed';
+    layout: 'sideBySide' | 'twoColumn' | 'singleColumn' | 'tabbed';
     showCategoryTabs?: boolean;
     allowMultipleOpen?: boolean;
     highlightFeatured?: boolean;
@@ -52,12 +53,21 @@ export function FAQSection({
   padding,
   settings,
 }: FAQSectionProps) {
-  const [activeCategory, setActiveCategory] = useState(0);
+  // Flatten all questions from all categories for easier handling
+  const allQuestions = faqCategories.flatMap((category, categoryIndex) =>
+    category.questions.map((question, questionIndex) => ({
+      ...question,
+      categoryIndex,
+      questionIndex,
+      categoryName: category.categoryName,
+      id: `${categoryIndex}-${questionIndex}`,
+    }))
+  );
+
+  const [activeItem, setActiveItem] = useState(allQuestions[0]?.id || '');
   const [openQuestions, setOpenQuestions] = useState<Set<string>>(new Set());
 
   const {
-    layout = 'twoColumn',
-    showCategoryTabs = true,
     allowMultipleOpen = false,
     highlightFeatured = true,
     fullWidth = false,
@@ -67,9 +77,10 @@ export function FAQSection({
   const topPadding = paddingClasses[padding?.top as keyof typeof paddingClasses] || paddingClasses.large;
   const bottomPadding = paddingClasses[padding?.bottom as keyof typeof paddingClasses] || paddingClasses.large;
 
-  const toggleQuestion = (categoryIndex: number, questionIndex: number) => {
-    const questionId = `${categoryIndex}-${questionIndex}`;
+  const activeItemData = allQuestions.find(item => item.id === activeItem);
 
+  const toggleQuestion = (questionId: string) => {
+    // For mobile accordion behavior
     if (allowMultipleOpen) {
       const newOpenQuestions = new Set(openQuestions);
       if (newOpenQuestions.has(questionId)) {
@@ -79,205 +90,150 @@ export function FAQSection({
       }
       setOpenQuestions(newOpenQuestions);
     } else {
-      // Only allow one question open at a time
       setOpenQuestions(openQuestions.has(questionId) ? new Set() : new Set([questionId]));
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, categoryIndex: number, questionIndex: number) => {
+  const handleQuestionClick = (questionId: string) => {
+    setActiveItem(questionId);
+    // Also toggle for mobile
+    toggleQuestion(questionId);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, questionId: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      toggleQuestion(categoryIndex, questionIndex);
+      handleQuestionClick(questionId);
     }
   };
 
-  const isQuestionOpen = (categoryIndex: number, questionIndex: number) => {
-    return openQuestions.has(`${categoryIndex}-${questionIndex}`);
+  const isQuestionOpen = (questionId: string) => {
+    return openQuestions.has(questionId);
   };
 
-  const renderQuestion = (question: FAQQuestion, categoryIndex: number, questionIndex: number) => {
-    const isOpen = isQuestionOpen(categoryIndex, questionIndex);
-    const questionId = `${categoryIndex}-${questionIndex}`;
-
+  const renderDesktopLayout = () => {
     return (
-      <div
-        key={questionId}
-        className={cn(
-          'border border-gray-200 rounded-lg overflow-hidden transition-all duration-200',
-          highlightFeatured && question.featured && 'ring-2 ring-blue-500/20 border-blue-200',
-          isOpen && 'shadow-md'
-        )}
-      >
-        <button
-          id={`question-${questionId}`}
-          onClick={() => toggleQuestion(categoryIndex, questionIndex)}
-          className={cn(
-            'w-full px-6 py-4 text-left flex items-center justify-between',
-            'hover:bg-gray-50 transition-colors duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset',
-            highlightFeatured && question.featured && 'bg-blue-50/50'
-          )}
-          aria-expanded={isOpen}
-          aria-controls={`answer-${questionId}`}
-          onKeyDown={(e) => handleKeyDown(e, categoryIndex, questionIndex)}
-        >
-          <span className={cn(
-            'font-medium text-gray-900 pr-4',
-            highlightFeatured && question.featured && 'text-blue-900'
-          )}>
-            {question.question}
-          </span>
-          <div className="flex-shrink-0">
-            {isOpen ? (
-              <ChevronUpIcon className="w-5 h-5 text-gray-500" />
-            ) : (
-              <ChevronDownIcon className="w-5 h-5 text-gray-500" />
-            )}
-          </div>
-        </button>
-        
-        <div
-          id={`answer-${questionId}`}
-          className={cn(
-            'overflow-hidden transition-all duration-300 ease-in-out',
-            isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-          )}
-          role="region"
-          aria-labelledby={`question-${questionId}`}
-        >
-          <div className="px-6 pb-4 pt-2 border-t border-gray-100">
-            <RichTextRenderer
-              content={question.answer}
-              className="prose prose-gray max-w-none text-gray-600"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
+      <div className="hidden lg:flex justify-center items-center bg-white px-6 lg:px-24 py-12 md:py-16 lg:py-[92px]">
+        <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-[68px] w-full container">
 
-  const renderCategoryTabs = () => {
-    if (!showCategoryTabs || faqCategories.length <= 1) return null;
-
-    return (
-      <div className="flex flex-wrap gap-2 mb-8">
-        {faqCategories.map((category, index) => (
-          <button
-            key={index}
-            onClick={() => setActiveCategory(index)}
-            className={cn(
-              'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-              activeCategory === index
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            )}
-          >
-            {category.categoryName}
-          </button>
-        ))}
-      </div>
-    );
-  };
-
-  const renderTwoColumnLayout = () => {
-    const leftCategories = faqCategories.filter((_, index) => index % 2 === 0);
-    const rightCategories = faqCategories.filter((_, index) => index % 2 === 1);
-
-    return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-        {/* Left Column */}
-        <div className="space-y-8">
-          {leftCategories.map((category, categoryIndex) => {
-            const actualIndex = categoryIndex * 2;
-            return (
-              <div key={actualIndex}>
-                {faqCategories.length > 1 && (
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                    {category.categoryName}
-                  </h3>
-                )}
-                <div className="space-y-4">
-                  {category.questions.map((question, questionIndex) =>
-                    renderQuestion(question, actualIndex, questionIndex)
-                  )}
-                </div>
+          {/* Left Column - FAQ Items */}
+          <div className="w-full lg:max-w-[358px] xl:max-w-[480px] lg:flex-shrink-0">
+            <div className="flex flex-col items-start gap-4 lg:gap-6 self-stretch">
+              <div className="flex flex-col items-start self-stretch">
+                {allQuestions.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => setActiveItem(item.id)}
+                    className={cn(
+                      'flex py-4 lg:py-6 justify-center items-center gap-3 lg:gap-4 self-stretch cursor-pointer transition-colors',
+                      activeItem === item.id ? 'bg-gray-50/20' : 'hover:bg-gray-50/10'
+                    )}
+                  >
+                    {activeItem === item.id ? (
+                      <QuestionMarkCircleIcon className="w-6 h-6 lg:w-8 lg:h-8 text-[#1D6EE7] flex-shrink-0 " strokeWidth={2} />
+                    ) : (
+                      <div className="w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0"></div>
+                    )}
+                    <div className={cn(
+                      'flex-1 text-[#4D525E] font-dm-sans text-xl lg:text-2xl leading-[28px] lg:leading-[30px]',
+                      activeItem === item.id ? 'font-bold' : 'font-normal'
+                    )}>
+                      {item.question}
+                    </div>
+                    {activeItem === item.id && (
+                      <ChevronRightIcon className="w-5 h-5 lg:w-6 lg:h-6 text-black transform -rotate-90 flex-shrink-0" strokeWidth={2} />
+                    )}
+                  </div>
+                ))}
               </div>
-            );
-          })}
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-8">
-          {rightCategories.map((category, categoryIndex) => {
-            const actualIndex = categoryIndex * 2 + 1;
-            return (
-              <div key={actualIndex}>
-                {faqCategories.length > 1 && (
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                    {category.categoryName}
-                  </h3>
-                )}
-                <div className="space-y-4">
-                  {category.questions.map((question, questionIndex) =>
-                    renderQuestion(question, actualIndex, questionIndex)
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  const renderSingleColumnLayout = () => {
-    return (
-      <div className="max-w-4xl mx-auto space-y-8">
-        {faqCategories.map((category, categoryIndex) => (
-          <div key={categoryIndex}>
-            {faqCategories.length > 1 && (
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                {category.categoryName}
-              </h3>
-            )}
-            <div className="space-y-4">
-              {category.questions.map((question, questionIndex) =>
-                renderQuestion(question, categoryIndex, questionIndex)
-              )}
             </div>
           </div>
-        ))}
-      </div>
-    );
-  };
 
-  const renderTabbedLayout = () => {
-    const currentCategory = faqCategories[activeCategory];
-    
-    return (
-      <div className="max-w-4xl mx-auto">
-        {renderCategoryTabs()}
-        <div className="space-y-4">
-          {currentCategory?.questions.map((question, questionIndex) =>
-            renderQuestion(question, activeCategory, questionIndex)
-          )}
+          {/* Right Column - Content */}
+          <div className="flex flex-col items-start gap-6 lg:gap-8 flex-1 w-full">
+            <div className="flex flex-col justify-center items-center gap-8 lg:gap-[58px] self-stretch">
+              <div className="flex p-4 md:p-6 lg:p-8 items-start gap-8 lg:gap-12 self-stretch rounded-[14px] bg-gray-50/20 lg:bg-transparent">
+                {activeItemData && (
+                  <div className="flex flex-col items-start gap-6 lg:gap-8 flex-1">
+                    <div className="self-stretch">
+                      <RichTextRenderer
+                        content={activeItemData.answer}
+                        className="prose prose-gray max-w-none text-[#4D525E]"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   };
 
-  const renderContent = () => {
-    switch (layout) {
-      case 'singleColumn':
-        return renderSingleColumnLayout();
-      case 'tabbed':
-        return renderTabbedLayout();
-      case 'twoColumn':
-      default:
-        return renderTwoColumnLayout();
-    }
+  const renderMobileLayout = () => {
+    return (
+      <div className="lg:hidden space-y-4">
+        {allQuestions.map((item) => {
+          const isOpen = isQuestionOpen(item.id);
+          return (
+            <div
+              key={item.id}
+              className={cn(
+                ' rounded-lg overflow-hidden transition-all duration-200',
+                highlightFeatured && item.featured && '',
+                isOpen && ''
+              )}
+            >
+              <button
+                onClick={() => handleQuestionClick(item.id)}
+                className={cn(
+                  'w-full px-6 py-4 text-left flex items-center justify-between',
+                  '',
+                  'focus:outline-none ',
+                  highlightFeatured && item.featured && ''
+                )}
+                aria-expanded={isOpen}
+                onKeyDown={(e) => handleKeyDown(e, item.id)}
+              >
+                <span className={cn(
+                  'font-medium text-gray-900 pr-4',
+                  highlightFeatured && item.featured && ''
+                )}>
+                  {item.question}
+                </span>
+                <div className="flex-shrink-0">
+                  {isOpen ? (
+                    <ChevronUpIcon className="w-5 h-5 text-gray-500" />
+                  ) : (
+                    <ChevronDownIcon className="w-5 h-5 text-gray-500" />
+                  )}
+                </div>
+              </button>
+
+              <div
+                className={cn(
+                  'overflow-hidden transition-all duration-300 ease-in-out',
+                  isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                )}
+              >
+                <div className="px-6 pb-4 pt-2 border-t border-gray-100">
+                  <RichTextRenderer
+                    content={item.answer}
+                    className="prose prose-gray max-w-none text-gray-600"
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
   };
+
+
+
+
 
   return (
     <section
@@ -285,31 +241,36 @@ export function FAQSection({
         topPadding,
         bottomPadding,
         'relative',
-        fullWidth ? 'w-full' : 'container mx-auto'
+        fullWidth ? 'w-full' : 'container mx-auto w-full'
       )}
       style={{
         backgroundColor: backgroundColor?.hex || undefined,
       }}
     >
-      <div className="px-6 lg:px-24">
-        {/* Header */}
-        <div className="text-center mb-12">
+      {/* Header */}
+      {(title || description) && (
+        <div className="text-center mb-12 px-6 lg:px-24">
           {title && (
             <RichTextRenderer
               content={title}
-              className="prose prose-gray max-w-none mb-4"
+              className="prose prose-gray max-w-none mb-8"
             />
           )}
           {description && (
             <RichTextRenderer
               content={description}
-              className="prose prose-gray max-w-none text-gray-600"
+              className="prose prose-gray max-w-[846px] mx-auto w-full text-gray-600"
             />
           )}
         </div>
+      )}
 
-        {/* FAQ Content */}
-        {renderContent()}
+      {/* Desktop Layout */}
+      {renderDesktopLayout()}
+
+      {/* Mobile Layout */}
+      <div className="px-6 lg:px-24">
+        {renderMobileLayout()}
       </div>
     </section>
   );
