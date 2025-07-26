@@ -32,6 +32,7 @@ import { testimonialSectionType } from './sections/testimonialSectionType'
 import { servicesSectionType } from './sections/servicesSectionType'
 import { tryCarsuBannerType } from './sections/tryCarsuBannerType'
 import { contactFormSectionType } from './sections/contactFormSectionType'
+import { faqSectionType } from './sections/faqSectionType'
 
 // Legacy block content (keeping for backward compatibility)
 import { blockContentType } from './blockContentType'
@@ -71,6 +72,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     servicesSectionType,
     tryCarsuBannerType,
     contactFormSectionType,
+    faqSectionType,
 
     // Legacy types (for backward compatibility)
     blockContentType,

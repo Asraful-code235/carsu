@@ -431,6 +431,33 @@ export const HOME_PAGE_QUERY = defineQuery(`
           layout,
           fullWidth
         }
+      },
+      _type == 'faqSection' => {
+        type,
+        title,
+        description,
+        faqCategories[] {
+          categoryName,
+          questions[] {
+            question,
+            answer,
+            featured
+          }
+        },
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        },
+        settings {
+          layout,
+          showCategoryTabs,
+          allowMultipleOpen,
+          highlightFeatured,
+          fullWidth
+        }
       }
     }
   }
@@ -865,6 +892,33 @@ export const PAGE_BY_SLUG_QUERY = defineQuery(`
         },
         settings {
           layout,
+          fullWidth
+        }
+      },
+      _type == 'faqSection' => {
+        type,
+        title,
+        description,
+        faqCategories[] {
+          categoryName,
+          questions[] {
+            question,
+            answer,
+            featured
+          }
+        },
+        backgroundColor {
+          hex
+        },
+        padding {
+          top,
+          bottom
+        },
+        settings {
+          layout,
+          showCategoryTabs,
+          allowMultipleOpen,
+          highlightFeatured,
           fullWidth
         }
       }

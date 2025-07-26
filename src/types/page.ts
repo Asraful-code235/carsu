@@ -402,7 +402,35 @@ export interface ContactFormSection {
   };
 }
 
-export type PageSection = HeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection;
+export interface FAQSection {
+  type: 'faq';
+  title?: any[]; // Rich text array
+  description?: any[]; // Rich text array
+  faqCategories: Array<{
+    categoryName: string;
+    questions: Array<{
+      question: string;
+      answer: any[]; // Rich text array
+      featured: boolean;
+    }>;
+  }>;
+  backgroundColor?: {
+    hex: string;
+  };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+  settings?: {
+    layout: 'twoColumn' | 'singleColumn' | 'tabbed';
+    showCategoryTabs?: boolean;
+    allowMultipleOpen?: boolean;
+    highlightFeatured?: boolean;
+    fullWidth?: boolean;
+  };
+}
+
+export type PageSection = HeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection;
 
 export interface PageConfiguration {
   _id: string;

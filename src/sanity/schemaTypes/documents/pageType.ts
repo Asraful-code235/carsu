@@ -50,6 +50,7 @@ export const pageType = defineType({
         { type: 'testimonialSection' },
         { type: 'tryCarsuBanner' },
         { type: 'contactFormSection' },
+        { type: 'faqSection' },
       ],
       options: {
         sortable: true,
