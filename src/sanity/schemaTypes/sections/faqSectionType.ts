@@ -17,15 +17,15 @@ export const faqSectionType = defineType({
     defineField({
       name: 'title',
       title: 'Section Title',
-      type: 'richTextBlock',
-      description: 'Main heading for the FAQ section',
+      type: 'localeRichTextBlock',
+      description: 'Main heading for the FAQ section (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Section Description',
-      type: 'richTextBlock',
-      description: 'Introductory text below the title',
+      type: 'localeRichTextBlock',
+      description: 'Introductory text below the title (localized)',
     }),
     defineField({
       name: 'faqCategories',
@@ -64,9 +64,9 @@ export const faqSectionType = defineType({
                     defineField({
                       name: 'answer',
                       title: 'Answer',
-                      type: 'richTextBlock',
+                      type: 'localeRichTextBlock',
                       validation: (Rule) => Rule.required(),
-                      description: 'Detailed answer with rich text formatting',
+                      description: 'Detailed answer with rich text formatting (localized)',
                     }),
                     defineField({
                       name: 'featured',

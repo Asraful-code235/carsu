@@ -102,9 +102,9 @@ export interface HeroSection {
 
 export interface AboutSection {
   type: 'about';
-  title: any[]; // Rich text array (Portable Text)
+  title: any; // Localized rich text object
   subtitle?: string;
-  content?: any[]; // Rich text array (Portable Text)
+  content?: any; // Localized rich text object
   layout?: 'textOnly' | 'textWithImage' | 'twoColumns';
   image?: {
     image?: {

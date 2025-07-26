@@ -17,15 +17,15 @@ export const tryCarsuBannerType = defineType({
     defineField({
       name: 'title',
       title: 'Banner Title',
-      type: 'richTextBlock',
-      description: 'Main heading for the banner',
+      type: 'localeRichTextBlock',
+      description: 'Main heading for the banner (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'richTextBlock',
-      description: 'Supporting text below the title',
+      type: 'localeRichTextBlock',
+      description: 'Supporting text below the title (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

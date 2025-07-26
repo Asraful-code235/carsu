@@ -4,7 +4,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue } from "@/lib/i18n/utils";
+import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface CTAButton {
   text: any; // Localized string
@@ -37,7 +37,7 @@ interface BackgroundElement {
 
 interface HeroSectionData {
   type: 'hero';
-  heading: any[]; // Rich text array (Portable Text)
+  heading: any; // Localized rich text object
   subtitle: any; // Localized string
   ctaButtons?: CTAButton[];
   heroImage: {
@@ -143,7 +143,7 @@ export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
           <div className="max-w-4xl mx-auto mb-8">
             <div className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
               <RichTextRenderer
-                content={heading}
+                content={getLocalizedRichText(heading, locale)}
                 className="prose-headings:text-4xl prose-headings:sm:text-5xl prose-headings:lg:text-6xl prose-headings:font-bold prose-headings:leading-tight prose-headings:text-gray-900 prose-headings:mb-0"
               />
             </div>

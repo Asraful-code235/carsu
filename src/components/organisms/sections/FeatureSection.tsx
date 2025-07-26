@@ -11,7 +11,7 @@ import { Badge } from "@/components/atoms/ui/Badge";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue } from "@/lib/i18n/utils";
+import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface FeatureSectionProps {
   data: {
@@ -36,14 +36,14 @@ interface FeatureSectionProps {
       variant: "filled" | "outline" | "soft";
       size: "sm" | "md" | "lg";
     };
-    title: any[];
+    title: any; // Localized rich text object
     subtitle?: any; // Localized string
-    description?: any[];
+    description?: any; // Localized rich text object
     features?: Array<{
       text: any; // Localized string
       icon: "check" | "star" | "arrowRight" | "plus";
     }>;
-    subdescription?: any[];
+    subdescription?: any; // Localized rich text object
     ctaButtons?: Array<{
       text: any; // Localized string
       href: string;
@@ -159,7 +159,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
     <div className="flex flex-col justify-center w-full">
       {/* Title */}
       <div className={alignmentClasses}>
-        <RichTextRenderer content={title} className="mb-4" />
+        <RichTextRenderer content={getLocalizedRichText(title, locale)} className="mb-4" />
       </div>
 
       {/* Badge */}
@@ -185,7 +185,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
       {/* Description */}
       {description && (
         <div className={cn("mb-6", alignmentClasses)}>
-          <RichTextRenderer content={description} />
+          <RichTextRenderer content={getLocalizedRichText(description, locale)} />
         </div>
       )}
 
@@ -197,7 +197,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
             return (
               <li key={index} className="flex items-center">
                 <IconComponent className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">{feature.text}</span>
+                <span className="text-gray-700">{getLocalizedValue(feature.text, locale)}</span>
               </li>
             );
           })}
@@ -207,7 +207,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
       {/* Sub Description */}
       {subdescription && (
         <div className={cn("mb-6", alignmentClasses)}>
-          <RichTextRenderer content={subdescription} />
+          <RichTextRenderer content={getLocalizedRichText(subdescription, locale)} />
         </div>
       )}
 
@@ -236,7 +236,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
                   buttonVariants[button.variant]
                 )}
               >
-                {button.text}
+                {getLocalizedValue(button.text, locale)}
               </Link>
             );
           })}

@@ -34,8 +34,8 @@ export const featureSectionType = defineType({
     defineField({
       name: 'title',
       title: 'Section Title',
-      type: 'richTextBlock',
-      description: 'Use colored text marks for highlighted words like "ultimate tool"',
+      type: 'localeRichTextBlock',
+      description: 'Use colored text marks for highlighted words like "ultimate tool" (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -47,8 +47,8 @@ export const featureSectionType = defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'richTextBlock',
-      description: 'Main content description',
+      type: 'localeRichTextBlock',
+      description: 'Main content description (localized)',
     }),
     defineField({
       name: 'features',
@@ -61,8 +61,8 @@ export const featureSectionType = defineType({
     defineField({
       name: 'subdescription',
       title: 'Sub Description',
-      type: 'richTextBlock',
-      description: 'Additional description text that appears below the feature list',
+      type: 'localeRichTextBlock',
+      description: 'Additional description text that appears below the feature list (localized)',
     }),
     defineField({
       name: 'ctaButtons',

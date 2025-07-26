@@ -12,6 +12,7 @@ import { pageType } from './documents/pageType'
 
 // Object types
 import { richTextBlockObject } from './objects/richTextBlock'
+import { localeRichTextBlockObject } from './objects/localeRichTextBlock'
 import { ctaButtonObject } from './objects/ctaButton'
 import { imageWithAltObject } from './objects/imageWithAlt'
 import { seoFieldsObject } from './objects/seoFields'
@@ -52,6 +53,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 
     // Object types
     richTextBlockObject,
+    localeRichTextBlockObject,
     ctaButtonObject,
     imageWithAltObject,
     seoFieldsObject,

@@ -17,8 +17,8 @@ export const heroSectionType = defineType({
     defineField({
       name: 'heading',
       title: 'Main Heading',
-      type: 'richTextBlock',
-      description: 'Main hero heading with colored text support',
+      type: 'localeRichTextBlock',
+      description: 'Main hero heading with colored text support (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

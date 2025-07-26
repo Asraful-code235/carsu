@@ -18,8 +18,8 @@ export const testimonialSectionType = defineType({
     defineField({
       name: 'title',
       title: 'Section Title',
-      type: 'richTextBlock',
-      description: 'Main title for the testimonials section',
+      type: 'localeRichTextBlock',
+      description: 'Main title for the testimonials section (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

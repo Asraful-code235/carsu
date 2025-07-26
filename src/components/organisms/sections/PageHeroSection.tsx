@@ -1,12 +1,13 @@
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface PageHeroSectionProps {
   data: {
     type: "pageHero";
-    title: any[]; // Rich text array (Portable Text)
-    description: any[]; // Rich text array (Portable Text)
+    title: any; // Localized rich text object
+    description: any; // Localized rich text object
     textAlign: "left" | "center" | "right";
     backgroundColor?: {
       hex: string;
@@ -59,14 +60,14 @@ export function PageHeroSection({ data, locale = 'en' }: PageHeroSectionProps) {
           <div className={cn("order-1", alignmentClass)}>
             {/* Hero Title */}
             <RichTextRenderer
-              content={title}
+              content={getLocalizedRichText(title, locale)}
               className="prose-headings:text-4xl prose-headings:md:text-5xl prose-headings:lg:text-6xl prose-headings:font-bold prose-headings:leading-tight prose-headings:text-[#363849] prose-headings:mb-0"
             />
           </div>
 
           <div className="order-2">
             <RichTextRenderer
-              content={description}
+              content={getLocalizedRichText(description, locale)}
               className="prose-p:text-lg prose-p:text-[#4D525E] prose-p:leading-relaxed prose-p:mb-0"
             />
           </div>

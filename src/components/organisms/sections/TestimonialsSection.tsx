@@ -6,12 +6,13 @@ import { TestimonialCard } from '@/components/molecules/cards/TestimonialCard';
 import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
 import { cn } from '@/lib/utils/cn';
 import type { Locale } from '@/lib/i18n/config';
+import { getLocalizedValue, getLocalizedRichText } from '@/lib/i18n/utils';
 
 interface TestimonialsSectionProps {
   data: {
     type: 'testimonials';
-    title: any[];
-    subtitle?: string;
+    title: any; // Localized rich text object
+    subtitle?: any; // Localized string
     testimonials: Array<{
       _id: string;
       name: string;
@@ -151,13 +152,13 @@ export function TestimonialsSection({ data, locale = 'en' }: TestimonialsSection
         <div className={cn("mb-16 lg:mb-20", `text-${styling.textAlign}`)}>
           <div className="mb-6">
             <RichTextRenderer
-              content={data.title}
+              content={getLocalizedRichText(data.title, locale)}
               className="prose-headings:text-4xl prose-headings:md:text-5xl prose-headings:lg:text-6xl prose-headings:font-bold prose-headings:leading-tight prose-headings:text-[#363849] prose-headings:mb-0"
             />
           </div>
           {data.subtitle && (
             <p className="text-xl text-[#4D525E] leading-relaxed max-w-3xl mx-auto">
-              {data.subtitle}
+              {getLocalizedValue(data.subtitle, locale)}
             </p>
           )}
         </div>

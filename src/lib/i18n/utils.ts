@@ -1,4 +1,4 @@
-import type { Locale } from './config';
+import type { Locale } from '@/lib/i18n/config';
 
 // Type for Sanity localized string object
 export interface LocalizedString {
@@ -12,6 +12,13 @@ export interface LocalizedStringArray {
   _type: string;
   _key: string;
   value: string;
+}
+
+// Type for Sanity localized rich text object
+export interface LocalizedRichText {
+  en?: any[]; // Rich text array (Portable Text)
+  es?: any[]; // Rich text array (Portable Text)
+  it?: any[]; // Rich text array (Portable Text)
 }
 
 /**
@@ -57,6 +64,39 @@ export function getLocalizedValue(
   }
 
   return '';
+}
+
+/**
+ * Extract localized rich text content from Sanity localized rich text field
+ * Returns the rich text array for the specified locale with fallback to English
+ */
+export function getLocalizedRichText(
+  localizedRichText: LocalizedRichText | any[] | undefined,
+  locale: Locale = 'en'
+): any[] {
+  // Handle undefined or null
+  if (!localizedRichText) {
+    return [];
+  }
+
+  // Handle plain rich text array (non-localized content)
+  if (Array.isArray(localizedRichText)) {
+    return localizedRichText;
+  }
+
+  // Handle localized rich text object
+  if (typeof localizedRichText === 'object') {
+    const content = localizedRichText[locale];
+    if (content && Array.isArray(content)) {
+      return content;
+    }
+
+    // Fallback to English
+    const fallbackContent = localizedRichText.en;
+    return Array.isArray(fallbackContent) ? fallbackContent : [];
+  }
+
+  return [];
 }
 
 /**
@@ -107,8 +147,8 @@ export function getAvailableLocales(
 
   if (typeof localizedField === 'object') {
     return Object.entries(localizedField)
-      .filter(([_, value]) => value)
-      .map(([key, _]) => key as Locale);
+      .filter(([, value]) => value)
+      .map(([key]) => key as Locale);
   }
 
   return [];

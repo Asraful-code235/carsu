@@ -22,9 +22,9 @@ export const contentSectionType = defineType({
     defineField({
       name: "content",
       title: "Content",
-      type: "richTextBlock",
+      type: "localeRichTextBlock",
       validation: (Rule) => Rule.required(),
-      description: "Main content with rich text formatting and colored text support",
+      description: "Main content with rich text formatting and colored text support (localized)",
     }),
     defineField({
       name: "backgroundImage",

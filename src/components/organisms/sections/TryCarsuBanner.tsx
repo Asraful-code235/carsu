@@ -4,12 +4,13 @@ import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Locale } from '@/lib/i18n/config';
+import { getLocalizedValue, getLocalizedRichText } from '@/lib/i18n/utils';
 
 interface TryCarsuBannerProps {
-  title?: any[]; // Rich text array (Portable Text)
-  description?: any[]; // Rich text array (Portable Text)
+  title?: any; // Localized rich text object
+  description?: any; // Localized rich text object
   ctaButton?: {
-    text: string;
+    text: any; // Localized string
     href: string;
     variant: 'primary' | 'secondary' | 'outline' | 'ghost';
     openInNewTab: boolean;
@@ -152,14 +153,14 @@ export function TryCarsuBanner({
             <div className={textContentClasses}>
               {title && (
                 <RichTextRenderer
-                  content={title}
+                  content={getLocalizedRichText(title, locale)}
                   extraClassName="text-white font-bold text-3xl lg:text-4xl leading-tight text-left"
                 />
               )}
 
               {description && (
                 <RichTextRenderer
-                  content={description}
+                  content={getLocalizedRichText(description, locale)}
                   extraClassName="text-white text-lg leading-relaxed"
                   textWhite={true}
                 />
@@ -185,7 +186,7 @@ export function TryCarsuBanner({
                       color: backgroundColor?.hex || '#2563eb',
                     }}
                   >
-                    {ctaButton.text}
+                    {getLocalizedValue(ctaButton.text, locale)}
                   </Link>
                 </div>
               )}

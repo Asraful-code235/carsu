@@ -22,16 +22,16 @@ export const pageHeroSectionType = defineType({
     defineField({
       name: "title",
       title: "Hero Title",
-      type: "richTextBlock",
+      type: "localeRichTextBlock",
       validation: (Rule) => Rule.required(),
-      description: "Main hero title with rich text formatting and colored text support",
+      description: "Main hero title with rich text formatting and colored text support (localized)",
     }),
     defineField({
       name: "description",
       title: "Hero Description",
-      type: "richTextBlock",
+      type: "localeRichTextBlock",
       validation: (Rule) => Rule.required(),
-      description: "Hero description/subtitle with rich text formatting",
+      description: "Hero description/subtitle with rich text formatting (localized)",
     }),
     defineField({
       name: "textAlign",

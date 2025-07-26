@@ -6,10 +6,10 @@ import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
 import { ChevronDownIcon, ChevronUpIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import type { Locale } from '@/lib/i18n/config';
-
+import { getLocalizedRichText } from '@/lib/i18n/utils';
 interface FAQQuestion {
   question: string;
-  answer: any[]; // Rich text array
+  answer: any; // Localized rich text object
   featured: boolean;
 }
 
@@ -19,8 +19,8 @@ interface FAQCategory {
 }
 
 interface FAQSectionProps {
-  title?: any[]; // Rich text array
-  description?: any[]; // Rich text array
+  title?: any; // Localized rich text object
+  description?: any; // Localized rich text object
   faqCategories: FAQCategory[];
   backgroundColor?: {
     hex: string;
@@ -160,7 +160,7 @@ export function FAQSection({
                   <div className="flex flex-col items-start gap-6 lg:gap-8 flex-1">
                     <div className="self-stretch">
                       <RichTextRenderer
-                        content={activeItemData.answer}
+                        content={getLocalizedRichText(activeItemData.answer, locale)}
                         className="prose prose-gray max-w-none text-[#4D525E]"
                       />
                     </div>
@@ -222,7 +222,7 @@ export function FAQSection({
               >
                 <div className="px-6 pb-4 pt-2 border-t border-gray-100">
                   <RichTextRenderer
-                    content={item.answer}
+                    content={getLocalizedRichText(item.answer, locale)}
                     className="prose prose-gray max-w-none text-gray-600"
                   />
                 </div>
@@ -255,13 +255,13 @@ export function FAQSection({
         <div className="text-center mb-12 px-6 lg:px-24">
           {title && (
             <RichTextRenderer
-              content={title}
+              content={getLocalizedRichText(title, locale)}
               className="prose prose-gray max-w-none mb-8"
             />
           )}
           {description && (
             <RichTextRenderer
-              content={description}
+              content={getLocalizedRichText(description, locale)}
               className="prose prose-gray max-w-[846px] mx-auto w-full text-gray-600"
             />
           )}

@@ -18,15 +18,15 @@ export const servicesSectionType = defineType({
     defineField({
       name: 'title',
       title: 'Section Title',
-      type: 'richTextBlock',
-      description: 'Main heading for the services section',
+      type: 'localeRichTextBlock',
+      description: 'Main heading for the services section (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Section Description',
-      type: 'richTextBlock',
-      description: 'Description text that appears below the title',
+      type: 'localeRichTextBlock',
+      description: 'Description text that appears below the title (localized)',
     }),
     defineField({
       name: 'services',

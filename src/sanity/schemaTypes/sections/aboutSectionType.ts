@@ -18,9 +18,9 @@ export const aboutSectionType = defineType({
     defineField({
       name: "title",
       title: "Section Title",
-      type: "richTextBlock",
+      type: "localeRichTextBlock",
       validation: (Rule) => Rule.required(),
-      description: "Main title for the about section",
+      description: "Main title for the about section (localized)",
     }),
     defineField({
       name: "subtitle",
@@ -32,8 +32,8 @@ export const aboutSectionType = defineType({
     defineField({
       name: "content",
       title: "Content",
-      type: "richTextBlock",
-      description: "Main about content with rich text formatting",
+      type: "localeRichTextBlock",
+      description: "Main about content with rich text formatting (localized)",
     }),
     defineField({
       name: "layout",

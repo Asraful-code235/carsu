@@ -15,9 +15,10 @@ import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface CTAButton {
-  text: string;
+  text: any; // Localized string
   href: string;
   variant: "primary" | "secondary" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
@@ -42,7 +43,7 @@ interface FeatureListItem {
 interface ContentSectionProps {
   data: {
     type: "content";
-    content: any[]; // Rich text array (Portable Text)
+    content: any; // Localized rich text object
     isContentCenter?: boolean;
     backgroundImage?: {
       image?: {
@@ -199,7 +200,7 @@ export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
         <div className="relative container mx-auto px-6 lg:px-24 py-16 md:py-32">
           <div className="text-center">
             <RichTextRenderer
-              content={content}
+              content={getLocalizedRichText(content, locale)}
               textWhite={true}
               textCenter={true}
               extraClassName="mb-8"
@@ -236,8 +237,8 @@ export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
           {/* Left Column - Rich Text Content */}
           <div className={cn("order-1", alignmentClass)}>
             <RichTextRenderer
-              
-              content={content}
+
+              content={getLocalizedRichText(content, locale)}
               extraClassName="text-[48px] md:text-[64px] xl:!text-[92px] text-white leading-none max-md:text-center max-md:whitespace-nowrap"
             />
           </div>
@@ -321,7 +322,7 @@ export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
                         button.disabled && "opacity-50 cursor-not-allowed"
                       )}
                     >
-                      {button.text}
+                      {getLocalizedValue(button.text, locale)}
                     </Link>
                   );
                 })}

@@ -2,6 +2,7 @@ import type { AboutSection as AboutSectionType } from "@/types/page";
 import type { Locale } from "@/lib/i18n/config";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { cn } from "@/lib/utils/cn";
+import { getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface AboutSectionProps {
   data: AboutSectionType;
@@ -47,7 +48,7 @@ export function AboutSection({ data, locale = 'en' }: AboutSectionProps) {
         <div className={alignmentClass}>
           {/* Title */}
           <RichTextRenderer
-            content={title}
+            content={getLocalizedRichText(title, locale)}
             className="prose prose-gray max-w-none mb-8"
           />
 
@@ -64,7 +65,7 @@ export function AboutSection({ data, locale = 'en' }: AboutSectionProps) {
           {content && (
             <div className="max-w-3xl mx-auto">
               <RichTextRenderer
-                content={content}
+                content={getLocalizedRichText(content, locale)}
                 className="prose prose-gray max-w-none"
               />
             </div>

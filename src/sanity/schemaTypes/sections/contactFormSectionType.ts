@@ -17,8 +17,8 @@ export const contactFormSectionType = defineType({
     defineField({
       name: 'title',
       title: 'Section Title',
-      type: 'richTextBlock',
-      description: 'Main heading for the contact section',
+      type: 'localeRichTextBlock',
+      description: 'Main heading for the contact section (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -38,8 +38,8 @@ export const contactFormSectionType = defineType({
     defineField({
       name: 'formHeading',
       title: 'Form Heading',
-      type: 'richTextBlock',
-      description: 'Heading text for the contact form',
+      type: 'localeRichTextBlock',
+      description: 'Heading text for the contact form (localized)',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

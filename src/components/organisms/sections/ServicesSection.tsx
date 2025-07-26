@@ -23,12 +23,13 @@ import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface ServicesSectionProps {
   data: {
     type: "services";
-    title: any[];
-    description?: any[];
+    title: any; // Localized rich text object
+    description?: any; // Localized rich text object
     services: Array<{
       title: string;
       description: string;
@@ -180,13 +181,13 @@ export function ServicesSection({ data, locale = 'en' }: ServicesSectionProps) {
         <div className={cn("mb-16", alignmentClasses)}>
           {/* Title */}
           <div className="mb-6">
-            <RichTextRenderer content={title} />
+            <RichTextRenderer content={getLocalizedRichText(title, locale)} />
           </div>
 
           {/* Description */}
           {description && (
             <div className="max-w-3xl mx-auto">
-              <RichTextRenderer content={description} />
+              <RichTextRenderer content={getLocalizedRichText(description, locale)} />
             </div>
           )}
         </div>

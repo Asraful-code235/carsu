@@ -6,6 +6,7 @@ import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { Badge } from "@/components/atoms/ui/Badge";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface FormField {
   name: string;
@@ -30,9 +31,9 @@ interface FeatureListItem {
 }
 
 interface ContactFormSectionProps {
-  title?: any[]; // Rich text array
+  title?: any; // Localized rich text object
   badge?: {
-    text: string;
+    text: any; // Localized string
     color:
       | "primary"
       | "success"
@@ -51,10 +52,10 @@ interface ContactFormSectionProps {
     size: "sm" | "md" | "lg";
   };
   features?: FeatureListItem[];
-  formHeading?: any[]; // Rich text array
+  formHeading?: any; // Localized rich text object
   formFields: FormField[];
   submitButton: {
-    text: string;
+    text: any; // Localized string
     href: string;
     variant: "primary" | "secondary" | "outline" | "ghost";
     openInNewTab: boolean;
@@ -129,14 +130,14 @@ export function ContactFormSection({
     <div className="space-y-8">
       {title && (
         <RichTextRenderer
-          content={title}
+          content={getLocalizedRichText(title, locale)}
           className="prose prose-gray max-w-none"
         />
       )}
 
       {badge && (
         <Badge
-          text={badge.text}
+          text={getLocalizedValue(badge.text, locale)}
           color={badge.color}
           customColor={badge.customColor?.hex}
           variant={badge.variant}
@@ -186,7 +187,7 @@ export function ContactFormSection({
       {formHeading && (
         <div className="mb-6">
           <RichTextRenderer
-            content={formHeading}
+            content={getLocalizedRichText(formHeading, locale)}
             className="prose prose-gray max-w-none"
           />
         </div>
@@ -255,7 +256,7 @@ export function ContactFormSection({
             "bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           )}
         >
-          {isSubmitting ? "Submitting..." : submitButton.text}
+          {isSubmitting ? "Submitting..." : getLocalizedValue(submitButton.text, locale)}
         </button>
       </form>
     </div>
