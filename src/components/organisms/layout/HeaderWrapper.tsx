@@ -2,6 +2,36 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { DEFAULT_HEADER_QUERY, SITE_LAYOUT_HEADER_QUERY } from "@/sanity/lib/queries/headerQueries";
 import { Header } from "./Header";
 import type { HeaderConfiguration } from "@/types/header";
+import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedValue } from "@/lib/i18n/utils";
+
+// Function to process localized header data
+function processLocalizedHeaderData(headerData: any, locale: Locale): HeaderConfiguration {
+  return {
+    ...headerData,
+    logo: headerData.logo ? {
+      ...headerData.logo,
+      alt: getLocalizedValue(headerData.logo.alt, locale)
+    } : undefined,
+    navigation: headerData.navigation?.map((item: any) => ({
+      ...item,
+      title: getLocalizedValue(item.title, locale),
+      dropdownItems: item.dropdownItems?.map((dropdownItem: any) => ({
+        ...dropdownItem,
+        title: getLocalizedValue(dropdownItem.title, locale),
+        description: getLocalizedValue(dropdownItem.description, locale),
+        badge: dropdownItem.badge ? {
+          ...dropdownItem.badge,
+          text: getLocalizedValue(dropdownItem.badge.text, locale)
+        } : undefined
+      }))
+    })),
+    ctaButtons: headerData.ctaButtons?.map((button: any) => ({
+      ...button,
+      text: getLocalizedValue(button.text, locale)
+    }))
+  };
+}
 
 interface HeaderWrapperProps {
   headerId?: string;
@@ -9,6 +39,7 @@ interface HeaderWrapperProps {
   sticky?: boolean;
   transparent?: boolean;
   className?: string;
+  locale?: Locale;
 }
 
 export async function HeaderWrapper({
@@ -16,7 +47,8 @@ export async function HeaderWrapper({
   useLayoutConfig = false,
   sticky = true,
   transparent = false,
-  className
+  className,
+  locale = 'en'
 }: HeaderWrapperProps) {
   try {
     let headerData: HeaderConfiguration | null = null;
@@ -44,12 +76,16 @@ export async function HeaderWrapper({
       return null;
     }
 
+    // Process localized content
+    const localizedHeaderData = processLocalizedHeaderData(headerData, locale);
+
     return (
       <Header
-        data={headerData as HeaderConfiguration}
+        data={localizedHeaderData}
         sticky={sticky}
         transparent={transparent}
         className={className}
+        locale={locale}
       />
     );
   } catch (error) {

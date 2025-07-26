@@ -13,8 +13,8 @@ export const ctaButtonObject = {
     defineField({
       name: 'text',
       title: 'Button Text',
-      type: 'string',
-      validation: (Rule) => Rule.required().max(50),
+      type: 'localeString',
+      validation: (Rule) => Rule.required(),
       description: 'Keep button text concise and action-oriented',
     }),
     defineField({

@@ -7,8 +7,11 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { urlFor } from "@/sanity/lib/image";
 import type { HeaderProps, CTAButton, NavigationLink, DropdownItem } from "@/types/header";
+import { LanguageSwitcher } from "@/components/molecules/navigation/LanguageSwitcher";
+import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedValue } from "@/lib/i18n/utils";
 
-export function Header({ data, sticky = true, transparent = false, className }: HeaderProps) {
+export function Header({ data, sticky = true, transparent = false, className, locale = 'en' }: HeaderProps & { locale?: Locale }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -34,14 +37,14 @@ export function Header({ data, sticky = true, transparent = false, className }: 
     
     return (
       <Link
-        key={button.title}
+        key={getLocalizedValue(button.text, locale)}
         href={button.href}
         target={button.openInNewTab ? "_blank" : undefined}
         rel={button.openInNewTab ? "noopener noreferrer" : undefined}
         className={cn(baseClasses, variantClasses[button.variant], mobileClasses)}
         onClick={() => isMobile && setIsMenuOpen(false)}
       >
-        {button.title}
+        {getLocalizedValue(button.text, locale)}
       </Link>
     );
   };
@@ -76,11 +79,11 @@ export function Header({ data, sticky = true, transparent = false, className }: 
         className="block p-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors rounded-lg"
       >
         <div className="flex items-center space-x-2">
-          {showImages && item.image && (
+          {showImages && item.image?.asset && (
             <div className="flex-shrink-0 overflow-hidden">
               <Image
                 src={urlFor(item.image.asset).width(48).height(48).url()}
-                alt={item.image.alt || item.title}
+                alt={getLocalizedValue(item.image.alt, locale) || getLocalizedValue(item.title, locale)}
                 width={48}
                 height={48}
                 className="rounded-lg object-cover object-center"
@@ -90,10 +93,10 @@ export function Header({ data, sticky = true, transparent = false, className }: 
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2">
-              <div className="font-medium text-sm truncate">{item.title}</div>
+              <div className="font-medium text-sm truncate">{getLocalizedValue(item.title, locale)}</div>
             </div>
             {item.description && (
-              <div className="text-xs text-gray-500 mt-1 line-clamp-2">{item.description}</div>
+              <div className="text-xs text-gray-500 mt-1 line-clamp-2">{getLocalizedValue(item.description, locale)}</div>
             )}
           </div>
         </div>
@@ -106,16 +109,16 @@ export function Header({ data, sticky = true, transparent = false, className }: 
       const layout = link.dropdownLayout || { columns: 1, showImages: false, width: 'md' };
 
       return (
-        <div key={link.title} className={cn("relative", isMobile ? "w-full" : "group")}>
+        <div key={getLocalizedValue(link.title, locale)} className={cn("relative", isMobile ? "w-full" : "group")}>
           <button
-            onClick={() => isMobile && handleDropdownToggle(link.title)}
+            onClick={() => isMobile && handleDropdownToggle(getLocalizedValue(link.title, locale))}
             className={cn(
               "flex items-center text-gray-900 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-gray-50",
               isMobile ? "justify-between w-full py-3" : ""
             )}
           >
-            {link.title}
-            <ChevronDown className={cn("ml-2 h-4 w-4", isMobile && openDropdown === link.title && "rotate-180")} />
+            {getLocalizedValue(link.title, locale)}
+            <ChevronDown className={cn("ml-2 h-4 w-4", isMobile && openDropdown === getLocalizedValue(link.title, locale) && "rotate-180")} />
           </button>
 
           {!isMobile && (
@@ -132,7 +135,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
             </div>
           )}
           
-          {isMobile && openDropdown === link.title && (
+          {isMobile && openDropdown === getLocalizedValue(link.title, locale) && (
             <div className="pl-4 border-l-2 border-gray-100 ml-4">
               {link.dropdownItems.map((item) => (
                 <Link
@@ -141,7 +144,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
                   className="block px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.title}
+                  {getLocalizedValue(item.title, locale)}
                 </Link>
               ))}
             </div>
@@ -152,7 +155,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
 
     return (
       <Link
-        key={link.title}
+        key={getLocalizedValue(link.title, locale)}
         href={link.href || "#"}
         className={cn(
           "text-gray-900 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-gray-50",
@@ -160,7 +163,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
         )}
         onClick={() => isMobile && setIsMenuOpen(false)}
       >
-        {link.title}
+        {getLocalizedValue(link.title, locale)}
       </Link>
     );
   };
@@ -198,6 +201,7 @@ export function Header({ data, sticky = true, transparent = false, className }: 
           {/* Desktop CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
             {ctaButtons?.map((button) => renderCTAButton(button, false))}
+            <LanguageSwitcher currentLocale={locale} />
           </div>
 
           {/* Mobile Menu Button */}
@@ -221,6 +225,11 @@ export function Header({ data, sticky = true, transparent = false, className }: 
                   {ctaButtons.map((button) => renderCTAButton(button, true))}
                 </div>
               )}
+
+              {/* Mobile Language Switcher */}
+              <div className="pt-4 border-t border-gray-100 mt-4">
+                <LanguageSwitcher currentLocale={locale} className="w-full" />
+              </div>
             </nav>
           </div>
         )}

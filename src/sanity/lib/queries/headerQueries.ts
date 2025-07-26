@@ -17,12 +17,20 @@ export const HEADER_QUERY = defineQuery(`
           }
         }
       },
-      alt,
+      alt {
+        en,
+        es,
+        it
+      },
       width,
       height
     },
     navigation[] {
-      title,
+      title {
+        en,
+        es,
+        it
+      },
       href,
       hasDropdown,
       dropdownLayout {
@@ -31,24 +39,44 @@ export const HEADER_QUERY = defineQuery(`
         width
       },
       dropdownItems[] {
-        title,
+        title {
+          en,
+          es,
+          it
+        },
         href,
-        description,
+        description {
+          en,
+          es,
+          it
+        },
         image {
           asset-> {
             _id,
             url
           },
-          alt
+          alt {
+            en,
+            es,
+            it
+          }
         },
         badge {
-          text,
+          text {
+            en,
+            es,
+            it
+          },
           color
         }
       }
     },
     ctaButtons[] {
-      title,
+      text {
+        en,
+        es,
+        it
+      },
       href,
       variant,
       openInNewTab
@@ -77,12 +105,20 @@ export const DEFAULT_HEADER_QUERY = defineQuery(`
           }
         }
       },
-      alt,
+      alt {
+        en,
+        es,
+        it
+      },
       width,
       height
     },
     navigation[] {
-      title,
+      title {
+        en,
+        es,
+        it
+      },
       href,
       hasDropdown,
       dropdownLayout {
@@ -91,24 +127,44 @@ export const DEFAULT_HEADER_QUERY = defineQuery(`
         width
       },
       dropdownItems[] {
-        title,
+        title {
+          en,
+          es,
+          it
+        },
         href,
-        description,
+        description {
+          en,
+          es,
+          it
+        },
         image {
           asset-> {
             _id,
             url
           },
-          alt
+          alt {
+            en,
+            es,
+            it
+          }
         },
         badge {
-          text,
+          text {
+            en,
+            es,
+            it
+          },
           color
         }
       }
     },
     ctaButtons[] {
-      title,
+      text {
+        en,
+        es,
+        it
+      },
       href,
       variant,
       openInNewTab
@@ -143,12 +199,20 @@ export const SITE_LAYOUT_HEADER_QUERY = defineQuery(`
                 }
               }
             },
-            alt,
+            alt {
+              en,
+              es,
+              it
+            },
             width,
             height
           },
           navigation[] {
-            title,
+            title {
+              en,
+              es,
+              it
+            },
             href,
             hasDropdown,
             dropdownLayout {
@@ -157,24 +221,44 @@ export const SITE_LAYOUT_HEADER_QUERY = defineQuery(`
               width
             },
             dropdownItems[] {
-              title,
+              title {
+                en,
+                es,
+                it
+              },
               href,
-              description,
+              description {
+                en,
+                es,
+                it
+              },
               image {
                 asset-> {
                   _id,
                   url
                 },
-                alt
+                alt {
+                  en,
+                  es,
+                  it
+                }
               },
               badge {
-                text,
+                text {
+                  en,
+                  es,
+                  it
+                },
                 color
               }
             }
           },
           ctaButtons[] {
-            title,
+            text {
+              en,
+              es,
+              it
+            },
             href,
             variant,
             openInNewTab

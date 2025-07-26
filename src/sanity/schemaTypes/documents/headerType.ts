@@ -26,13 +26,11 @@ export const headerType = defineType({
           options: {
             hotspot: true,
           },
-          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: 'alt',
           title: 'Alt Text',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
+          type: 'localeString',
         }),
         defineField({
           name: 'width',
@@ -59,7 +57,7 @@ export const headerType = defineType({
             defineField({
               name: 'title',
               title: 'Menu Item Title',
-              type: 'string',
+              type: 'localeString',
               validation: (Rule) => Rule.required(),
             }),
             defineField({
@@ -127,7 +125,7 @@ export const headerType = defineType({
                     defineField({
                       name: 'title',
                       title: 'Item Title',
-                      type: 'string',
+                      type: 'localeString',
                       validation: (Rule) => Rule.required(),
                     }),
                     defineField({
@@ -139,8 +137,7 @@ export const headerType = defineType({
                     defineField({
                       name: 'description',
                       title: 'Item Description',
-                      type: 'text',
-                      rows: 2,
+                      type: 'localeString',
                     }),
                     defineField({
                       name: 'image',
@@ -155,7 +152,7 @@ export const headerType = defineType({
                         defineField({
                           name: 'text',
                           title: 'Badge Text',
-                          type: 'string',
+                          type: 'localeString',
                           validation: (Rule) => Rule.max(10),
                         }),
                         defineField({

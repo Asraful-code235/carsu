@@ -18,6 +18,7 @@ import { seoFieldsObject } from './objects/seoFields'
 import { paddingControlsObject } from './objects/paddingControls'
 import { featureListItemObject } from './objects/featureListItem'
 import { colorFieldObject, backgroundColorObject } from './objects/colorField'
+import { localeStringObject } from './objects/localeString'
 
 // Shared types
 import { badgeType } from './shared/badgeType'
@@ -58,6 +59,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     featureListItemObject,
     colorFieldObject,
     backgroundColorObject,
+    localeStringObject,
 
     // Shared types
     badgeType,

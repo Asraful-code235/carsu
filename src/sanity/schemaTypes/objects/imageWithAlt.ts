@@ -16,13 +16,11 @@ export const imageWithAltObject = {
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'alt',
       title: 'Alt Text',
       type: 'string',
-      validation: (Rule) => Rule.required().max(125),
       description: 'Describe the image for screen readers and SEO (max 125 characters)',
     }),
     defineField({
