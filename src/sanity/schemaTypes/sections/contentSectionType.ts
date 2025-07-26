@@ -43,7 +43,7 @@ export const contentSectionType = defineType({
         defineField({
           name: "alt",
           title: "Alt Text",
-          type: "string",
+          type: "localeString",
           description: "Alternative text for the background image",
         }),
         defineField({

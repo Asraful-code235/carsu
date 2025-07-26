@@ -5,6 +5,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries/pageQueries";
 import { isValidLocale } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedValue } from "@/lib/i18n/utils";
 
 interface PageProps {
   params: Promise<{
@@ -38,9 +39,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       };
     }
 
+    const locale: Locale = localeParam;
+
     return {
-      title: pageData.seo?.metaTitle || pageData.title || "Carsu",
-      description: pageData.seo?.metaDescription || "Manage your car shop in one powerful app",
+      title: getLocalizedValue(pageData.seo?.metaTitle, locale) || getLocalizedValue(pageData.title, locale) || "Carsu",
+      description: getLocalizedValue(pageData.seo?.metaDescription, locale) || "Manage your car shop in one powerful app",
       openGraph: pageData.seo?.ogImage ? {
         images: [pageData.seo.ogImage.asset.url],
       } : undefined,
@@ -74,7 +77,7 @@ export default async function Page({ params }: PageProps) {
       notFound();
     }
 
-    return <PageSectionsRenderer sections={pageData.sections || []} />;
+    return <PageSectionsRenderer sections={pageData.sections || []} locale={locale} />;
   } catch (error) {
     console.error("Error fetching page data:", error);
     return (

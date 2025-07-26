@@ -31,7 +31,7 @@ export const footerType = defineType({
         defineField({
           name: 'alt',
           title: 'Alt Text',
-          type: 'string',
+          type: 'localeString',
         }),
         defineField({
           name: 'width',
@@ -64,7 +64,7 @@ export const footerType = defineType({
             defineField({
               name: 'title',
               title: 'Column Title',
-              type: 'string',
+              type: 'localeString',
               validation: (Rule) => Rule.required(),
             }),
             defineField({
@@ -78,7 +78,7 @@ export const footerType = defineType({
                     defineField({
                       name: 'title',
                       title: 'Link Title',
-                      type: 'string',
+                      type: 'localeString',
                       validation: (Rule) => Rule.required(),
                     }),
                     defineField({

@@ -1,6 +1,7 @@
 /**
  * Footer-related GROQ queries for Sanity CMS
  */
+import { LOCALE_STRING_FRAGMENT } from "./fragments";
 
 export const FOOTER_QUERY = `*[_type == "footer"][0] {
   title,
@@ -11,15 +12,15 @@ export const FOOTER_QUERY = `*[_type == "footer"][0] {
         url
       }
     },
-    alt,
+    alt ${LOCALE_STRING_FRAGMENT},
     width,
     height
   },
   description,
   columns[] {
-    title,
+    title ${LOCALE_STRING_FRAGMENT},
     links[] {
-      title,
+      title ${LOCALE_STRING_FRAGMENT},
       href,
       openInNewTab
     }
@@ -28,13 +29,13 @@ export const FOOTER_QUERY = `*[_type == "footer"][0] {
     platform,
     url
   },
-  copyrightText,
+  copyrightText ${LOCALE_STRING_FRAGMENT},
   showBackToTop,
   newsletter {
     enabled,
-    title,
-    description,
-    placeholder,
-    buttonText
+    title ${LOCALE_STRING_FRAGMENT},
+    description ${LOCALE_STRING_FRAGMENT},
+    placeholder ${LOCALE_STRING_FRAGMENT},
+    buttonText ${LOCALE_STRING_FRAGMENT}
   }
 }`;

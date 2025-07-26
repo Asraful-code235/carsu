@@ -10,9 +10,9 @@ export const badgeType = defineType({
     defineField({
       name: 'text',
       title: 'Badge Text',
-      type: 'string',
-      validation: (Rule) => Rule.required().max(50),
-      description: 'Short text for the badge (max 50 characters)',
+      type: 'localeString',
+      validation: (Rule) => Rule.required(),
+      description: 'Short text for the badge',
     }),
     defineField({
       name: 'color',

@@ -1,8 +1,13 @@
 import { sanityFetch } from '@/sanity/lib/live';
 import { FOOTER_QUERY } from '@/sanity/lib/queries/footerQueries';
 import { Footer } from './Footer';
+import type { Locale } from '@/lib/i18n/config';
 
-export async function FooterWrapper() {
+interface FooterWrapperProps {
+  locale?: Locale;
+}
+
+export async function FooterWrapper({ locale = 'en' }: FooterWrapperProps) {
   try {
     const { data: footerData } = await sanityFetch({
       query: FOOTER_QUERY,
@@ -21,7 +26,7 @@ export async function FooterWrapper() {
       );
     }
 
-    return <Footer data={footerData} />;
+    return <Footer data={footerData} locale={locale} />;
   } catch (error) {
     console.error('Error fetching footer data:', error);
     

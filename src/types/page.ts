@@ -102,8 +102,43 @@ export interface HeroSection {
 
 export interface AboutSection {
   type: 'about';
-  title: string;
-  content?: string;
+  title: any[]; // Rich text array (Portable Text)
+  subtitle?: string;
+  content?: any[]; // Rich text array (Portable Text)
+  layout?: 'textOnly' | 'textWithImage' | 'twoColumns';
+  image?: {
+    image?: {
+      asset?: {
+        _id: string;
+        url: string;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
+    alt?: string;
+    caption?: string;
+    width?: number;
+    height?: number;
+    priority?: boolean;
+  };
+  imagePosition?: 'contentLeft' | 'contentRight';
+  stats?: Array<{
+    number: string;
+    label: string;
+    description?: string;
+  }>;
+  textAlign?: 'left' | 'center' | 'right';
+  backgroundColor?: {
+    hex: string;
+  };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
 }
 
 export interface FeatureSection {

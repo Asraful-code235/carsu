@@ -1,935 +1,203 @@
 import { defineQuery } from "next-sanity";
+import { 
+  LOCALE_STRING_FRAGMENT, 
+  LOCALIZED_SEO_FRAGMENT, 
+  LOCALIZED_IMAGE_FRAGMENT, 
+  LOCALIZED_CTA_BUTTON_FRAGMENT,
+  LOCALIZED_BADGE_FRAGMENT,
+  LOCALIZED_FEATURE_ITEM_FRAGMENT,
+  LOCALIZED_TESTIMONIAL_FRAGMENT
+} from "./fragments";
 
-export const HOME_PAGE_QUERY = defineQuery(`
-  *[_type == 'page' && isHomePage == true][0] {
-    _id,
-    title,
-    slug,
-    isHomePage,
-    seo {
-      metaTitle,
-      metaDescription,
-      ogImage {
+// Common section fragments
+const HERO_SECTION_FRAGMENT = `
+  _type == 'heroSection' => {
+    type,
+    heading,
+    subtitle ${LOCALE_STRING_FRAGMENT},
+    ctaButtons[] ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    heroImage ${LOCALIZED_IMAGE_FRAGMENT},
+    backgroundColor {
+      hex,
+      alpha,
+      hsl { h, s, l, a },
+      hsv { h, s, v, a },
+      rgb { r, g, b, a }
+    },
+    backgroundElements[] {
+      image {
         asset-> {
           _id,
           url,
           metadata {
-            dimensions {
-              width,
-              height
-            }
+            dimensions { width, height }
           }
         }
-      }
+      },
+      position { top, left, right, bottom },
+      size,
+      opacity,
+      rotation,
+      zIndex
     },
-    sections[] {
-      _type == 'heroSection' => {
-        type,
-        heading,
-        subtitle,
-        ctaButtons[] {
-          text,
-          href,
-          variant,
-          size,
-          openInNewTab,
-          icon,
-          disabled
-        },
-        heroImage {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          alt,
-          caption,
-          width,
-          height,
-          priority
-        },
-        backgroundColor {
-          hex,
-          alpha,
-          hsl {
-            h,
-            s,
-            l,
-            a
-          },
-          hsv {
-            h,
-            s,
-            v,
-            a
-          },
-          rgb {
-            r,
-            g,
-            b,
-            a
-          }
-        },
-        backgroundElements[] {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          position {
-            top,
-            left,
-            right,
-            bottom
-          },
-          size,
-          opacity,
-          rotation,
-          zIndex
-        },
-        settings {
-          fullHeight,
-          centerContent,
-          showScrollIndicator,
-          parallaxEffect
-        }
-      },
-      _type == 'aboutSection' => {
-        type,
-        title,
-        content
-      },
-      _type == 'pageHeroSection' => {
-        type,
-        title,
-        description,
-        textAlign,
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        }
-      },
-      _type == 'contentSection' => {
-        type,
-        content,
-        isContentCenter,
-        backgroundImage {
-          image {
-            asset-> {
-              _id,
-              url
-            }
-          },
-          alt,
-          position,
-          size,
-          opacity,
-          repeat
-        },
-        backgroundOverlay {
-          color {
-            hex
-          },
-          opacity
-        },
-        sectionItems[] {
-          text,
-          description,
-          icon,
-          iconColor,
-          highlighted,
-          link {
-            href,
-            text,
-            openInNewTab
-          }
-        },
-        ctaButtons[] {
-          text,
-          href,
-          variant,
-          size,
-          openInNewTab,
-          icon,
-          disabled
-        },
-        textAlign,
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        }
-      },
-      _type == 'featureSection' => {
-        type,
-        layout,
-        badge {
-          text,
-          color,
-          customColor {
-            hex
-          },
-          variant,
-          size
-        },
-        title,
-        subtitle,
-        description,
-        features[] {
-          text,
-          icon
-        },
-        subdescription,
-        ctaButtons[] {
-          text,
-          href,
-          variant,
-          openInNewTab
-        },
-        image {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          alt,
-          caption,
-          width,
-          height,
-          priority
-        },
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        },
-        settings {
-          fullWidth,
-          centerContent,
-          imageAspectRatio,
-          textAlignment {
-            desktop,
-            mobile
-          }
-        }
-      },
-      _type == 'servicesSection' => {
-        type,
-        title,
-        description,
-        services[] {
-          title,
-          description,
-          icon
-        },
-        backgroundColor {
-          hex
-        },
-        backgroundImage {
-          image {
-            asset-> {
-              _id,
-              url
-            }
-          },
-          alt,
-          position,
-          size,
-          opacity,
-          repeat
-        },
-        padding {
-          top,
-          bottom
-        },
-        settings {
-          layout,
-          textAlignment {
-            desktop,
-            mobile
-          }
-        }
-      },
-      _type == 'testimonialSection' => {
-        type,
-        title,
-        subtitle,
-        testimonials[]-> {
-          _id,
-          name,
-          title,
-          company,
-          quote,
-          avatar {
-            asset-> {
-              _id,
-              url
-            },
-            alt
-          },
-          rating
-        },
-        displaySettings {
-          itemsPerView {
-            mobile,
-            tablet,
-            desktop
-          },
-          autoplay,
-          autoplaySpeed,
-          showDots,
-          showArrows,
-          infiniteLoop
-        },
-        styling {
-          backgroundColor {
-            hex
-          },
-          textAlign,
-          padding {
-            top,
-            bottom
-          }
-        }
-      },
-      _type == 'tryCarsuBanner' => {
-        type,
-        title,
-        description,
-        ctaButton {
-          text,
-          href,
-          variant,
-          openInNewTab
-        },
-        backgroundColor {
-          hex
-        },
-        mainImage {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          alt,
-          width,
-          height
-        },
-        glowImage {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          alt
-        },
-        padding {
-          top,
-          bottom,
-          left,
-          right
-        },
-        settings {
-          fullWidth,
-          borderRadius,
-          textAlignment {
-            desktop,
-            mobile
-          },
-          imagePosition
-        }
-      },
-      _type == 'contactFormSection' => {
-        type,
-        title,
-        badge {
-          text,
-          color,
-          customColor {
-            hex
-          },
-          variant,
-          size
-        },
-        features[] {
-          text,
-          description,
-          icon,
-          iconColor,
-          highlighted,
-          link {
-            href,
-            text,
-            openInNewTab
-          }
-        },
-        formHeading,
-        formFields[] {
-          name,
-          label,
-          placeholder,
-          type,
-          required,
-          width
-        },
-        submitButton {
-          text,
-          href,
-          variant,
-          openInNewTab
-        },
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        },
-        settings {
-          layout,
-          fullWidth
-        }
-      },
-      _type == 'faqSection' => {
-        type,
-        title,
-        description,
-        faqCategories[] {
-          categoryName,
-          questions[] {
-            question,
-            answer,
-            featured
-          }
-        },
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        },
-        settings {
-          layout,
-          showCategoryTabs,
-          allowMultipleOpen,
-          highlightFeatured,
-          fullWidth
-        }
-      }
+    settings {
+      fullHeight,
+      centerContent,
+      showScrollIndicator,
+      parallaxEffect
     }
+  }
+`;
+
+const FEATURE_SECTION_FRAGMENT = `
+  _type == 'featureSection' => {
+    type,
+    layout,
+    badge ${LOCALIZED_BADGE_FRAGMENT},
+    title,
+    subtitle ${LOCALE_STRING_FRAGMENT},
+    description,
+    features[] ${LOCALIZED_FEATURE_ITEM_FRAGMENT},
+    subdescription,
+    ctaButtons[] ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    image ${LOCALIZED_IMAGE_FRAGMENT},
+    backgroundColor { hex },
+    padding { top, bottom },
+    settings {
+      fullWidth,
+      centerContent,
+      imageAspectRatio,
+      textAlignment { desktop, mobile }
+    }
+  }
+`;
+
+const TESTIMONIAL_SECTION_FRAGMENT = `
+  _type == 'testimonialSection' => {
+    type,
+    title,
+    subtitle ${LOCALE_STRING_FRAGMENT},
+    testimonials[]-> ${LOCALIZED_TESTIMONIAL_FRAGMENT},
+    displaySettings {
+      itemsPerView { mobile, tablet, desktop },
+      autoplay,
+      autoplaySpeed,
+      showDots,
+      showArrows,
+      infiniteLoop
+    },
+    styling {
+      backgroundColor { hex },
+      textAlign,
+      padding { top, bottom }
+    }
+  }
+`;
+
+const TRY_CARSU_BANNER_FRAGMENT = `
+  _type == 'tryCarsuBanner' => {
+    type,
+    title,
+    description,
+    ctaButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    backgroundColor { hex },
+    mainImage ${LOCALIZED_IMAGE_FRAGMENT},
+    glowImage ${LOCALIZED_IMAGE_FRAGMENT},
+    padding { top, bottom, left, right },
+    settings {
+      fullWidth,
+      borderRadius,
+      textAlignment { desktop, mobile },
+      imagePosition
+    }
+  }
+`;
+
+const CONTENT_SECTION_FRAGMENT = `
+  _type == 'contentSection' => {
+    type,
+    content,
+    isContentCenter,
+    backgroundImage {
+      image {
+        asset-> { _id, url }
+      },
+      alt ${LOCALE_STRING_FRAGMENT},
+      position,
+      size,
+      opacity,
+      repeat
+    },
+    backgroundOverlay {
+      color { hex },
+      opacity
+    },
+    sectionItems[] ${LOCALIZED_FEATURE_ITEM_FRAGMENT},
+    ctaButtons[] ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    textAlign,
+    backgroundColor { hex },
+    padding { top, bottom }
+  }
+`;
+
+const PAGE_HERO_SECTION_FRAGMENT = `
+  _type == 'pageHeroSection' => {
+    type,
+    title ${LOCALE_STRING_FRAGMENT},
+    description ${LOCALE_STRING_FRAGMENT},
+    textAlign,
+    backgroundColor { hex },
+    padding { top, bottom }
+  }
+`;
+
+const ABOUT_SECTION_FRAGMENT = `
+  _type == 'aboutSection' => {
+    type,
+    title,
+    content
+  }
+`;
+
+// Combined sections fragment
+const ALL_SECTIONS_FRAGMENT = `
+  sections[] {
+    ${HERO_SECTION_FRAGMENT},
+    ${FEATURE_SECTION_FRAGMENT},
+    ${TESTIMONIAL_SECTION_FRAGMENT},
+    ${TRY_CARSU_BANNER_FRAGMENT},
+    ${CONTENT_SECTION_FRAGMENT},
+    ${PAGE_HERO_SECTION_FRAGMENT},
+    ${ABOUT_SECTION_FRAGMENT}
+  }
+`;
+
+export const HOME_PAGE_QUERY = defineQuery(`
+  *[_type == 'page' && isHomePage == true][0] {
+    _id,
+    title ${LOCALE_STRING_FRAGMENT},
+    slug,
+    isHomePage,
+    seo ${LOCALIZED_SEO_FRAGMENT},
+    ${ALL_SECTIONS_FRAGMENT}
   }
 `);
 
 export const PAGE_BY_SLUG_QUERY = defineQuery(`
   *[_type == 'page' && slug.current == $slug][0] {
     _id,
-    title,
+    title ${LOCALE_STRING_FRAGMENT},
     slug,
     isHomePage,
-    seo {
-      metaTitle,
-      metaDescription,
-      ogImage {
-        asset-> {
-          _id,
-          url,
-          metadata {
-            dimensions {
-              width,
-              height
-            }
-          }
-        }
-      }
-    },
-    sections[] {
-      _type == 'heroSection' => {
-        type,
-        heading,
-        subtitle,
-        ctaButtons[] {
-          text,
-          href,
-          variant,
-          size,
-          openInNewTab,
-          icon,
-          disabled
-        },
-        heroImage {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          alt,
-          caption,
-          width,
-          height,
-          priority
-        },
-        backgroundColor {
-          hex,
-          alpha,
-          hsl {
-            h,
-            s,
-            l,
-            a
-          },
-          hsv {
-            h,
-            s,
-            v,
-            a
-          },
-          rgb {
-            r,
-            g,
-            b,
-            a
-          }
-        },
-        backgroundElements[] {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          position {
-            top,
-            left,
-            right,
-            bottom
-          },
-          size,
-          opacity,
-          rotation,
-          zIndex
-        },
-        settings {
-          fullHeight,
-          centerContent,
-          showScrollIndicator,
-          parallaxEffect
-        }
-      },
-      _type == 'aboutSection' => {
-        type,
-        title,
-        content
-      },
-      _type == 'pageHeroSection' => {
-        type,
-        title,
-        description,
-        textAlign,
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        }
-      },
-      _type == 'contentSection' => {
-        type,
-        content,
-        isContentCenter,
-        backgroundImage {
-          image {
-            asset-> {
-              _id,
-              url
-            }
-          },
-          alt,
-          position,
-          size,
-          opacity,
-          repeat
-        },
-        backgroundOverlay {
-          color {
-            hex
-          },
-          opacity
-        },
-        sectionItems[] {
-          text,
-          description,
-          icon,
-          iconColor,
-          highlighted,
-          link {
-            href,
-            text,
-            openInNewTab
-          }
-        },
-        ctaButtons[] {
-          text,
-          href,
-          variant,
-          size,
-          openInNewTab,
-          icon,
-          disabled
-        },
-        textAlign,
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        }
-      },
-      _type == 'featureSection' => {
-        type,
-        layout,
-        badge {
-          text,
-          color,
-          customColor {
-            hex
-          },
-          variant,
-          size
-        },
-        title,
-        subtitle,
-        description,
-        features[] {
-          text,
-          icon
-        },
-        subdescription,
-        ctaButtons[] {
-          text,
-          href,
-          variant,
-          openInNewTab
-        },
-        image {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          alt,
-          caption,
-          width,
-          height,
-          priority
-        },
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        },
-        settings {
-          fullWidth,
-          centerContent,
-          imageAspectRatio,
-          textAlignment {
-            desktop,
-            mobile
-          }
-        }
-      },
-      _type == 'servicesSection' => {
-        type,
-        title,
-        description,
-        services[] {
-          title,
-          description,
-          icon
-        },
-        backgroundColor {
-          hex
-        },
-        backgroundImage {
-          image {
-            asset-> {
-              _id,
-              url
-            }
-          },
-          alt,
-          position,
-          size,
-          opacity,
-          repeat
-        },
-        padding {
-          top,
-          bottom
-        },
-        settings {
-          layout,
-          textAlignment {
-            desktop,
-            mobile
-          }
-        }
-      },
-      _type == 'testimonialSection' => {
-        type,
-        title,
-        subtitle,
-        testimonials[]-> {
-          _id,
-          name,
-          title,
-          company,
-          quote,
-          avatar {
-            asset-> {
-              _id,
-              url
-            },
-            alt
-          },
-          rating
-        },
-        displaySettings {
-          itemsPerView {
-            mobile,
-            tablet,
-            desktop
-          },
-          autoplay,
-          autoplaySpeed,
-          showDots,
-          showArrows,
-          infiniteLoop
-        },
-        styling {
-          backgroundColor {
-            hex
-          },
-          textAlign,
-          padding {
-            top,
-            bottom
-          }
-        }
-      },
-      _type == 'tryCarsuBanner' => {
-        type,
-        title,
-        description,
-        ctaButton {
-          text,
-          href,
-          variant,
-          openInNewTab
-        },
-        backgroundColor {
-          hex
-        },
-        mainImage {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          alt,
-          width,
-          height
-        },
-        glowImage {
-          image {
-            asset-> {
-              _id,
-              url,
-              metadata {
-                dimensions {
-                  width,
-                  height
-                }
-              }
-            }
-          },
-          alt
-        },
-        padding {
-          top,
-          bottom,
-          left,
-          right
-        },
-        settings {
-          fullWidth,
-          borderRadius,
-          textAlignment {
-            desktop,
-            mobile
-          },
-          imagePosition
-        }
-      },
-      _type == 'contactFormSection' => {
-        type,
-        title,
-        badge {
-          text,
-          color,
-          customColor {
-            hex
-          },
-          variant,
-          size
-        },
-        features[] {
-          text,
-          description,
-          icon,
-          iconColor,
-          highlighted,
-          link {
-            href,
-            text,
-            openInNewTab
-          }
-        },
-        formHeading,
-        formFields[] {
-          name,
-          label,
-          placeholder,
-          type,
-          required,
-          width
-        },
-        submitButton {
-          text,
-          href,
-          variant,
-          openInNewTab
-        },
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        },
-        settings {
-          layout,
-          fullWidth
-        }
-      },
-      _type == 'faqSection' => {
-        type,
-        title,
-        description,
-        faqCategories[] {
-          categoryName,
-          questions[] {
-            question,
-            answer,
-            featured
-          }
-        },
-        backgroundColor {
-          hex
-        },
-        padding {
-          top,
-          bottom
-        },
-        settings {
-          layout,
-          showCategoryTabs,
-          allowMultipleOpen,
-          highlightFeatured,
-          fullWidth
-        }
-      }
-    }
+    seo ${LOCALIZED_SEO_FRAGMENT},
+    ${ALL_SECTIONS_FRAGMENT}
   }
 `);
 
 export const ALL_PAGES_QUERY = defineQuery(`
-  *[_type == 'page'] | order(isHomePage desc, title asc) {
+  *[_type == 'page'] | order(isHomePage desc, title.en asc) {
     _id,
-    title,
+    title ${LOCALE_STRING_FRAGMENT},
     slug,
     isHomePage,
     sections

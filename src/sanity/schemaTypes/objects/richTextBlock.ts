@@ -110,13 +110,13 @@ export const richTextBlockObject = defineType({
       fields: [
         {
           name: 'alt',
-          type: 'string',
+          type: 'localeString',
           title: 'Alternative Text',
           validation: (Rule) => Rule.required(),
         },
         {
           name: 'caption',
-          type: 'string',
+          type: 'localeString',
           title: 'Caption',
         },
       ],

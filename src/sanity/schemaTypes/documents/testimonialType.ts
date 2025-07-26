@@ -16,21 +16,20 @@ export const testimonialType = defineType({
     defineField({
       name: 'title',
       title: 'Job Title / Position',
-      type: 'string',
+      type: 'localeString',
       description: 'e.g., "Shop Owner", "Manager", etc.',
     }),
     defineField({
       name: 'company',
       title: 'Company / Shop Name',
-      type: 'string',
+      type: 'localeString',
     }),
     defineField({
       name: 'quote',
       title: 'Testimonial Quote',
-      type: 'text',
-      rows: 4,
-      validation: (Rule) => Rule.required().max(300),
-      description: 'Keep testimonials concise and impactful (max 300 characters)',
+      type: 'localeString',
+      validation: (Rule) => Rule.required(),
+      description: 'Keep testimonials concise and impactful',
     }),
     defineField({
       name: 'avatar',
@@ -43,7 +42,7 @@ export const testimonialType = defineType({
         defineField({
           name: 'alt',
           title: 'Alt Text',
-          type: 'string',
+          type: 'localeString',
           validation: (Rule) => Rule.required(),
         }),
       ],

@@ -3,9 +3,11 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
+import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedValue } from "@/lib/i18n/utils";
 
 interface CTAButton {
-  text: string;
+  text: any; // Localized string
   href: string;
   variant: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
@@ -36,7 +38,7 @@ interface BackgroundElement {
 interface HeroSectionData {
   type: 'hero';
   heading: any[]; // Rich text array (Portable Text)
-  subtitle: string;
+  subtitle: any; // Localized string
   ctaButtons?: CTAButton[];
   heroImage: {
     image: {
@@ -51,8 +53,8 @@ interface HeroSectionData {
         };
       };
     };
-    alt: string;
-    caption?: string;
+    alt: any; // Localized string
+    caption?: any; // Localized string
     width?: number;
     height?: number;
     priority?: boolean;
@@ -71,9 +73,10 @@ interface HeroSectionData {
 
 interface HeroSectionProps {
   data: HeroSectionData;
+  locale?: Locale;
 }
 
-export function HeroSection({ data }: HeroSectionProps) {
+export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
   const { heading, subtitle, ctaButtons, heroImage, backgroundElements, backgroundColor, settings } = data;
 
   const getSizeClass = (size: string) => {
@@ -149,7 +152,7 @@ export function HeroSection({ data }: HeroSectionProps) {
           {/* Subtitle */}
           <div className="max-w-2xl mx-auto mb-8">
             <p className="text-lg text-[#4D525E] leading-normal">
-              {subtitle}
+              {getLocalizedValue(subtitle, locale)}
             </p>
           </div>
 
@@ -173,7 +176,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                         : "border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     )}
                   >
-                    {button.text}
+                    {getLocalizedValue(button.text, locale)}
                   </Link>
                 );
               })}
@@ -186,7 +189,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               <div className="relative">
                 <Image
                   src={urlFor(heroImage.image.asset).width(2304).height(1440).url()}
-                  alt={heroImage.alt || "Hero image"}
+                  alt={getLocalizedValue(heroImage.alt, locale) || "Hero image"}
                   width={heroImage.width || heroImage.image.asset.metadata?.dimensions?.width || 2304}
                   height={heroImage.height || heroImage.image.asset.metadata?.dimensions?.height || 1440}
                   className="w-full h-auto rounded-2xl"

@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils/cn';
 import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
 import { ChevronDownIcon, ChevronUpIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import type { Locale } from '@/lib/i18n/config';
 
 interface FAQQuestion {
   question: string;
@@ -35,6 +36,7 @@ interface FAQSectionProps {
     highlightFeatured?: boolean;
     fullWidth?: boolean;
   };
+  locale?: Locale;
 }
 
 const paddingClasses = {
@@ -52,6 +54,7 @@ export function FAQSection({
   backgroundColor,
   padding,
   settings,
+  locale = 'en',
 }: FAQSectionProps) {
   // Flatten all questions from all categories for easier handling
   const allQuestions = faqCategories.flatMap((category, categoryIndex) =>

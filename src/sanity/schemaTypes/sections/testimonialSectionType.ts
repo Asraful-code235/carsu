@@ -25,8 +25,7 @@ export const testimonialSectionType = defineType({
     defineField({
       name: 'subtitle',
       title: 'Subtitle',
-      type: 'text',
-      rows: 2,
+      type: 'localeString',
       description: 'Optional subtitle below the main title',
     }),
     defineField({

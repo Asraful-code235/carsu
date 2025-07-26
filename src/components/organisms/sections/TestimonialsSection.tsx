@@ -5,6 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { TestimonialCard } from '@/components/molecules/cards/TestimonialCard';
 import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
 import { cn } from '@/lib/utils/cn';
+import type { Locale } from '@/lib/i18n/config';
 
 interface TestimonialsSectionProps {
   data: {
@@ -49,6 +50,7 @@ interface TestimonialsSectionProps {
       };
     };
   };
+  locale?: Locale;
 }
 
 const paddingClasses = {
@@ -59,7 +61,7 @@ const paddingClasses = {
   xl: 'py-24',
 };
 
-export function TestimonialsSection({ data }: TestimonialsSectionProps) {
+export function TestimonialsSection({ data, locale = 'en' }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(data.displaySettings.itemsPerView.desktop);
 

@@ -20,13 +20,13 @@ export const imageWithAltObject = {
     defineField({
       name: 'alt',
       title: 'Alt Text',
-      type: 'string',
+      type: 'localeString',
       description: 'Describe the image for screen readers and SEO (max 125 characters)',
     }),
     defineField({
       name: 'caption',
       title: 'Caption (Optional)',
-      type: 'string',
+      type: 'localeString',
       description: 'Optional caption displayed below the image',
     }),
     defineField({
@@ -79,7 +79,7 @@ export const simpleImageObject = {
     defineField({
       name: 'alt',
       title: 'Alt Text',
-      type: 'string',
+      type: 'localeString',
       validation: (Rule) => Rule.required(),
     }),
   ],

@@ -1,5 +1,6 @@
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { cn } from "@/lib/utils/cn";
+import type { Locale } from "@/lib/i18n/config";
 
 interface PageHeroSectionProps {
   data: {
@@ -15,6 +16,7 @@ interface PageHeroSectionProps {
       bottom: string;
     };
   };
+  locale?: Locale;
 }
 
 const paddingClasses = {
@@ -31,7 +33,7 @@ const alignmentClasses = {
   right: "text-right md:text-left",
 };
 
-export function PageHeroSection({ data }: PageHeroSectionProps) {
+export function PageHeroSection({ data, locale = 'en' }: PageHeroSectionProps) {
   const { title, description, textAlign, backgroundColor, padding } = data;
 
   const topPadding =

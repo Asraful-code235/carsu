@@ -9,12 +9,14 @@ import { TryCarsuBanner } from "@/components/organisms/sections/TryCarsuBanner";
 import { ContactFormSection } from "@/components/organisms/sections/ContactFormSection";
 import { FAQSection } from "@/components/organisms/sections/FAQSection";
 import type { PageSection } from "@/types/page";
+import type { Locale } from "@/lib/i18n/config";
 
 interface PageSectionsRendererProps {
   sections: PageSection[];
+  locale?: Locale;
 }
 
-export function PageSectionsRenderer({ sections }: PageSectionsRendererProps) {
+export function PageSectionsRenderer({ sections, locale = 'en' }: PageSectionsRendererProps) {
   if (!sections || sections.length === 0) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center">
@@ -35,25 +37,25 @@ export function PageSectionsRenderer({ sections }: PageSectionsRendererProps) {
       {sections.map((section, index) => {
         switch (section.type) {
           case 'hero':
-            return <HeroSection key={index} data={section} />;
+            return <HeroSection key={index} data={section} locale={locale} />;
           case 'about':
-            return <AboutSection key={index} data={section} />;
+            return <AboutSection key={index} data={section} locale={locale} />;
           case 'pageHero':
-            return <PageHeroSection key={index} data={section} />;
+            return <PageHeroSection key={index} data={section} locale={locale} />;
           case 'content':
-            return <ContentSection key={index} data={section} />;
+            return <ContentSection key={index} data={section} locale={locale} />;
           case 'feature':
-            return <FeatureSection key={index} data={section} />;
+            return <FeatureSection key={index} data={section} locale={locale} />;
           case 'services':
-            return <ServicesSection key={index} data={section} />;
+            return <ServicesSection key={index} data={section} locale={locale} />;
           case 'testimonials':
-            return <TestimonialsSection key={index} data={section} />;
+            return <TestimonialsSection key={index} data={section} locale={locale} />;
           case 'tryCarsuBanner':
-            return <TryCarsuBanner key={index} {...section} />;
+            return <TryCarsuBanner key={index} {...section} locale={locale} />;
           case 'contactForm':
-            return <ContactFormSection key={index} {...section} />;
+            return <ContactFormSection key={index} {...section} locale={locale} />;
           case 'faq':
-            return <FAQSection key={index} {...section} />;
+            return <FAQSection key={index} {...section} locale={locale} />;
           default:
             return (
               <div key={index} className="py-8 bg-yellow-50 border border-yellow-200">

@@ -24,8 +24,7 @@ export const heroSectionType = defineType({
     defineField({
       name: 'subtitle',
       title: 'Subtitle',
-      type: 'text',
-      rows: 3,
+      type: 'localeString',
       validation: (Rule) => Rule.required(),
       description: 'Supporting text below the main heading',
     }),

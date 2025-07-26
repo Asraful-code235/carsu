@@ -10,13 +10,15 @@ import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { Badge } from "@/components/atoms/ui/Badge";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
+import type { Locale } from "@/lib/i18n/config";
+import { getLocalizedValue } from "@/lib/i18n/utils";
 
 interface FeatureSectionProps {
   data: {
     type: "feature";
     layout: "contentLeft" | "contentRight";
     badge?: {
-      text: string;
+      text: any; // Localized string
       color:
         | "primary"
         | "success"
@@ -35,15 +37,15 @@ interface FeatureSectionProps {
       size: "sm" | "md" | "lg";
     };
     title: any[];
-    subtitle?: string;
+    subtitle?: any; // Localized string
     description?: any[];
     features?: Array<{
-      text: string;
+      text: any; // Localized string
       icon: "check" | "star" | "arrowRight" | "plus";
     }>;
     subdescription?: any[];
     ctaButtons?: Array<{
-      text: string;
+      text: any; // Localized string
       href: string;
       variant: "primary" | "secondary" | "outline" | "ghost";
       openInNewTab: boolean;
@@ -61,7 +63,7 @@ interface FeatureSectionProps {
           };
         } | null;
       } | null;
-      alt?: string;
+      alt?: any; // Localized string
       caption?: string;
       width?: number;
       height?: number;
@@ -84,6 +86,7 @@ interface FeatureSectionProps {
       };
     };
   };
+  locale?: Locale;
 }
 
 const paddingClasses = {
@@ -108,7 +111,7 @@ const iconComponents = {
   plus: PlusIcon,
 };
 
-export function FeatureSection({ data }: FeatureSectionProps) {
+export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
   const {
     layout,
     badge,

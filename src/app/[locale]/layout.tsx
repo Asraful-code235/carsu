@@ -6,7 +6,7 @@ import { HeaderWrapper } from "@/components/organisms/layout/HeaderWrapper";
 import { ErrorBoundary } from "@/components/molecules/presentation/ErrorBoundary";
 import { FooterWrapper } from "@/components/organisms/layout/FooterWrapper";
 import { SanityLive } from "@/sanity/lib/live";
-import { locales, isValidLocale, defaultLocale } from "@/lib/i18n/config";
+import { locales, isValidLocale } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
 import { notFound } from "next/navigation";
 
@@ -46,7 +46,7 @@ export default async function LocaleLayout({
       <main className="bg-white">
         {children}
       </main>
-      <FooterWrapper />
+      <FooterWrapper locale={locale} />
       <SanityLive />
       {isDraftMode && (
         <>

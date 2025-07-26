@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils/cn";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { Badge } from "@/components/atoms/ui/Badge";
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n/config";
 
 interface FormField {
   name: string;
@@ -69,6 +70,7 @@ interface ContactFormSectionProps {
     layout: "contentLeft" | "contentRight";
     fullWidth?: boolean;
   };
+  locale?: Locale;
 }
 
 const paddingClasses = {
@@ -89,6 +91,7 @@ export function ContactFormSection({
   backgroundColor,
   padding,
   settings,
+  locale = 'en',
 }: ContactFormSectionProps) {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);

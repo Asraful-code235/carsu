@@ -14,6 +14,7 @@ import {
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
+import type { Locale } from "@/lib/i18n/config";
 
 interface CTAButton {
   text: string;
@@ -73,6 +74,7 @@ interface ContentSectionProps {
       bottom: string;
     };
   };
+  locale?: Locale;
 }
 
 const paddingClasses = {
@@ -117,7 +119,7 @@ const iconColorClasses = {
   gray: "text-gray-500",
 };
 
-export function ContentSection({ data }: ContentSectionProps) {
+export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
   const {
     content,
     isContentCenter = false,

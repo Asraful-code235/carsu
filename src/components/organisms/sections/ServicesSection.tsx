@@ -22,6 +22,7 @@ import {
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
+import type { Locale } from "@/lib/i18n/config";
 
 interface ServicesSectionProps {
   data: {
@@ -61,6 +62,7 @@ interface ServicesSectionProps {
       };
     };
   };
+  locale?: Locale;
 }
 
 const paddingClasses = {
@@ -91,7 +93,7 @@ const iconComponents = {
   email: EnvelopeIcon,
 };
 
-export function ServicesSection({ data }: ServicesSectionProps) {
+export function ServicesSection({ data, locale = 'en' }: ServicesSectionProps) {
   const {
     title,
     description,

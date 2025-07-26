@@ -13,15 +13,14 @@ export const featureListItemObject = {
     defineField({
       name: 'text',
       title: 'Feature Text',
-      type: 'string',
-      validation: (Rule) => Rule.required().max(100),
+      type: 'localeString',
+      validation: (Rule) => Rule.required(),
       description: 'Keep feature descriptions concise and clear',
     }),
     defineField({
       name: 'description',
       title: 'Feature Description (Optional)',
-      type: 'text',
-      rows: 2,
+      type: 'localeString',
       description: 'Additional details about this feature',
     }),
     defineField({
@@ -69,8 +68,7 @@ export const featureListItemObject = {
         defineField({
           name: 'text',
           title: 'Link Text',
-          type: 'string',
-          initialValue: 'Learn more',
+          type: 'localeString',
         }),
         defineField({
           name: 'openInNewTab',

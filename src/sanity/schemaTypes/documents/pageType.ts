@@ -10,7 +10,7 @@ export const pageType = defineType({
     defineField({
       name: 'title',
       title: 'Page Title',
-      type: 'string',
+      type: 'localeString',
       description: 'Internal title for this page configuration',
       validation: (Rule) => Rule.required(),
     }),

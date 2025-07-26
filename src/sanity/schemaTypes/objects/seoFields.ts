@@ -12,33 +12,25 @@ export const seoFieldsObject = {
     defineField({
       name: 'metaTitle',
       title: 'Meta Title',
-      type: 'string',
-      validation: (Rule) => 
-        Rule.max(60).warning('Keep under 60 characters for optimal SEO'),
+      type: 'localeString',
       description: 'Title that appears in search results and browser tabs',
     }),
     defineField({
       name: 'metaDescription',
       title: 'Meta Description',
-      type: 'text',
-      rows: 3,
-      validation: (Rule) => 
-        Rule.max(160).warning('Keep under 160 characters for optimal SEO'),
+      type: 'localeString',
       description: 'Description that appears in search results',
     }),
     defineField({
       name: 'ogTitle',
       title: 'Open Graph Title',
-      type: 'string',
-      validation: (Rule) => Rule.max(95),
+      type: 'localeString',
       description: 'Title for social media sharing (optional, defaults to meta title)',
     }),
     defineField({
       name: 'ogDescription',
       title: 'Open Graph Description',
-      type: 'text',
-      rows: 2,
-      validation: (Rule) => Rule.max(200),
+      type: 'localeString',
       description: 'Description for social media sharing (optional, defaults to meta description)',
     }),
     defineField({
@@ -52,7 +44,7 @@ export const seoFieldsObject = {
         defineField({
           name: 'alt',
           title: 'Alt Text',
-          type: 'string',
+          type: 'localeString',
           validation: (Rule) => Rule.required(),
         }),
       ],

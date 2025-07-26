@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { PageSectionsRenderer } from "@/components/organisms/layout/PageSectionsRenderer";
 import { sanityFetch } from "@/sanity/lib/live";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries/pageQueries";
-import { isValidLocale, defaultLocale } from "@/lib/i18n/config";
+import { isValidLocale } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
 import { notFound } from "next/navigation";
+import { getLocalizedValue } from "@/lib/i18n/utils";
 
 interface HomePageProps {
   params: Promise<{
@@ -34,9 +35,11 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       };
     }
 
+    const locale: Locale = localeParam;
+
     return {
-      title: pageData.seo?.metaTitle || pageData.title || "Carsu - Car Shop Management",
-      description: pageData.seo?.metaDescription || "Manage your car shop in one powerful app",
+      title: getLocalizedValue(pageData.seo?.metaTitle, locale) || getLocalizedValue(pageData.title, locale) || "Carsu - Car Shop Management",
+      description: getLocalizedValue(pageData.seo?.metaDescription, locale) || "Manage your car shop in one powerful app",
       openGraph: pageData.seo?.ogImage ? {
         images: [pageData.seo.ogImage.asset.url],
       } : undefined,
@@ -79,7 +82,7 @@ export default async function Home({ params }: HomePageProps) {
       );
     }
 
-    return <PageSectionsRenderer sections={pageData.sections || []} />;
+    return <PageSectionsRenderer sections={pageData.sections || []} locale={locale} />;
   } catch (error) {
     console.error("Error fetching page data:", error);
     return (
