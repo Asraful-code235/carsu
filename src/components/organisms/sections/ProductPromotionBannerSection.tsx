@@ -68,9 +68,9 @@ interface ProductPromotionBannerSectionProps {
 }
 
 const heightClasses = {
-  small: "h-[300px]",
-  medium: "h-[400px]",
-  large: "h-[500px]",
+  small: "min-h-[300px]",
+  medium: "min-h-[400px]",
+  large: "min-h-[500px]",
   xl: "h-[600px]",
   fullscreen: "h-screen",
 };
@@ -133,8 +133,6 @@ export function ProductPromotionBannerSection({
     borderRadiusClasses[borderRadius as keyof typeof borderRadiusClasses] ||
     borderRadiusClasses.xl;
 
-  const desktopAlignment =
-    textAlignmentClasses[textAlignment.desktop] || textAlignmentClasses.center;
   const mobileAlignment =
     textAlignmentClasses[textAlignment.mobile] || textAlignmentClasses.center;
 
@@ -180,8 +178,12 @@ export function ProductPromotionBannerSection({
               "relative z-10 w-full max-w-none mx-auto px-6 lg:px-12",
               topPadding,
               bottomPadding,
-              `lg:${desktopAlignment}`,
-              mobileAlignment
+              // Mobile alignment
+              mobileAlignment,
+              // Desktop alignment (responsive)
+              textAlignment.desktop === 'left' && 'lg:text-left',
+              textAlignment.desktop === 'center' && 'lg:text-center',
+              textAlignment.desktop === 'right' && 'lg:text-right'
             )}
           >
             {/* Title */}
@@ -211,7 +213,13 @@ export function ProductPromotionBannerSection({
               <div className="mb-6">
                 <RichTextRenderer
                   content={getLocalizedRichText(subtitle, locale)}
-                  className="prose prose-lg max-w-[1048px] mx-auto w-full [&_p]:text-white [&_p]:text-lg [&_p]:md:text-xl [&_p]:font-medium [&_p]:mb-0 [&_strong]:font-semibold [&_strong]:text-white"
+                  className={cn(
+                    "prose prose-lg w-full [&_p]:text-white [&_p]:text-lg [&_p]:md:text-xl [&_p]:font-medium [&_p]:mb-0 [&_strong]:font-semibold [&_strong]:text-white",
+                    // Max width and centering based on alignment
+                    textAlignment.desktop === 'center' && 'max-w-[1048px] mx-auto',
+                    textAlignment.desktop === 'left' && 'w-full lg:max-w-[625px]',
+                    textAlignment.desktop === 'right' && 'max-w-[1048px] ml-auto'
+                  )}
                 />
               </div>
             )}
@@ -221,14 +229,30 @@ export function ProductPromotionBannerSection({
               <div className="mb-8">
                 <RichTextRenderer
                   content={getLocalizedRichText(description, locale)}
-                  className="prose prose-base max-w-[1048px] mx-auto w-full [&_p]:text-white/90 [&_p]:text-sm [&_p]:md:text-base [&_p]:leading-relaxed [&_p]:mb-0 [&_strong]:font-semibold [&_strong]:text-white"
+                  className={cn(
+                    "prose prose-base w-full [&_p]:text-white/90 [&_p]:text-sm [&_p]:md:text-base [&_p]:leading-relaxed [&_p]:mb-0 [&_strong]:font-semibold [&_strong]:text-white",
+                    // Max width and centering based on alignment
+                    textAlignment.desktop === 'center' && 'max-w-[1048px] mx-auto',
+                    textAlignment.desktop === 'left' && 'max-w-[1048px]',
+                    textAlignment.desktop === 'right' && 'max-w-[1048px] ml-auto'
+                  )}
                 />
               </div>
             )}
 
             {/* CTA Buttons */}
             {(primaryButton || secondaryButton) && (
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className={cn(
+                "flex flex-col sm:flex-row gap-4",
+                // Mobile button alignment
+                textAlignment.mobile === 'left' && 'justify-start',
+                textAlignment.mobile === 'center' && 'justify-center',
+                textAlignment.mobile === 'right' && 'justify-end',
+                // Desktop button alignment
+                textAlignment.desktop === 'left' && 'lg:justify-start',
+                textAlignment.desktop === 'center' && 'lg:justify-center',
+                textAlignment.desktop === 'right' && 'lg:justify-end'
+              )}>
                 {primaryButton && (
                   <CTAButton
                     text={primaryButton.text}

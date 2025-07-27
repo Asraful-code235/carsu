@@ -57,12 +57,7 @@ const paddingClasses = {
   xlarge: 'py-24 md:py-32',
 };
 
-// Image size classes for grid cards
-const imageSizeClasses = {
-  small: 'h-40 md:h-48 lg:h-52',
-  medium: 'h-48 md:h-56 lg:h-64',
-  large: 'h-56 md:h-64 lg:h-72',
-};
+
 
 export function ProductFeaturesGridSection({ section, locale }: ProductFeaturesGridSectionProps) {
   const { featureItems, backgroundColor, padding } = section;
@@ -76,78 +71,167 @@ export function ProductFeaturesGridSection({ section, locale }: ProductFeaturesG
       style={backgroundStyle}
     >
       <div className="container mx-auto px-6 lg:px-24">
-        {/* 2x2 Grid Layout */}
+        {/* Two Column Flex Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featureItems.map((item, index) => {
-            const imageSizeClass = imageSizeClasses[item.imageSize];
+          {/* Left Column */}
+          <div className="flex flex-col gap-6">
+            {featureItems
+              .filter((_, index) => index % 2 === 0) // Even indices (0, 2, 4...)
+              .map((item, originalIndex) => {
+                const actualIndex = originalIndex * 2; // Convert back to original index
+                const isTallCard = actualIndex === 0; // First card is tall
+                const cardPadding = isTallCard ? 'lg:py-[118px]' : 'lg:py-[80px]';
+                const cardSpacing = isTallCard ? 'space-y-[76px]' : 'space-y-[50px]';
 
-            return (
-              <div
-                key={index}
-                className={cn(
-                  'bg-[#F8FAFC] rounded-3xl p-6 lg:py-[118px] lg:px-[66px] border border-[#FCFBFC]',
-                  'hover:shadow-lg transition-all duration-300',
-                  'flex flex-col space-y-[76px] h-auto'
-                )}
-              >
-                {/* Content Section */}
-                <div className="flex-1 space-y-6">
-                  {/* Title */}
-                  <div className='max-w-[310.884px] w-full mx-auto'>
-                    <RichTextRenderer
-                      content={getLocalizedRichText(item.title, locale)}
-                      className="text-center  "
-                    />
-                  </div>
+                return (
+                  <div
+                    key={actualIndex}
+                    className={cn(
+                      'bg-[#F8FAFC] rounded-3xl p-6 lg:px-[66px] border border-[#FCFBFC]',
+                      'hover:shadow-lg transition-all duration-300',
+                      'flex flex-col h-full',
+                      cardPadding,
+                      cardSpacing
+                    )}
+                  >
+                    {/* Content Section */}
+                    <div className="flex-1 space-y-6">
+                      {/* Title */}
+                      <div className='max-w-[310.884px] w-full mx-auto'>
+                        <RichTextRenderer
+                          content={getLocalizedRichText(item.title, locale)}
+                          className="text-center"
+                        />
+                      </div>
 
-                  {/* Description */}
-                  {item.description && (
-                    <div className="text-center max-w-[430.884px] w-full mx-auto">
-                      <RichTextRenderer
-                        content={getLocalizedRichText(item.description, locale)}
-                        className="prose-p:text-sm prose-p:lg:text-base prose-p:text-gray-600 prose-p:mb-0 prose-p:leading-relaxed prose-p:text-center"
-                      />
-                    </div>
-                  )}
-
-                  {/* Features List */}
-                  {item.features && item.features.length > 0 && (
-                    <ul className="space-y-2 text-center">
-                      {item.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center justify-center gap-2">
-                          <FeatureIcon
-                            icon={feature.icon}
-                            className="text-blue-600 flex-shrink-0"
+                      {/* Description */}
+                      {item.description && (
+                        <div className="text-center max-w-[430.884px] w-full mx-auto">
+                          <RichTextRenderer
+                            content={getLocalizedRichText(item.description, locale)}
+                            className="prose-p:text-sm prose-p:lg:text-base prose-p:text-gray-600 prose-p:mb-0 prose-p:leading-relaxed prose-p:text-center"
                           />
-                          <span className="text-gray-700 text-sm lg:text-base">
-                            {getLocalizedValue(feature.text, locale)}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                        </div>
+                      )}
 
-                {/* Image Section */}
-                <div className={cn(
-                  'relative ',
-                  imageSizeClass,
-                  'mt-auto' // Push image to bottom
-                )}>
-                  {item.image?.image?.asset && (
-                    <Image
-                      src={urlFor(item.image.image.asset).width(500).height(300).url()}
-                      alt={getLocalizedValue(item.image.alt, locale) || 'Feature image'}
-                      fill
-                      className="object-contain object-center"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px"
-                    />
-                  )}
+                      {/* Features List */}
+                      {item.features && item.features.length > 0 && (
+                        <ul className="space-y-2 text-center">
+                          {item.features.map((feature, featureIndex) => (
+                            <li key={featureIndex} className="flex items-center justify-center gap-2">
+                              <FeatureIcon
+                                icon={feature.icon}
+                                className="text-blue-600 flex-shrink-0"
+                              />
+                              <span className="text-gray-700 text-sm lg:text-base">
+                                {getLocalizedValue(feature.text, locale)}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
 
-                </div>
-              </div>
-            );
-          })}
+                    {/* Image Section */}
+                    <div className={cn(
+                      'relative',
+                      isTallCard ? 'h-56 md:h-64 lg:h-72' : 'h-40 md:h-48 lg:h-56',
+                      'mt-auto'
+                    )}>
+                      {item.image?.image?.asset && (
+                        <Image
+                          src={urlFor(item.image.image.asset).width(500).height(300).url()}
+                          alt={getLocalizedValue(item.image.alt, locale) || 'Feature image'}
+                          fill
+                          className="object-contain object-center"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px"
+                        />
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          {/* Right Column */}
+          <div className="flex flex-col gap-6">
+            {featureItems
+              .filter((_, index) => index % 2 === 1) // Odd indices (1, 3, 5...)
+              .map((item, originalIndex) => {
+                const actualIndex = (originalIndex * 2) + 1; // Convert back to original index
+                const isTallCard = actualIndex === 3; // Fourth card is tall
+                const cardPadding = isTallCard ? 'lg:py-[118px]' : 'lg:py-[80px]';
+                const cardSpacing = isTallCard ? 'space-y-[76px]' : 'space-y-[50px]';
+
+                return (
+                  <div
+                    key={actualIndex}
+                    className={cn(
+                      'bg-[#F8FAFC] rounded-3xl p-6 lg:px-[66px] border border-[#FCFBFC]',
+                      'hover:shadow-lg transition-all duration-300',
+                      'flex flex-col',
+                      cardPadding,
+                      cardSpacing
+                    )}
+                  >
+                    {/* Content Section */}
+                    <div className="flex-1 space-y-6">
+                      {/* Title */}
+                      <div className='max-w-[310.884px] w-full mx-auto'>
+                        <RichTextRenderer
+                          content={getLocalizedRichText(item.title, locale)}
+                          className="text-center"
+                        />
+                      </div>
+
+                      {/* Description */}
+                      {item.description && (
+                        <div className="text-center max-w-[430.884px] w-full mx-auto">
+                          <RichTextRenderer
+                            content={getLocalizedRichText(item.description, locale)}
+                            className="prose-p:text-sm prose-p:lg:text-base prose-p:text-gray-600 prose-p:mb-0 prose-p:leading-relaxed prose-p:text-center"
+                          />
+                        </div>
+                      )}
+
+                      {/* Features List */}
+                      {item.features && item.features.length > 0 && (
+                        <ul className="space-y-2 text-center">
+                          {item.features.map((feature, featureIndex) => (
+                            <li key={featureIndex} className="flex items-center justify-center gap-2">
+                              <FeatureIcon
+                                icon={feature.icon}
+                                className="text-blue-600 flex-shrink-0"
+                              />
+                              <span className="text-gray-700 text-sm lg:text-base">
+                                {getLocalizedValue(feature.text, locale)}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+
+                    {/* Image Section */}
+                    <div className={cn(
+                      'relative',
+                      isTallCard ? 'h-56 md:h-64 lg:h-72' : 'h-40 md:h-48 lg:h-56',
+                      'mt-auto'
+                    )}>
+                      {item.image?.image?.asset && (
+                        <Image
+                          src={urlFor(item.image.image.asset).width(500).height(300).url()}
+                          alt={getLocalizedValue(item.image.alt, locale) || 'Feature image'}
+                          fill
+                          className="object-contain object-center"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px"
+                        />
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         </div>
       </div>
     </section>
