@@ -11,7 +11,6 @@ export const badgeType = defineType({
       name: 'text',
       title: 'Badge Text',
       type: 'localeString',
-      validation: (Rule) => Rule.required(),
       description: 'Short text for the badge',
     }),
     defineField({
@@ -33,7 +32,6 @@ export const badgeType = defineType({
         ],
       },
       initialValue: 'primary',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'customColor',

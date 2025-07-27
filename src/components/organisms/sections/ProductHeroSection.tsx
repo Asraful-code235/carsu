@@ -1,10 +1,10 @@
-import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
+import { CTAButton } from "@/components/atoms/ui/CTAButton";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue, getLocalizedRichText, getLocalizedHref } from "@/lib/i18n/utils";
+import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface CTAButton {
   text: any; // Localized string
@@ -101,7 +101,7 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
     settings
   } = data;
 
-  const backgroundStyle = backgroundColor?.hex 
+  const backgroundStyle = backgroundColor?.hex
     ? { backgroundColor: backgroundColor.hex }
     : {};
 
@@ -109,8 +109,8 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
     <section
       className={cn(
         "relative overflow-hidden",
-        settings?.fullHeight ? "min-h-screen" : "py-16 lg:py-24",
-        !backgroundColor && "bg-gradient-to-b from-blue-50/30 to-transparent"
+        settings?.fullHeight ? "min-h-screen" : "min-h-[90vh]",
+        !backgroundColor && "bg-gradient-to-b from-blue-50/50 to-transparent"
       )}
       style={backgroundStyle}
     >
@@ -149,85 +149,72 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
         </div>
       )}
 
-      <div className="relative container mx-auto px-6 lg:px-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Column - Content */}
-          <div className="text-center lg:text-left">
-            {/* Pill Text */}
-            {pillText && (
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-medium mb-6">
-                {getLocalizedValue(pillText, locale)}
-              </div>
-            )}
-
-            {/* Title */}
-            <div className="mb-6">
-              <RichTextRenderer
-                content={getLocalizedRichText(title, locale)}
-                className="prose-headings:text-4xl prose-headings:md:text-5xl prose-headings:lg:text-6xl prose-headings:font-bold prose-headings:leading-tight prose-headings:text-gray-900 prose-headings:mb-0"
-              />
+      <div className="relative container mx-auto px-6 lg:px-24 pt-20 pb-32">
+        <div className="text-center">
+          {/* Pill Text */}
+          {pillText && (
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-medium mb-6">
+              {getLocalizedValue(pillText, locale)}
             </div>
+          )}
 
-            {/* Subtitle */}
-            {subtitle && (
-              <div className="mb-6">
-                <p className="text-xl text-gray-600 leading-relaxed">
-                  {getLocalizedValue(subtitle, locale)}
-                </p>
-              </div>
-            )}
-
-            {/* Description */}
-            {description && (
-              <div className="mb-8">
-                <RichTextRenderer
-                  content={getLocalizedRichText(description, locale)}
-                  className="prose prose-lg prose-gray max-w-none text-gray-600"
-                />
-              </div>
-            )}
-
-            {/* CTA Buttons */}
-            {ctaButtons && ctaButtons.length > 0 && (
-              <div className="flex flex-col sm:flex-row items-center lg:items-start lg:justify-start justify-center gap-4">
-                {ctaButtons.map((button, index) => {
-                  if (!button.href) {
-                    return null;
-                  }
-
-                  return (
-                    <Link
-                      key={index}
-                      href={getLocalizedHref(button.href, locale)}
-                      className={cn(
-                        "px-8 py-4 rounded-full transition-all duration-200 text-lg font-medium max-sm:w-full min-w-[140px] text-center",
-                        button.variant === 'primary'
-                          ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl"
-                          : button.variant === 'secondary'
-                          ? "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                          : "border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-                      )}
-                      target={button.openInNewTab ? "_blank" : undefined}
-                      rel={button.openInNewTab ? "noopener noreferrer" : undefined}
-                    >
-                      {getLocalizedValue(button.text, locale)}
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
+          {/* Title */}
+          <div className="max-w-4xl mx-auto mb-8">
+            <RichTextRenderer
+              content={getLocalizedRichText(title, locale)}
+              className="prose-headings:text-4xl prose-headings:sm:text-5xl prose-headings:lg:text-6xl prose-headings:font-bold prose-headings:leading-tight prose-headings:text-gray-900 prose-headings:mb-0"
+            />
           </div>
 
-          {/* Right Column - Hero Image */}
+          {/* Subtitle */}
+          {subtitle && (
+            <div className="max-w-2xl mx-auto mb-6">
+              <p className="text-lg text-[#4D525E] leading-normal">
+                {getLocalizedValue(subtitle, locale)}
+              </p>
+            </div>
+          )}
+
+          {/* Description */}
+          {description && (
+            <div className="max-w-3xl mx-auto mb-8">
+              <RichTextRenderer
+                content={getLocalizedRichText(description, locale)}
+                className="prose prose-lg prose-gray max-w-none text-[#4D525E]"
+              />
+            </div>
+          )}
+
+          {/* CTA Buttons */}
+          {ctaButtons && ctaButtons.length > 0 && (
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+              {ctaButtons.map((button, index) => (
+                <CTAButton
+                  key={index}
+                  text={button.text}
+                  href={button.href}
+                  variant={button.variant}
+                  size="lg"
+                  openInNewTab={button.openInNewTab}
+                  icon={button.icon}
+                  disabled={button.disabled}
+                  locale={locale}
+                  className="max-sm:w-full min-w-[140px]"
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Hero Image */}
           {heroImage && heroImage.image && heroImage.image.asset && (
-            <div className="relative">
+            <div className="container mx-auto w-full">
               <div className="relative">
                 <Image
-                  src={urlFor(heroImage.image.asset).width(1200).height(800).url()}
+                  src={urlFor(heroImage.image.asset).width(2304).height(1440).url()}
                   alt={getLocalizedValue(heroImage.alt, locale) || "Product hero image"}
-                  width={heroImage.width || heroImage.image.asset.metadata?.dimensions?.width || 1200}
-                  height={heroImage.height || heroImage.image.asset.metadata?.dimensions?.height || 800}
-                  className="w-full h-auto rounded-2xl shadow-2xl"
+                  width={heroImage.width || heroImage.image.asset.metadata?.dimensions?.width || 2304}
+                  height={heroImage.height || heroImage.image.asset.metadata?.dimensions?.height || 1440}
+                  className="w-full h-auto rounded-2xl"
                   priority={heroImage.priority}
                 />
               </div>
