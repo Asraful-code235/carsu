@@ -2,6 +2,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { CTAButton } from "@/components/atoms/ui/CTAButton";
+import { GradientEllipse } from "@/components/atoms/decorative/GradientEllipse";
 import type { Locale } from "@/lib/i18n/config";
 import { getLocalizedRichText } from "@/lib/i18n/utils";
 
@@ -158,7 +159,16 @@ export function ProductBannerSection({ data, locale = 'en' }: ProductBannerSecti
 
   return (
     <section className="relative">
-      <div className="max-w-[1920px] mx-auto px-4 lg:px-[320px]">
+      <GradientEllipse
+        color="#93F4B8"
+        position="top"
+        size="lg"
+        opacity={0.6}
+        blur="xl"
+        className="z-0"
+      />
+
+      <div className="max-w-[1920px] mx-auto px-4 lg:px-[320px] relative z-10">
         <div
           className={cn(
             "relative overflow-hidden",
