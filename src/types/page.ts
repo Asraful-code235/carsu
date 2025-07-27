@@ -834,7 +834,38 @@ export interface ProductFeaturesGridSection {
   };
 }
 
-export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | ProductBannerSection | ProductPromotionBannerSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection | PricingCalculatorSection | FeatureCardsSection | ProductFeaturesGridSection;
+export interface ProductBenefitsListSection {
+  type: 'productBenefitsList';
+  title: any; // Localized rich text
+  description?: any; // Localized rich text
+  image: {
+    image: {
+      asset: {
+        _id: string;
+        url: string;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
+    alt?: any; // Localized string
+  };
+  benefits: Array<{
+    title: any; // Localized string
+    description?: any; // Localized rich text
+  }>;
+  layout: 'imageLeft' | 'contentLeft';
+  backgroundColor?: { hex: string };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | ProductBannerSection | ProductPromotionBannerSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection | PricingCalculatorSection | FeatureCardsSection | ProductFeaturesGridSection | ProductBenefitsListSection;
 
 export interface PageConfiguration {
   _id: string;

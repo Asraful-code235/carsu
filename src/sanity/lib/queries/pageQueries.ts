@@ -416,6 +416,22 @@ const PRODUCT_FEATURES_GRID_SECTION_FRAGMENT = `
   }
 `;
 
+const PRODUCT_BENEFITS_LIST_SECTION_FRAGMENT = `
+  _type == 'productBenefitsListSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    description ${LOCALE_RICH_TEXT_FRAGMENT},
+    image ${LOCALIZED_IMAGE_FRAGMENT},
+    benefits[] {
+      title ${LOCALE_STRING_FRAGMENT},
+      description ${LOCALE_RICH_TEXT_FRAGMENT}
+    },
+    layout,
+    backgroundColor { hex },
+    padding { top, bottom }
+  }
+`;
+
 // Combined sections fragment
 const ALL_SECTIONS_FRAGMENT = `
   sections[] {
@@ -436,7 +452,8 @@ const ALL_SECTIONS_FRAGMENT = `
     ${CONTACT_FORM_SECTION_FRAGMENT},
     ${PRICING_CALCULATOR_SECTION_FRAGMENT},
     ${FEATURE_CARDS_SECTION_FRAGMENT},
-    ${PRODUCT_FEATURES_GRID_SECTION_FRAGMENT}
+    ${PRODUCT_FEATURES_GRID_SECTION_FRAGMENT},
+    ${PRODUCT_BENEFITS_LIST_SECTION_FRAGMENT}
   }
 `;
 

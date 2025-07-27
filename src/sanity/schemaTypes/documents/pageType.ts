@@ -41,24 +41,101 @@ export const pageType = defineType({
       title: 'Page Sections',
       type: 'array',
       of: [
-        { type: 'heroSection' },
-        { type: 'productHeroSection' },
-        { type: 'productFeatureSection' },
-        { type: 'productInteractiveSection' },
-        { type: 'productBannerSection' },
-        { type: 'productPromotionBannerSection' },
-        { type: 'aboutSection' },
-        { type: 'pageHeroSection' },
-        { type: 'contentSection' },
-        { type: 'featureSection' },
-        { type: 'servicesSection' },
-        { type: 'testimonialSection' },
-        { type: 'tryCarsuBanner' },
-        { type: 'contactFormSection' },
-        { type: 'faqSection' },
-        { type: 'pricingCalculatorSection' },
-        { type: 'featureCardsSection' },
-        { type: 'productFeaturesGridSection' },
+        {
+          type: 'heroSection',
+          title: 'Hero Section',
+          description: '🎯 Main landing section with title, subtitle, CTA buttons and hero image. Best for homepage top section.'
+        },
+        {
+          type: 'productHeroSection',
+          title: 'Product Hero Section',
+          description: '🚀 Product-focused hero with pill text, title, description, CTAs and product image. Perfect for product pages.'
+        },
+        {
+          type: 'productFeatureSection',
+          title: 'Product Feature Section',
+          description: '⭐ Single feature showcase with title, description, feature list and image. Great for highlighting key product benefits.'
+        },
+        {
+          type: 'productInteractiveSection',
+          title: 'Product Interactive Section',
+          description: '🎮 Interactive section with clickable titles showing different content. Perfect for feature comparisons.'
+        },
+        {
+          type: 'productBannerSection',
+          title: 'Product Banner Section',
+          description: '📢 Simple banner with title, description and CTA. Good for announcements or secondary CTAs.'
+        },
+        {
+          type: 'productPromotionBannerSection',
+          title: 'Product Promotion Banner',
+          description: '🎨 Full-width promotional banner with background image, overlay, badge and CTAs. Perfect for campaigns.'
+        },
+        {
+          type: 'productBenefitsListSection',
+          title: 'Product Benefits List',
+          description: '📋 Benefits list with image, title, description and bullet points with dividers. Great for detailed feature explanations.'
+        },
+        {
+          type: 'aboutSection',
+          title: 'About Section',
+          description: '📖 Simple content section with title, subtitle and rich text content. Perfect for about pages.'
+        },
+        {
+          type: 'pageHeroSection',
+          title: 'Page Hero Section',
+          description: '📄 Two-column hero for internal pages with title and description. Good for service/info page headers.'
+        },
+        {
+          type: 'contentSection',
+          title: 'Content Section',
+          description: '📝 Flexible rich text content section with background options. Perfect for long-form content.'
+        },
+        {
+          type: 'featureSection',
+          title: 'Feature Section',
+          description: '✨ Feature grid with cards, icons, titles and descriptions. Great for showcasing multiple features.'
+        },
+        {
+          type: 'servicesSection',
+          title: 'Services Section',
+          description: '🛠️ Services showcase with cards and descriptions. Perfect for service offerings.'
+        },
+        {
+          type: 'testimonialSection',
+          title: 'Testimonials Section',
+          description: '💬 Customer testimonials carousel with quotes, names and companies. Essential for social proof.'
+        },
+        {
+          type: 'tryCarsuBanner',
+          title: 'Try Carsu Banner',
+          description: '🚗 Carsu-specific CTA banner. Use for encouraging trial signups.'
+        },
+        {
+          type: 'contactFormSection',
+          title: 'Contact Form Section',
+          description: '📧 Contact form with fields and submission handling. Perfect for contact pages.'
+        },
+        {
+          type: 'faqSection',
+          title: 'FAQ Section',
+          description: '❓ Frequently asked questions with expandable answers. Great for support pages.'
+        },
+        {
+          type: 'pricingCalculatorSection',
+          title: 'Pricing Calculator',
+          description: '💰 Interactive pricing calculator. Perfect for pricing pages.'
+        },
+        {
+          type: 'featureCardsSection',
+          title: 'Feature Cards Section',
+          description: '🃏 Grid of feature cards with icons, titles and descriptions. Good for feature overviews.'
+        },
+        {
+          type: 'productFeaturesGridSection',
+          title: 'Product Features Grid',
+          description: '🔲 2x2 grid of feature cards with alternating heights. Perfect for showcasing 4 key features.'
+        },
       ],
       options: {
         sortable: true,
