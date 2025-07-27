@@ -46,6 +46,7 @@ export const pageType = defineType({
         { type: 'productFeatureSection' },
         { type: 'productInteractiveSection' },
         { type: 'productBannerSection' },
+        { type: 'productPromotionBannerSection' },
         { type: 'aboutSection' },
         { type: 'pageHeroSection' },
         { type: 'contentSection' },

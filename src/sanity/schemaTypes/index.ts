@@ -30,6 +30,7 @@ import { productHeroSectionType } from './sections/productHeroSectionType'
 import { productFeatureSectionType } from './sections/productFeatureSectionType'
 import { productInteractiveSectionType } from './sections/productInteractiveSectionType'
 import { productBannerSectionType } from './sections/productBannerSectionType'
+import { productPromotionBannerSectionType } from './sections/productPromotionBannerSectionType'
 import { aboutSectionType } from './sections/aboutSectionType'
 import { pageHeroSectionType } from './sections/pageHeroSectionType'
 import { contentSectionType } from './sections/contentSectionType'
@@ -76,6 +77,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     productFeatureSectionType,
     productInteractiveSectionType,
     productBannerSectionType,
+    productPromotionBannerSectionType,
     aboutSectionType,
     pageHeroSectionType,
     contentSectionType,

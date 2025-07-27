@@ -18,7 +18,6 @@ export const productInteractiveSectionType = defineType({
       name: 'title',
       title: 'Section Title',
       type: 'localeRichTextBlock',
-      validation: (Rule) => Rule.required(),
       description: 'Main title for the interactive section (localized)',
     }),
     defineField({

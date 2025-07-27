@@ -43,7 +43,7 @@ export default async function LocaleLayout({
   return (
     <ErrorBoundary>
       <HeaderWrapper locale={locale} />
-      <main className="bg-white">
+      <main className="bg-white ">
         {children}
       </main>
       <FooterWrapper locale={locale} />

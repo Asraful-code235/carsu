@@ -95,7 +95,7 @@ export function ProductInteractiveSection({ data, locale = 'en' }: ProductIntera
         backgroundColor: backgroundColor?.hex || '#ffffff',
       }}
     >
-      <div className="max-w-[1920px] mx-auto px-4 lg:px-[320px]">
+      <div className="container mx-auto w-full px-6 lg:px-24">
         {/* Section Title */}
         <div className="mb-12 lg:mb-16">
           <RichTextRenderer
