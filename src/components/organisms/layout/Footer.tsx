@@ -15,7 +15,7 @@ import {
 import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
 import { urlFor } from '@/sanity/lib/image';
 import type { Locale } from '@/lib/i18n/config';
-import { getLocalizedValue } from '@/lib/i18n/utils';
+import { getLocalizedValue, getLocalizedHref } from '@/lib/i18n/utils';
 
 interface FooterProps {
   data: {
@@ -78,6 +78,8 @@ export function Footer({ data, locale = 'en' }: FooterProps) {
     showBackToTop,
     newsletter,
   } = data;
+
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -146,7 +148,7 @@ export function Footer({ data, locale = 'en' }: FooterProps) {
                     {column.links.map((link, linkIndex) => (
                       <li key={linkIndex}>
                         <Link
-                          href={link.href}
+                          href={getLocalizedHref(link.href, locale)}
                           target={link.openInNewTab ? '_blank' : undefined}
                           rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
                           className="text-gray-600 hover:text-blue-600 transition-colors text-lg"

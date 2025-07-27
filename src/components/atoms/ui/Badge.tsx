@@ -1,12 +1,15 @@
 import { cn } from '@/lib/utils/cn';
+import type { Locale } from '@/lib/i18n/config';
+import { getLocalizedValue } from '@/lib/i18n/utils';
 
 interface BadgeProps {
-  text: string;
+  text: any; // Can be string or localized object {en, es, it}
   color?: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'indigo' | 'gray' | 'custom';
   customColor?: string;
   variant?: 'filled' | 'outline' | 'soft';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
+  locale?: Locale;
 }
 
 const colorVariants = {
@@ -75,6 +78,7 @@ export function Badge({
   variant = 'soft',
   size = 'md',
   className,
+  locale = 'en',
 }: BadgeProps) {
   const baseClasses = 'inline-flex items-center font-medium rounded-full border transition-colors';
   
@@ -109,12 +113,15 @@ export function Badge({
 
   const sizeClasses = sizeVariants[size];
 
+  // Handle both string and localized text
+  const displayText = typeof text === 'string' ? text : getLocalizedValue(text, locale);
+
   return (
     <span
       className={cn(baseClasses, colorClasses, sizeClasses, className)}
       style={Object.keys(customStyles).length > 0 ? customStyles : undefined}
     >
-      {text}
+      {displayText}
     </span>
   );
 }

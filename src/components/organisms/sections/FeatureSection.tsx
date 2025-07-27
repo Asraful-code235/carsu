@@ -11,7 +11,7 @@ import { Badge } from "@/components/atoms/ui/Badge";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
+import { getLocalizedValue, getLocalizedRichText, getLocalizedHref } from "@/lib/i18n/utils";
 
 interface FeatureSectionProps {
   data: {
@@ -171,6 +171,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
             customColor={badge.customColor?.hex}
             variant={badge.variant}
             size={badge.size}
+            locale={locale}
           />
         </div>
       )}
@@ -178,7 +179,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
       {/* Subtitle */}
       {subtitle && (
         <p className={cn("text-lg text-[#4D525E] mb-6", alignmentClasses)}>
-          {subtitle}
+          {getLocalizedValue(subtitle, locale)}
         </p>
       )}
 
@@ -228,7 +229,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
             return (
               <Link
                 key={index}
-                href={button.href}
+                href={getLocalizedHref(button.href, locale)}
                 target={button.openInNewTab ? "_blank" : undefined}
                 rel={button.openInNewTab ? "noopener noreferrer" : undefined}
                 className={cn(
@@ -255,7 +256,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
       <div className="relative">
         <Image
           src={urlFor(image.image.asset).url()}
-          alt={image.alt || "Feature image"}
+          alt={image.alt ? getLocalizedValue(image.alt, locale) : "Feature image"}
           width={
             image.width || image.image.asset.metadata?.dimensions?.width || 600
           }

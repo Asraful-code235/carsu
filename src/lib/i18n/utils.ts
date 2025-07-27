@@ -153,3 +153,24 @@ export function getAvailableLocales(
 
   return [];
 }
+
+/**
+ * Add locale prefix to internal links
+ * External links (http/https) are returned as-is
+ * Internal links get the locale prefix added if not already present
+ */
+export function getLocalizedHref(href: string, locale: Locale): string {
+  if (!href) return '#';
+
+  // If it's an external link (starts with http/https), return as-is
+  if (href.startsWith('http://') || href.startsWith('https://')) {
+    return href;
+  }
+
+  // If it's an internal link and doesn't already have a locale prefix, add it
+  if (href.startsWith('/') && !href.startsWith(`/${locale}/`)) {
+    return `/${locale}${href}`;
+  }
+
+  return href;
+}

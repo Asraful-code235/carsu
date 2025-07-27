@@ -6,7 +6,7 @@ import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { Badge } from "@/components/atoms/ui/Badge";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
+import { getLocalizedValue, getLocalizedRichText, getLocalizedHref } from "@/lib/i18n/utils";
 
 interface FormField {
   name: string;
@@ -18,14 +18,14 @@ interface FormField {
 }
 
 interface FeatureListItem {
-  text: string;
-  description?: string;
+  text: any; // Localized string
+  description?: any; // Localized string
   icon: string;
   iconColor: "primary" | "success" | "warning" | "error" | "gray";
   highlighted: boolean;
   link?: {
     href: string;
-    text: string;
+    text: any; // Localized string
     openInNewTab: boolean;
   };
 }
@@ -137,11 +137,12 @@ export function ContactFormSection({
 
       {badge && (
         <Badge
-          text={getLocalizedValue(badge.text, locale)}
+          text={badge.text}
           color={badge.color}
           customColor={badge.customColor?.hex}
           variant={badge.variant}
           size={badge.size}
+          locale={locale}
         />
       )}
 
@@ -153,16 +154,16 @@ export function ContactFormSection({
               <div className="w-2 h-2 bg-blue-600 rounded-full mt-3 flex-shrink-0" />
               <div className="flex-1">
                 <p className="text-gray-900 font-medium leading-relaxed">
-                  {feature.text}
+                  {getLocalizedValue(feature.text, locale)}
                 </p>
                 {feature.description && (
                   <p className="text-gray-600 text-sm mt-1 leading-relaxed">
-                    {feature.description}
+                    {getLocalizedValue(feature.description, locale)}
                   </p>
                 )}
                 {feature.link && feature.link.href && (
                   <Link
-                    href={feature.link.href}
+                    href={getLocalizedHref(feature.link.href, locale)}
                     target={feature.link.openInNewTab ? "_blank" : undefined}
                     rel={
                       feature.link.openInNewTab
@@ -171,7 +172,7 @@ export function ContactFormSection({
                     }
                     className="text-blue-600 hover:text-blue-700 text-sm underline mt-2 inline-block"
                   >
-                    {feature.link.text}
+                    {getLocalizedValue(feature.link.text, locale)}
                   </Link>
                 )}
               </div>

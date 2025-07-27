@@ -15,7 +15,7 @@ import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
+import { getLocalizedValue, getLocalizedRichText, getLocalizedHref } from "@/lib/i18n/utils";
 
 interface CTAButton {
   text: any; // Localized string
@@ -235,11 +235,11 @@ export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
         {/* Two column grid layout for md+ screens */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Left Column - Rich Text Content */}
-          <div className={cn("order-1", alignmentClass)}>
+          <div className={cn("order-1 max-w-[500px]", alignmentClass)}>
             <RichTextRenderer
 
               content={getLocalizedRichText(content, locale)}
-              extraClassName="text-[48px] md:text-[64px] xl:!text-[92px] text-white leading-none max-md:text-center max-md:whitespace-nowrap"
+              extraClassName="text-[48px] md:text-[64px] xl:!text-[92px]  text-white leading-none max-md:text-center max-md:whitespace-nowrap"
             />
           </div>
 
@@ -273,7 +273,7 @@ export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
                         )}
                         {item.link && item.link.href && (
                           <Link
-                            href={item.link.href}
+                            href={getLocalizedHref(item.link.href, locale)}
                             target={
                               item.link.openInNewTab ? "_blank" : undefined
                             }
@@ -311,7 +311,7 @@ export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
                   return (
                     <Link
                       key={index}
-                      href={button.href}
+                      href={getLocalizedHref(button.href, locale)}
                       target={button.openInNewTab ? "_blank" : undefined}
                       rel={
                         button.openInNewTab ? "noopener noreferrer" : undefined

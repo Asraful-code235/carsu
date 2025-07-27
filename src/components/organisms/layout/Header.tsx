@@ -9,7 +9,7 @@ import { urlFor } from "@/sanity/lib/image";
 import type { HeaderProps, CTAButton, NavigationLink, DropdownItem } from "@/types/header";
 import { LanguageSwitcher } from "@/components/molecules/navigation/LanguageSwitcher";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue } from "@/lib/i18n/utils";
+import { getLocalizedValue, getLocalizedHref } from "@/lib/i18n/utils";
 
 export function Header({ data, sticky = true, transparent = false, className, locale = 'en' }: HeaderProps & { locale?: Locale }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,6 +20,8 @@ export function Header({ data, sticky = true, transparent = false, className, lo
   }
 
   const { logo, navigation, ctaButtons, mobileSettings } = data;
+
+
 
   const handleDropdownToggle = (title: string) => {
     setOpenDropdown(openDropdown === title ? null : title);
@@ -38,7 +40,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
     return (
       <Link
         key={getLocalizedValue(button.text, locale)}
-        href={button.href}
+        href={getLocalizedHref(button.href, locale)}
         target={button.openInNewTab ? "_blank" : undefined}
         rel={button.openInNewTab ? "noopener noreferrer" : undefined}
         className={cn(baseClasses, variantClasses[button.variant], mobileClasses)}
@@ -75,7 +77,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
     return (
       <Link
         key={item.href}
-        href={item.href}
+        href={getLocalizedHref(item.href, locale)}
         className="block p-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors rounded-lg"
       >
         <div className="flex items-center space-x-2">
@@ -140,7 +142,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
               {link.dropdownItems.map((item) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={getLocalizedHref(item.href, locale)}
                   className="block px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -156,7 +158,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
     return (
       <Link
         key={getLocalizedValue(link.title, locale)}
-        href={link.href || "#"}
+        href={getLocalizedHref(link.href || "#", locale)}
         className={cn(
           "text-gray-900 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-gray-50",
           isMobile ? "block py-3" : ""
@@ -180,7 +182,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
       <div className="container mx-auto px-6 lg:px-24">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href={`/${locale}`} className="flex items-center">
             {logo?.image && (
               <Image
                 src={urlFor(logo.image).width(logo.width || 120).height(logo.height || 32).url()}

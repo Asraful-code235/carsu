@@ -3,31 +3,37 @@ import { locales, defaultLocale, isValidLocale } from './src/lib/i18n/config';
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  
+
   // Skip middleware for API routes, static files, and studio
   if (
     pathname.startsWith('/api/') ||
     pathname.startsWith('/studio') ||
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/favicon.ico') ||
-    pathname.includes('.')
+    pathname.includes('.') ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml'
   ) {
     return NextResponse.next();
   }
 
   // Check if pathname already has a locale
-  const segments = pathname.split('/');
-  const potentialLocale = segments[1];
-  
+  const segments = pathname.split('/').filter(Boolean);
+  const potentialLocale = segments[0];
+
   if (potentialLocale && isValidLocale(potentialLocale)) {
+    // Pathname already has a valid locale, continue
     return NextResponse.next();
   }
 
-  // Get locale from Accept-Language header or use default
+  // Get locale from request (cookie, header, or default)
   const locale = getLocaleFromRequest(request) || defaultLocale;
-  
+
   // Redirect to localized path
-  const localizedPath = `/${locale}${pathname}`;
+  // Handle root path specially
+  const pathWithoutLeadingSlash = pathname === '/' ? '' : pathname;
+  const localizedPath = `/${locale}${pathWithoutLeadingSlash}`;
+
   return NextResponse.redirect(new URL(localizedPath, request.url));
 }
 

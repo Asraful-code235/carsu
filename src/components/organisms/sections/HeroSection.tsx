@@ -4,7 +4,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
+import { getLocalizedValue, getLocalizedRichText, getLocalizedHref } from "@/lib/i18n/utils";
 
 interface CTAButton {
   text: any; // Localized string
@@ -168,7 +168,7 @@ export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
                 return (
                   <Link
                     key={index}
-                    href={button.href}
+                    href={getLocalizedHref(button.href, locale)}
                     className={cn(
                       "px-8 py-4 rounded-full transition-all duration-200 text-lg font-medium max-sm:w-full min-w-[140px]",
                       button.variant === 'primary'

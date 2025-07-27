@@ -4,7 +4,7 @@ import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Locale } from '@/lib/i18n/config';
-import { getLocalizedValue, getLocalizedRichText } from '@/lib/i18n/utils';
+import { getLocalizedValue, getLocalizedRichText, getLocalizedHref } from '@/lib/i18n/utils';
 
 interface TryCarsuBannerProps {
   title?: any; // Localized rich text object
@@ -175,7 +175,7 @@ export function TryCarsuBanner({
                   textAlignment.desktop === 'left' && 'lg:justify-start'
                 )}>
                   <Link
-                    href={ctaButton.href}
+                    href={getLocalizedHref(ctaButton.href, locale)}
                     target={ctaButton.openInNewTab ? '_blank' : undefined}
                     rel={ctaButton.openInNewTab ? 'noopener noreferrer' : undefined}
                     className={cn(
