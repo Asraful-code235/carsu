@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/organisms/sections/HeroSection";
 import { ProductHeroSection } from "@/components/organisms/sections/ProductHeroSection";
 import { ProductFeatureSection } from "@/components/organisms/sections/ProductFeatureSection";
 import { ProductInteractiveSection } from "@/components/organisms/sections/ProductInteractiveSection";
+import { ProductBannerSection } from "@/components/organisms/sections/ProductBannerSection";
 import { AboutSection } from "@/components/organisms/sections/AboutSection";
 import { PageHeroSection } from "@/components/organisms/sections/PageHeroSection";
 import { ContentSection } from "@/components/organisms/sections/ContentSection";
@@ -47,6 +48,8 @@ export function PageSectionsRenderer({ sections, locale = 'en' }: PageSectionsRe
             return <ProductFeatureSection key={index} data={section} locale={locale} />;
           case 'productInteractive':
             return <ProductInteractiveSection key={index} data={section} locale={locale} />;
+          case 'productBanner':
+            return <ProductBannerSection key={index} data={section} locale={locale} />;
           case 'about':
             return <AboutSection key={index} data={section} locale={locale} />;
           case 'pageHero':

@@ -241,6 +241,65 @@ export interface ProductInteractiveSection {
   };
 }
 
+export interface ProductBannerSection {
+  type: 'productBanner';
+  title: any; // Localized rich text
+  description?: any; // Localized rich text
+  primaryButton?: {
+    text: any; // Localized string
+    href: any; // Localized string
+    variant?: string;
+    size?: string;
+    icon?: string;
+    iconPosition?: 'left' | 'right';
+    openInNewTab?: boolean;
+  };
+  secondaryButton?: {
+    text: any; // Localized string
+    href: any; // Localized string
+    variant?: string;
+    size?: string;
+    icon?: string;
+    iconPosition?: 'left' | 'right';
+    openInNewTab?: boolean;
+  };
+  backgroundStyle?: {
+    type: 'solid' | 'gradient' | 'image';
+    primaryColor?: { hex: string };
+    secondaryColor?: { hex: string };
+    gradientDirection?: string;
+    backgroundImage?: {
+      image: {
+        asset: {
+          _id: string;
+          url: string;
+          metadata?: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
+          };
+        };
+      };
+      alt?: any; // Localized string
+    };
+    overlay?: {
+      enabled: boolean;
+      color: { hex: string };
+      opacity: number;
+    };
+  };
+  textAlignment?: {
+    desktop: 'left' | 'center' | 'right';
+    mobile: 'left' | 'center' | 'right';
+  };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+  borderRadius?: string;
+}
+
 export interface AboutSection {
   type: 'about';
   title: any; // Localized rich text object
@@ -606,7 +665,7 @@ export interface FAQSection {
   };
 }
 
-export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection;
+export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | ProductBannerSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection;
 
 export interface PageConfiguration {
   _id: string;

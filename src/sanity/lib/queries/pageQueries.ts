@@ -125,6 +125,31 @@ const PRODUCT_INTERACTIVE_SECTION_FRAGMENT = `
   }
 `;
 
+const PRODUCT_BANNER_SECTION_FRAGMENT = `
+  _type == 'productBannerSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    description ${LOCALE_RICH_TEXT_FRAGMENT},
+    primaryButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    secondaryButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    backgroundStyle {
+      type,
+      primaryColor { hex },
+      secondaryColor { hex },
+      gradientDirection,
+      backgroundImage ${LOCALIZED_IMAGE_FRAGMENT},
+      overlay {
+        enabled,
+        color { hex },
+        opacity
+      }
+    },
+    textAlignment { desktop, mobile },
+    padding { top, bottom },
+    borderRadius
+  }
+`;
+
 const FEATURE_SECTION_FRAGMENT = `
   _type == 'featureSection' => {
     type,
@@ -316,6 +341,7 @@ const ALL_SECTIONS_FRAGMENT = `
     ${PRODUCT_HERO_SECTION_FRAGMENT},
     ${PRODUCT_FEATURE_SECTION_FRAGMENT},
     ${PRODUCT_INTERACTIVE_SECTION_FRAGMENT},
+    ${PRODUCT_BANNER_SECTION_FRAGMENT},
     ${FEATURE_SECTION_FRAGMENT},
     ${TESTIMONIAL_SECTION_FRAGMENT},
     ${TRY_CARSU_BANNER_FRAGMENT},
