@@ -24,6 +24,7 @@ interface PricingPlan {
     disabled?: boolean;
   };
   isPopular: boolean;
+  popularText?: any; // Localized string
 }
 
 interface PricingSectionData {
@@ -145,7 +146,9 @@ export function PricingSection({ data, locale = "en" }: PricingSectionProps) {
               {/* Most Popular Header */}
               {plan.isPopular && (
                 <div className="bg-gray-800 text-white text-center py-3 px-6">
-                  <span className="text-sm font-medium">Most Popular</span>
+                  <span className="text-sm font-medium">
+                    {getLocalizedValue(plan.popularText, locale) || "Most Popular"}
+                  </span>
                 </div>
               )}
 

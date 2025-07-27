@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -14,12 +15,35 @@ import { getLocalizedValue, getLocalizedHref } from "@/lib/i18n/utils";
 export function Header({ data, sticky = true, transparent = false, className, locale = 'en' }: HeaderProps & { locale?: Locale }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
 
   if (!data) {
     return null;
   }
 
   const { logo, navigation, ctaButtons, mobileSettings } = data;
+
+  // Function to check if a link is active
+  const isLinkActive = (href: string) => {
+    if (!href || href === '#') return false;
+
+    // Remove locale prefix from pathname for comparison
+    const cleanPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/');
+    const cleanHref = href.replace(/^\/[a-z]{2}(\/|$)/, '/');
+
+    // Exact match for home page
+    if (cleanHref === '/' && cleanPathname === '/') return true;
+
+    // For other pages, check if pathname starts with href
+    if (cleanHref !== '/' && cleanPathname.startsWith(cleanHref)) return true;
+
+    return false;
+  };
+
+  // Function to check if dropdown has active item
+  const hasActiveDropdownItem = (dropdownItems: DropdownItem[]) => {
+    return dropdownItems.some(item => isLinkActive(item.href));
+  };
 
 
 
@@ -74,11 +98,18 @@ export function Header({ data, sticky = true, transparent = false, className, lo
   };
 
   const renderDropdownItem = (item: DropdownItem, showImages: boolean) => {
+    const isActive = isLinkActive(item.href);
+
     return (
       <Link
         key={item.href}
         href={getLocalizedHref(item.href, locale)}
-        className="block p-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors rounded-lg"
+        className={cn(
+          "block p-3 transition-colors rounded-lg",
+          isActive
+            ? "bg-blue-50 text-blue-600 font-medium"
+            : "text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+        )}
       >
         <div className="flex items-center space-x-2">
           {showImages && item.image?.asset && (
@@ -109,13 +140,17 @@ export function Header({ data, sticky = true, transparent = false, className, lo
   const renderNavigationLink = (link: NavigationLink, isMobile = false) => {
     if (link.hasDropdown && link.dropdownItems?.length) {
       const layout = link.dropdownLayout || { columns: 1, showImages: false, width: 'md' };
+      const isDropdownActive = hasActiveDropdownItem(link.dropdownItems);
 
       return (
         <div key={getLocalizedValue(link.title, locale)} className={cn("relative", isMobile ? "w-full" : "group")}>
           <button
             onClick={() => isMobile && handleDropdownToggle(getLocalizedValue(link.title, locale))}
             className={cn(
-              "flex items-center text-gray-900 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-gray-50",
+              "flex items-center text-base transition-colors rounded-lg hover:bg-gray-50",
+              isDropdownActive
+                ? "text-blue-600 font-medium"
+                : "text-[#363849] hover:text-blue-600",
               isMobile ? "justify-between w-full py-3" : ""
             )}
           >
@@ -139,28 +174,41 @@ export function Header({ data, sticky = true, transparent = false, className, lo
           
           {isMobile && openDropdown === getLocalizedValue(link.title, locale) && (
             <div className="pl-4 border-l-2 border-gray-100 ml-4">
-              {link.dropdownItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={getLocalizedHref(item.href, locale)}
-                  className="block px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {getLocalizedValue(item.title, locale)}
-                </Link>
-              ))}
+              {link.dropdownItems.map((item) => {
+                const isActive = isLinkActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={getLocalizedHref(item.href, locale)}
+                    className={cn(
+                      "block px-4 py-2 transition-colors",
+                      isActive
+                        ? "text-blue-600 font-medium"
+                        : "text-gray-600 hover:text-blue-600"
+                    )}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {getLocalizedValue(item.title, locale)}
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>
       );
     }
 
+    const isActive = isLinkActive(link.href || "#");
+
     return (
       <Link
         key={getLocalizedValue(link.title, locale)}
         href={getLocalizedHref(link.href || "#", locale)}
         className={cn(
-          "text-gray-900 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-gray-50",
+          "transition-colors px-4 py-2 rounded-lg hover:bg-gray-50",
+          isActive
+            ? "text-blue-600 font-medium"
+            : "text-gray-900 hover:text-blue-600",
           isMobile ? "block py-3" : ""
         )}
         onClick={() => isMobile && setIsMenuOpen(false)}
@@ -196,7 +244,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8 flex-1 justify-center">
+          <nav className="hidden lg:flex items-center space-x-7 flex-1 justify-center">
             {navigation?.map((link) => renderNavigationLink(link, false))}
           </nav>
 

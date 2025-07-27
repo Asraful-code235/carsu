@@ -976,6 +976,7 @@ export interface PricingSection {
       disabled?: boolean;
     };
     isPopular: boolean;
+    popularText?: any; // Localized string
   }>;
   backgroundColor?: { hex: string };
   padding?: {

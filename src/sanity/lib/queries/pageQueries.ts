@@ -458,7 +458,8 @@ const PRICING_SECTION_FRAGMENT = `
         included
       },
       ctaButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
-      isPopular
+      isPopular,
+      popularText ${LOCALE_STRING_FRAGMENT}
     },
     backgroundColor { hex },
     padding { top, bottom }

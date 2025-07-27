@@ -145,6 +145,13 @@ export const pricingSectionType = defineType({
               initialValue: false,
               description: 'Mark this plan as the most popular (only one should be selected)',
             }),
+            defineField({
+              name: 'popularText',
+              title: 'Popular Badge Text',
+              type: 'localeString',
+              description: 'Custom text for the popular badge (e.g., "Most Popular", "Best Value"). Only shown if plan is marked as popular.',
+              hidden: ({ parent }) => !parent?.isPopular,
+            }),
           ],
           preview: {
             select: {
