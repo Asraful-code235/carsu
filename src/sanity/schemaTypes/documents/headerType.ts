@@ -175,14 +175,25 @@ export const headerType = defineType({
                   ],
                   preview: {
                     select: {
-                      title: 'title',
-                      description: 'description',
-                      badge: 'badge.text',
+                      title: 'title.en',
+                      titleEs: 'title.es',
+                      description: 'description.en',
+                      badgeText: 'badge.text.en',
+                      badgeColor: 'badge.color',
+                      href: 'href',
                     },
-                    prepare({ title, description, badge }) {
+                    prepare(selection) {
+                      const { title, titleEs, description, badgeText, badgeColor, href } = selection || {};
+
+                      const itemTitle = title || 'Untitled Item';
+                      const itemDescription = description || 'No description';
+                      const badge = badgeText ? ` • ${badgeText} (${badgeColor || 'blue'})` : '';
+                      const translationInfo = titleEs ? ` • ES: ${titleEs}` : '';
+                      const linkInfo = href ? ` → ${href}` : '';
+
                       return {
-                        title,
-                        subtitle: `${description || 'No description'}${badge ? ` • ${badge}` : ''}`,
+                        title: itemTitle,
+                        subtitle: `${itemDescription}${badge}${translationInfo}${linkInfo}`,
                       };
                     },
                   },
@@ -194,15 +205,23 @@ export const headerType = defineType({
           ],
           preview: {
             select: {
-              title: 'title',
+              title: 'title.en',
+              titleEs: 'title.es',
               hasDropdown: 'hasDropdown',
               dropdownItems: 'dropdownItems',
+              href: 'href',
             },
-            prepare({ title, hasDropdown, dropdownItems }) {
-              const itemCount = dropdownItems?.length || 0;
+            prepare(selection) {
+              const { title, titleEs, hasDropdown, dropdownItems, href } = selection || {};
+
+              const itemCount = Array.isArray(dropdownItems) ? dropdownItems.length : 0;
+              const navTitle = title || 'Untitled Navigation';
+              const translationInfo = titleEs ? ` • ES: ${titleEs}` : '';
+              const linkInfo = !hasDropdown && href ? ` → ${href}` : '';
+
               return {
-                title,
-                subtitle: hasDropdown ? `Dropdown (${itemCount} items)` : 'Link',
+                title: navTitle,
+                subtitle: `${hasDropdown ? `Dropdown (${itemCount} items)` : 'Link'}${linkInfo}${translationInfo}`,
               };
             },
           },

@@ -138,18 +138,21 @@ export const tryCarsuBannerType = defineType({
   ],
   preview: {
     select: {
-      title: 'title',
+      title: 'title.en',
+      titleEs: 'title.es',
       mainImage: 'mainImage.image',
       backgroundColor: 'backgroundColor.hex',
     },
-    prepare({ title, mainImage, backgroundColor }) {
+    prepare({ title, titleEs, mainImage, backgroundColor }) {
       // Extract plain text from rich text for preview
       const titleText = title?.[0]?.children?.map((child: any) => child.text).join('') || 'Try Carsu Banner';
+      const titleEsText = titleEs?.[0]?.children?.map((child: any) => child.text).join('') || '';
       const bgColor = backgroundColor ? ` • ${backgroundColor}` : '';
+      const translationInfo = titleEsText ? ` • ES: ${titleEsText.substring(0, 30)}...` : '';
 
       return {
         title: titleText,
-        subtitle: `Try Carsu Banner${bgColor}`,
+        subtitle: `Try Carsu Banner${bgColor}${translationInfo}`,
         media: mainImage,
       };
     },

@@ -84,14 +84,21 @@ export const seoFieldsObject = {
   ],
   preview: {
     select: {
-      title: 'metaTitle',
-      description: 'metaDescription',
+      title: 'metaTitle.en',
+      titleEs: 'metaTitle.es',
+      description: 'metaDescription.en',
+      descriptionEs: 'metaDescription.es',
       noIndex: 'noIndex',
     },
-    prepare({ title, description, noIndex }) {
+    prepare({ title, titleEs, description, descriptionEs, noIndex }) {
+      const seoTitle = title || 'SEO Settings';
+      const seoDescription = description || 'No description';
+      const translations = [titleEs, descriptionEs].filter(Boolean);
+      const translationInfo = translations.length > 0 ? ` • ES: ${translations.join(', ').substring(0, 30)}...` : '';
+
       return {
-        title: title || 'SEO Settings',
-        subtitle: `${description ? description.substring(0, 50) + '...' : 'No description'}${noIndex ? ' • No Index' : ''}`,
+        title: seoTitle,
+        subtitle: `${seoDescription.substring(0, 50)}${seoDescription.length > 50 ? '...' : ''}${noIndex ? ' • No Index' : ''}${translationInfo}`,
       };
     },
   },
