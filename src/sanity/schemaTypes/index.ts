@@ -26,6 +26,7 @@ import { badgeType } from './shared/badgeType'
 
 // Section types
 import { heroSectionType } from './sections/heroSectionType'
+import { productHeroSectionType } from './sections/productHeroSectionType'
 import { aboutSectionType } from './sections/aboutSectionType'
 import { pageHeroSectionType } from './sections/pageHeroSectionType'
 import { contentSectionType } from './sections/contentSectionType'
@@ -68,6 +69,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 
     // Section types
     heroSectionType,
+    productHeroSectionType,
     aboutSectionType,
     pageHeroSectionType,
     contentSectionType,

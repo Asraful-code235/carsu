@@ -100,6 +100,71 @@ export interface HeroSection {
   };
 }
 
+export interface ProductHeroSection {
+  type: 'productHero';
+  pillText?: any; // Localized string
+  title: any; // Localized rich text object
+  subtitle?: any; // Localized string
+  description?: any; // Localized rich text object
+  ctaButtons?: Array<{
+    text: any; // Localized string
+    href: string;
+    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    size?: 'sm' | 'md' | 'lg';
+    openInNewTab: boolean;
+    icon?: string;
+    disabled?: boolean;
+  }>;
+  heroImage: {
+    image: {
+      asset: {
+        _id: string;
+        url: string;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
+    alt?: any; // Localized string
+    caption?: string;
+    width?: number;
+    height?: number;
+    priority?: boolean;
+  };
+  backgroundColor?: {
+    hex: string;
+    alpha: number;
+    hsl: {
+      h: number;
+      s: number;
+      l: number;
+      a: number;
+    };
+    hsv: {
+      h: number;
+      s: number;
+      v: number;
+      a: number;
+    };
+    rgb: {
+      r: number;
+      g: number;
+      b: number;
+      a: number;
+    };
+  };
+  backgroundElements?: BackgroundElement[];
+  settings?: {
+    fullHeight?: boolean;
+    centerContent?: boolean;
+    showScrollIndicator?: boolean;
+    parallaxEffect?: boolean;
+  };
+}
+
 export interface AboutSection {
   type: 'about';
   title: any; // Localized rich text object
@@ -465,7 +530,7 @@ export interface FAQSection {
   };
 }
 
-export type PageSection = HeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection;
+export type PageSection = HeroSection | ProductHeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection;
 
 export interface PageConfiguration {
   _id: string;

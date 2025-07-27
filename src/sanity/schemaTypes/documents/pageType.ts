@@ -42,6 +42,7 @@ export const pageType = defineType({
       type: 'array',
       of: [
         { type: 'heroSection' },
+        { type: 'productHeroSection' },
         { type: 'aboutSection' },
         { type: 'pageHeroSection' },
         { type: 'contentSection' },

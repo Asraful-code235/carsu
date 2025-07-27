@@ -50,6 +50,47 @@ const HERO_SECTION_FRAGMENT = `
   }
 `;
 
+const PRODUCT_HERO_SECTION_FRAGMENT = `
+  _type == 'productHeroSection' => {
+    type,
+    pillText ${LOCALE_STRING_FRAGMENT},
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    subtitle ${LOCALE_STRING_FRAGMENT},
+    description ${LOCALE_RICH_TEXT_FRAGMENT},
+    ctaButtons[] ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    heroImage ${LOCALIZED_IMAGE_FRAGMENT},
+    backgroundColor {
+      hex,
+      alpha,
+      hsl { h, s, l, a },
+      hsv { h, s, v, a },
+      rgb { r, g, b, a }
+    },
+    backgroundElements[] {
+      image {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            dimensions { width, height }
+          }
+        }
+      },
+      position { top, left, right, bottom },
+      size,
+      opacity,
+      rotation,
+      zIndex
+    },
+    settings {
+      fullHeight,
+      centerContent,
+      showScrollIndicator,
+      parallaxEffect
+    }
+  }
+`;
+
 const FEATURE_SECTION_FRAGMENT = `
   _type == 'featureSection' => {
     type,
@@ -238,6 +279,7 @@ const CONTACT_FORM_SECTION_FRAGMENT = `
 const ALL_SECTIONS_FRAGMENT = `
   sections[] {
     ${HERO_SECTION_FRAGMENT},
+    ${PRODUCT_HERO_SECTION_FRAGMENT},
     ${FEATURE_SECTION_FRAGMENT},
     ${TESTIMONIAL_SECTION_FRAGMENT},
     ${TRY_CARSU_BANNER_FRAGMENT},

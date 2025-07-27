@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/organisms/sections/HeroSection";
+import { ProductHeroSection } from "@/components/organisms/sections/ProductHeroSection";
 import { AboutSection } from "@/components/organisms/sections/AboutSection";
 import { PageHeroSection } from "@/components/organisms/sections/PageHeroSection";
 import { ContentSection } from "@/components/organisms/sections/ContentSection";
@@ -38,6 +39,8 @@ export function PageSectionsRenderer({ sections, locale = 'en' }: PageSectionsRe
         switch (section.type) {
           case 'hero':
             return <HeroSection key={index} data={section} locale={locale} />;
+          case 'productHero':
+            return <ProductHeroSection key={index} data={section} locale={locale} />;
           case 'about':
             return <AboutSection key={index} data={section} locale={locale} />;
           case 'pageHero':
