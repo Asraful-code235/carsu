@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
 import { urlFor } from '@/sanity/lib/image';
+import type { Locale } from '@/lib/i18n/config';
+import { getLocalizedValue } from '@/lib/i18n/utils';
 
 interface FooterProps {
   data: {
@@ -31,9 +33,9 @@ interface FooterProps {
     };
     description?: any[];
     columns?: Array<{
-      title: string;
+      title: any; // Localized string
       links: Array<{
-        title: string;
+        title: any; // Localized string
         href: string;
         openInNewTab: boolean;
       }>;
@@ -52,6 +54,7 @@ interface FooterProps {
       buttonText?: string;
     };
   };
+  locale?: Locale;
 }
 
 const socialIcons = {
@@ -65,7 +68,7 @@ const socialIcons = {
   tiktok: MessageCircle, // Using MessageCircle as fallback for TikTok
 };
 
-export function Footer({ data }: FooterProps) {
+export function Footer({ data, locale = 'en' }: FooterProps) {
   const {
     logo,
     description,
@@ -137,7 +140,7 @@ export function Footer({ data }: FooterProps) {
               {columns.map((column, index) => (
                 <div key={index}>
                   <h3 className="text-xl font-bold text-gray-800 mb-10">
-                    {column.title}
+                    {getLocalizedValue(column.title, locale)}
                   </h3>
                   <ul className="space-y-4">
                     {column.links.map((link, linkIndex) => (
@@ -148,7 +151,7 @@ export function Footer({ data }: FooterProps) {
                           rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
                           className="text-gray-600 hover:text-blue-600 transition-colors text-lg"
                         >
-                          {link.title}
+                          {getLocalizedValue(link.title, locale)}
                         </Link>
                       </li>
                     ))}

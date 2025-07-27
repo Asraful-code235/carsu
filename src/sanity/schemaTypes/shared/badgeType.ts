@@ -73,19 +73,22 @@ export const badgeType = defineType({
   ],
   preview: {
     select: {
-      text: 'text',
+      text: 'text.en',
+      textEs: 'text.es',
       color: 'color',
       variant: 'variant',
       customColor: 'customColor',
     },
-    prepare({ text, color, variant, customColor }) {
-      const colorDisplay = color === 'custom' && customColor?.hex 
-        ? `Custom (${customColor.hex})` 
+    prepare({ text, textEs, color, variant, customColor }) {
+      const colorDisplay = color === 'custom' && customColor?.hex
+        ? `Custom (${customColor.hex})`
         : color;
-      
+      const badgeText = text || 'Badge';
+      const subtitle = `${colorDisplay} • ${variant}${textEs ? ` • ES: ${textEs}` : ''}`;
+
       return {
-        title: text || 'Badge',
-        subtitle: `${colorDisplay} • ${variant}`,
+        title: badgeText,
+        subtitle: subtitle,
         media: TagIcon,
       };
     },

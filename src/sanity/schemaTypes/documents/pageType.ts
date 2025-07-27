@@ -59,15 +59,18 @@ export const pageType = defineType({
   ],
   preview: {
     select: {
-      title: 'title',
+      title: 'title.en',
+      titleEs: 'title.es',
       isHomePage: 'isHomePage',
       sections: 'sections',
     },
-    prepare({ title, isHomePage, sections }) {
+    prepare({ title, titleEs, isHomePage, sections }) {
       const sectionCount = sections?.length || 0;
+      const pageTitle = title || 'Untitled Page';
+      const subtitle = `${sectionCount} section${sectionCount !== 1 ? 's' : ''}${titleEs ? ` • ES: ${titleEs}` : ''}`;
       return {
-        title: `${title}${isHomePage ? ' (Home)' : ''}`,
-        subtitle: `${sectionCount} section${sectionCount !== 1 ? 's' : ''}`,
+        title: `${pageTitle}${isHomePage ? ' (Home)' : ''}`,
+        subtitle: subtitle,
       };
     },
   },

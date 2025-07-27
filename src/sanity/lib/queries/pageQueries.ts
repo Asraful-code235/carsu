@@ -1,8 +1,9 @@
 import { defineQuery } from "next-sanity";
-import { 
-  LOCALE_STRING_FRAGMENT, 
-  LOCALIZED_SEO_FRAGMENT, 
-  LOCALIZED_IMAGE_FRAGMENT, 
+import {
+  LOCALE_STRING_FRAGMENT,
+  LOCALE_RICH_TEXT_FRAGMENT,
+  LOCALIZED_SEO_FRAGMENT,
+  LOCALIZED_IMAGE_FRAGMENT,
   LOCALIZED_CTA_BUTTON_FRAGMENT,
   LOCALIZED_BADGE_FRAGMENT,
   LOCALIZED_FEATURE_ITEM_FRAGMENT,
@@ -13,7 +14,7 @@ import {
 const HERO_SECTION_FRAGMENT = `
   _type == 'heroSection' => {
     type,
-    heading,
+    heading ${LOCALE_RICH_TEXT_FRAGMENT},
     subtitle ${LOCALE_STRING_FRAGMENT},
     ctaButtons[] ${LOCALIZED_CTA_BUTTON_FRAGMENT},
     heroImage ${LOCALIZED_IMAGE_FRAGMENT},
@@ -54,11 +55,11 @@ const FEATURE_SECTION_FRAGMENT = `
     type,
     layout,
     badge ${LOCALIZED_BADGE_FRAGMENT},
-    title,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
     subtitle ${LOCALE_STRING_FRAGMENT},
-    description,
+    description ${LOCALE_RICH_TEXT_FRAGMENT},
     features[] ${LOCALIZED_FEATURE_ITEM_FRAGMENT},
-    subdescription,
+    subdescription ${LOCALE_RICH_TEXT_FRAGMENT},
     ctaButtons[] ${LOCALIZED_CTA_BUTTON_FRAGMENT},
     image ${LOCALIZED_IMAGE_FRAGMENT},
     backgroundColor { hex },
@@ -75,7 +76,7 @@ const FEATURE_SECTION_FRAGMENT = `
 const TESTIMONIAL_SECTION_FRAGMENT = `
   _type == 'testimonialSection' => {
     type,
-    title,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
     subtitle ${LOCALE_STRING_FRAGMENT},
     testimonials[]-> ${LOCALIZED_TESTIMONIAL_FRAGMENT},
     displaySettings {
@@ -116,7 +117,7 @@ const TRY_CARSU_BANNER_FRAGMENT = `
 const CONTENT_SECTION_FRAGMENT = `
   _type == 'contentSection' => {
     type,
-    content,
+    content ${LOCALE_RICH_TEXT_FRAGMENT},
     isContentCenter,
     backgroundImage {
       image {
@@ -143,8 +144,8 @@ const CONTENT_SECTION_FRAGMENT = `
 const PAGE_HERO_SECTION_FRAGMENT = `
   _type == 'pageHeroSection' => {
     type,
-    title ${LOCALE_STRING_FRAGMENT},
-    description ${LOCALE_STRING_FRAGMENT},
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    description ${LOCALE_RICH_TEXT_FRAGMENT},
     textAlign,
     backgroundColor { hex },
     padding { top, bottom }
@@ -154,8 +155,82 @@ const PAGE_HERO_SECTION_FRAGMENT = `
 const ABOUT_SECTION_FRAGMENT = `
   _type == 'aboutSection' => {
     type,
-    title,
-    content
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    content ${LOCALE_RICH_TEXT_FRAGMENT}
+  }
+`;
+
+const SERVICES_SECTION_FRAGMENT = `
+  _type == 'servicesSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    description ${LOCALE_RICH_TEXT_FRAGMENT},
+    services[] {
+      title,
+      description,
+      icon
+    },
+    backgroundColor { hex },
+    padding { top, bottom },
+    settings {
+      textAlignment { desktop, mobile }
+    }
+  }
+`;
+
+const FAQ_SECTION_FRAGMENT = `
+  _type == 'faqSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    description ${LOCALE_RICH_TEXT_FRAGMENT},
+    faqCategories[] {
+      categoryName,
+      questions[] {
+        question,
+        answer ${LOCALE_RICH_TEXT_FRAGMENT},
+        featured
+      }
+    },
+    backgroundColor { hex },
+    padding { top, bottom },
+    settings {
+      layout,
+      showCategoryTabs,
+      allowMultipleOpen,
+      highlightFeatured,
+      fullWidth
+    }
+  }
+`;
+
+const CONTACT_FORM_SECTION_FRAGMENT = `
+  _type == 'contactFormSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    badge ${LOCALIZED_BADGE_FRAGMENT},
+    features[] ${LOCALIZED_FEATURE_ITEM_FRAGMENT},
+    formHeading ${LOCALE_RICH_TEXT_FRAGMENT},
+    formFields[] {
+      name,
+      label,
+      type,
+      required,
+      placeholder,
+      options[]
+    },
+    submitButton {
+      text ${LOCALE_STRING_FRAGMENT},
+      href,
+      variant,
+      openInNewTab
+    },
+    backgroundColor { hex },
+    padding { top, bottom },
+    settings {
+      layout,
+      formWidth,
+      showFeatures
+    }
   }
 `;
 
@@ -168,7 +243,10 @@ const ALL_SECTIONS_FRAGMENT = `
     ${TRY_CARSU_BANNER_FRAGMENT},
     ${CONTENT_SECTION_FRAGMENT},
     ${PAGE_HERO_SECTION_FRAGMENT},
-    ${ABOUT_SECTION_FRAGMENT}
+    ${ABOUT_SECTION_FRAGMENT},
+    ${SERVICES_SECTION_FRAGMENT},
+    ${FAQ_SECTION_FRAGMENT},
+    ${CONTACT_FORM_SECTION_FRAGMENT}
   }
 `;
 

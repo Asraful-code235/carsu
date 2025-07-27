@@ -51,14 +51,20 @@ export const imageWithAltObject = {
   ],
   preview: {
     select: {
-      alt: 'alt',
+      alt: 'alt.en',
+      altEs: 'alt.es',
       image: 'image',
-      caption: 'caption',
+      caption: 'caption.en',
+      captionEs: 'caption.es',
     },
-    prepare({ alt, image, caption }) {
+    prepare({ alt, altEs, image, caption, captionEs }) {
+      const altText = alt || 'Image';
+      const captionText = caption || 'No caption';
+      const subtitle = `${captionText}${altEs ? ` • ES Alt: ${altEs}` : ''}${captionEs ? ` • ES Caption: ${captionEs}` : ''}`;
+
       return {
-        title: alt || 'Image',
-        subtitle: caption || 'No caption',
+        title: altText,
+        subtitle: subtitle,
         media: image,
       };
     },

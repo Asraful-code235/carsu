@@ -81,17 +81,24 @@ export const testimonialType = defineType({
   preview: {
     select: {
       name: 'name',
-      company: 'company',
-      quote: 'quote',
+      company: 'company.en',
+      companyEs: 'company.es',
+      quote: 'quote.en',
+      quoteEs: 'quote.es',
       avatar: 'avatar',
       rating: 'rating',
       featured: 'featured',
     },
-    prepare({ name, company, quote, avatar, rating, featured }) {
+    prepare({ name, company, companyEs, quote, quoteEs, avatar, rating, featured }) {
       const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+      const companyText = company || '';
+      const quoteText = quote || '';
+      const translations = [companyEs, quoteEs].filter(Boolean);
+      const translationInfo = translations.length > 0 ? ` • ES: ${translations.join(', ').substring(0, 30)}...` : '';
+
       return {
-        title: `${name}${company ? ` - ${company}` : ''}`,
-        subtitle: `${stars} ${featured ? '⭐ Featured' : ''} - "${quote?.substring(0, 50)}..."`,
+        title: `${name}${companyText ? ` - ${companyText}` : ''}`,
+        subtitle: `${stars} ${featured ? '⭐ Featured' : ''} - "${quoteText.substring(0, 30)}..."${translationInfo}`,
         media: avatar,
       };
     },

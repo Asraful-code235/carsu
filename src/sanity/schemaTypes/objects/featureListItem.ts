@@ -82,12 +82,13 @@ export const featureListItemObject = {
   ],
   preview: {
     select: {
-      text: 'text',
+      text: 'text.en',
+      textEs: 'text.es',
       icon: 'icon',
       highlighted: 'highlighted',
       iconColor: 'iconColor',
     },
-    prepare({ text, icon, highlighted, iconColor }) {
+    prepare({ text, textEs, icon, highlighted, iconColor }) {
       const iconMap = {
         check: '✓',
         star: '★',
@@ -100,10 +101,13 @@ export const featureListItemObject = {
         cog: '⚙',
         user: '👤',
       };
-      
+
+      const featureText = text || 'Feature Item';
+      const subtitle = `${iconMap[icon as keyof typeof iconMap] || icon} • ${iconColor}${highlighted ? ' • Highlighted' : ''}${textEs ? ` • ES: ${textEs}` : ''}`;
+
       return {
-        title: text || 'Feature Item',
-        subtitle: `${iconMap[icon as keyof typeof iconMap] || icon} • ${iconColor}${highlighted ? ' • Highlighted' : ''}`,
+        title: featureText,
+        subtitle: subtitle,
       };
     },
   },

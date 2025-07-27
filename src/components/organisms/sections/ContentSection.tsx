@@ -264,11 +264,11 @@ export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
                     >
                       <div className="flex flex-col gap-8">
                         <h3 className="text-white font-semibold text-[22px]">
-                          {item.text}
+                          {getLocalizedValue(item.text, locale)}
                         </h3>
                         {item.description && (
                           <p className="text-white/80 text-sm leading-relaxed">
-                            {item.description}
+                            {getLocalizedValue(item.description, locale)}
                           </p>
                         )}
                         {item.link && item.link.href && (
@@ -284,7 +284,7 @@ export function ContentSection({ data, locale = 'en' }: ContentSectionProps) {
                             }
                             className="text-blue-400 hover:text-blue-300 text-sm underline mt-2 inline-block"
                           >
-                            {item.link.text}
+                            {getLocalizedValue(item.link.text, locale)}
                           </Link>
                         )}
                       </div>

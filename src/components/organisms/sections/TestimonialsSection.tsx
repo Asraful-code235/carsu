@@ -150,14 +150,14 @@ export function TestimonialsSection({ data, locale = 'en' }: TestimonialsSection
       <div className="relative container mx-auto px-6 lg:px-24">
         {/* Header */}
         <div className={cn("mb-16 lg:mb-20", `text-${styling.textAlign}`)}>
-          <div className="mb-6">
+          <div className="">
             <RichTextRenderer
               content={getLocalizedRichText(data.title, locale)}
               className="prose-headings:text-4xl prose-headings:md:text-5xl prose-headings:lg:text-6xl prose-headings:font-bold prose-headings:leading-tight prose-headings:text-[#363849] prose-headings:mb-0"
             />
           </div>
           {data.subtitle && (
-            <p className="text-xl text-[#4D525E] leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl text-[#4D525E] leading-relaxed max-w-[613.67px] w-full mx-auto">
               {getLocalizedValue(data.subtitle, locale)}
             </p>
           )}
@@ -199,7 +199,7 @@ export function TestimonialsSection({ data, locale = 'en' }: TestimonialsSection
                   className="flex-shrink-0 px-4 lg:px-8 relative"
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
-                  <TestimonialCard testimonial={testimonial} />
+                  <TestimonialCard testimonial={testimonial} locale={locale} />
 
                   {/* Divider - positioned absolutely so it doesn't affect layout */}
                   {index < testimonials.length - 1 && itemsPerView > 1 && (

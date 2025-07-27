@@ -10,6 +10,13 @@ export const LOCALE_STRING_FRAGMENT = `{
   it
 }`;
 
+// Localized rich text fragment
+export const LOCALE_RICH_TEXT_FRAGMENT = `{
+  en,
+  es,
+  it
+}`;
+
 // Localized SEO fields fragment
 export const LOCALIZED_SEO_FRAGMENT = `{
   metaTitle ${LOCALE_STRING_FRAGMENT},

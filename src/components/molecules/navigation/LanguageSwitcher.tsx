@@ -73,7 +73,7 @@ export function LanguageSwitcher({ currentLocale, className }: LanguageSwitcherP
                   key={locale}
                   onClick={() => switchLocale(locale)}
                   className={cn(
-                    "w-full flex items-center space-x-3 px-4 py-2 text-left",
+                    "w-full flex items-center space-x-3 px-4 py-2 text-left text-black",
                     "hover:bg-gray-50 transition-colors duration-150",
                     locale === currentLocale && "bg-blue-50 text-blue-700"
                   )}

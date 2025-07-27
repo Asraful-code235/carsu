@@ -1,5 +1,6 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { DEFAULT_HEADER_QUERY } from "@/sanity/lib/queries/headerQueries";
+import { getLocalizedValue } from "@/lib/i18n/utils";
 
 export async function DropdownDebug() {
   try {
@@ -16,7 +17,7 @@ export async function DropdownDebug() {
         <div className="space-y-4">
           {dropdownNavItems.map((navItem: any, index: number) => (
             <div key={index} className="bg-white p-3 rounded">
-              <h3 className="font-semibold text-blue-800">{navItem.title}</h3>
+              <h3 className="font-semibold text-blue-800">{getLocalizedValue(navItem.title, 'en')}</h3>
               <div className="text-sm space-y-2">
                 <div><strong>Has Dropdown:</strong> {navItem.hasDropdown ? 'Yes' : 'No'}</div>
                 <div><strong>Dropdown Layout:</strong></div>

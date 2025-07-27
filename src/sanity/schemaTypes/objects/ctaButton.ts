@@ -75,15 +75,18 @@ export const ctaButtonObject = {
   ],
   preview: {
     select: {
-      text: 'text',
+      text: 'text.en',
+      textEs: 'text.es',
       variant: 'variant',
       size: 'size',
       disabled: 'disabled',
     },
-    prepare({ text, variant, size, disabled }) {
+    prepare({ text, textEs, variant, size, disabled }) {
+      const buttonText = text || 'Button';
+      const subtitle = `${variant} • ${size}${disabled ? ' • disabled' : ''}${textEs ? ` • ES: ${textEs}` : ''}`;
       return {
-        title: text || 'Button',
-        subtitle: `${variant} • ${size}${disabled ? ' • disabled' : ''}`,
+        title: buttonText,
+        subtitle: subtitle,
       };
     },
   },

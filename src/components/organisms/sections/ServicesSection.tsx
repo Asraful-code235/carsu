@@ -23,7 +23,7 @@ import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedRichText } from "@/lib/i18n/utils";
+import { getLocalizedRichText, getLocalizedValue } from "@/lib/i18n/utils";
 
 interface ServicesSectionProps {
   data: {
@@ -232,12 +232,12 @@ export function ServicesSection({ data, locale = 'en' }: ServicesSectionProps) {
                       isActive ? "text-[44px]" : "text-2xl "
                     )}
                   >
-                    {service.title}
+                    {typeof service.title === 'string' ? service.title : getLocalizedValue(service.title, locale)}
                   </h3>
 
                   {isActive && (
                     <p className="text-[#4D525E] leading-[28px] text-lg max-w-[340.596px] mx-auto w-full">
-                      {service.description}
+                      {typeof service.description === 'string' ? service.description : getLocalizedValue(service.description, locale)}
                     </p>
                   )}
 
