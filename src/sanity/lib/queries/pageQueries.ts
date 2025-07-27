@@ -4,6 +4,7 @@ import {
   LOCALE_RICH_TEXT_FRAGMENT,
   LOCALIZED_SEO_FRAGMENT,
   LOCALIZED_IMAGE_FRAGMENT,
+  LOCALIZED_VIDEO_FRAGMENT,
   LOCALIZED_CTA_BUTTON_FRAGMENT,
   LOCALIZED_BADGE_FRAGMENT,
   LOCALIZED_FEATURE_ITEM_FRAGMENT,
@@ -58,6 +59,7 @@ const PRODUCT_HERO_SECTION_FRAGMENT = `
     subtitle ${LOCALE_STRING_FRAGMENT},
     description ${LOCALE_RICH_TEXT_FRAGMENT},
     ctaButtons[] ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    heroVideo ${LOCALIZED_VIDEO_FRAGMENT},
     heroImage ${LOCALIZED_IMAGE_FRAGMENT},
     backgroundColor {
       hex,
@@ -269,6 +271,10 @@ const PAGE_HERO_SECTION_FRAGMENT = `
     title ${LOCALE_RICH_TEXT_FRAGMENT},
     description ${LOCALE_RICH_TEXT_FRAGMENT},
     textAlign,
+    cards[] {
+      icon ${LOCALIZED_IMAGE_FRAGMENT},
+      title ${LOCALE_STRING_FRAGMENT}
+    },
     backgroundColor { hex },
     padding { top, bottom }
   }

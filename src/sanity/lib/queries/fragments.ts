@@ -63,6 +63,44 @@ export const LOCALIZED_IMAGE_FRAGMENT = `{
   priority
 }`;
 
+// Localized video with alt fragment
+export const LOCALIZED_VIDEO_FRAGMENT = `{
+  video {
+    asset-> {
+      _id,
+      url,
+      mimeType,
+      size,
+      metadata {
+        dimensions {
+          width,
+          height
+        }
+      }
+    }
+  },
+  poster {
+    asset-> {
+      _id,
+      url,
+      metadata {
+        dimensions {
+          width,
+          height
+        }
+      }
+    }
+  },
+  alt ${LOCALE_STRING_FRAGMENT},
+  caption ${LOCALE_STRING_FRAGMENT},
+  width,
+  height,
+  autoplay,
+  loop,
+  muted,
+  controls
+}`;
+
 // Localized CTA button fragment
 export const LOCALIZED_CTA_BUTTON_FRAGMENT = `{
   text ${LOCALE_STRING_FRAGMENT},

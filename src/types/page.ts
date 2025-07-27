@@ -115,6 +115,42 @@ export interface ProductHeroSection {
     icon?: string;
     disabled?: boolean;
   }>;
+  heroVideo?: {
+    video: {
+      asset: {
+        _id: string;
+        url: string;
+        mimeType: string;
+        size: number;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
+    poster?: {
+      asset: {
+        _id: string;
+        url: string;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
+    alt?: any; // Localized string
+    caption?: any; // Localized string
+    width?: number;
+    height?: number;
+    autoplay?: boolean;
+    loop?: boolean;
+    muted?: boolean;
+    controls?: boolean;
+  };
   heroImage: {
     image: {
       asset: {
@@ -536,6 +572,24 @@ export interface PageHeroSection {
   title: any[]; // Rich text array (Portable Text)
   description: any[]; // Rich text array (Portable Text)
   textAlign: 'left' | 'center' | 'right';
+  cards?: Array<{
+    icon?: {
+      image: {
+        asset: {
+          _id: string;
+          url: string;
+          metadata?: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
+          };
+        };
+      };
+      alt?: any; // Localized string
+    };
+    title: any; // Localized string
+  }>;
   backgroundColor?: {
     hex: string;
   };

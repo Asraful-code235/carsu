@@ -14,7 +14,7 @@ import { pageType } from './documents/pageType'
 import { richTextBlockObject } from './objects/richTextBlock'
 import { localeRichTextBlockObject } from './objects/localeRichTextBlock'
 import { ctaButtonObject } from './objects/ctaButton'
-import { imageWithAltObject } from './objects/imageWithAlt'
+import { imageWithAltObject, videoWithAltObject } from './objects/imageWithAlt'
 import { seoFieldsObject } from './objects/seoFields'
 import { paddingControlsObject } from './objects/paddingControls'
 import { featureListItemObject } from './objects/featureListItem'
@@ -65,6 +65,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     localeRichTextBlockObject,
     ctaButtonObject,
     imageWithAltObject,
+    videoWithAltObject,
     seoFieldsObject,
     paddingControlsObject,
     featureListItemObject,

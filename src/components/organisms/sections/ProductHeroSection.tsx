@@ -42,6 +42,42 @@ interface ProductHeroSectionData {
   subtitle?: any; // Localized string
   description?: any; // Localized rich text object
   ctaButtons?: CTAButton[];
+  heroVideo?: {
+    video: {
+      asset: {
+        _id: string;
+        url: string;
+        mimeType: string;
+        size: number;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
+    poster?: {
+      asset: {
+        _id: string;
+        url: string;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
+    alt?: any; // Localized string
+    caption?: any; // Localized string
+    width?: number;
+    height?: number;
+    autoplay?: boolean;
+    loop?: boolean;
+    muted?: boolean;
+    controls?: boolean;
+  };
   heroImage: {
     image: {
       asset: {
@@ -95,6 +131,7 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
     subtitle,
     description,
     ctaButtons,
+    heroVideo,
     heroImage,
     backgroundColor,
     backgroundElements,
@@ -205,8 +242,28 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
             </div>
           )}
 
-          {/* Hero Image */}
-          {heroImage && heroImage?.image && heroImage?.image?.asset ? (
+          {/* Hero Video or Image */}
+          {heroVideo && heroVideo?.video && heroVideo?.video?.asset ? (
+            <div className="container mx-auto w-full">
+              <div className="relative">
+                <video
+                  src={heroVideo.video.asset.url}
+                  poster={heroVideo.poster?.asset?.url ? urlFor(heroVideo.poster.asset).width(2304).height(1440).url() : undefined}
+                  width={heroVideo.width || heroVideo.video.asset.metadata?.dimensions?.width || 2304}
+                  height={heroVideo.height || heroVideo.video.asset.metadata?.dimensions?.height || 1440}
+                  className="w-full h-auto rounded-2xl"
+                  autoPlay={heroVideo.autoplay}
+                  loop={heroVideo.loop}
+                  muted={heroVideo.muted}
+                  controls={heroVideo.controls}
+                  playsInline
+                  aria-label={getLocalizedValue(heroVideo.alt, locale) || "Product hero video"}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          ) : heroImage && heroImage?.image && heroImage?.image?.asset ? (
             <div className="container mx-auto w-full">
               <div className="relative">
                 <Image
@@ -219,7 +276,7 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
                 />
               </div>
             </div>
-          ):null}
+          ) : null}
         </div>
       </div>
     </section>

@@ -48,11 +48,17 @@ export const productHeroSectionType = defineType({
       description: 'Primary action buttons for the hero section',
     }),
     defineField({
+      name: 'heroVideo',
+      title: 'Hero Video',
+      type: 'videoWithAlt',
+      description: 'Main hero video (product demo, walkthrough, etc.) - takes priority over image if provided',
+    }),
+    defineField({
       name: 'heroImage',
       title: 'Hero Image',
       type: 'imageWithAlt',
       validation: (Rule) => Rule.required(),
-      description: 'Main hero image (product screenshot, dashboard, etc.)',
+      description: 'Main hero image (product screenshot, dashboard, etc.) - shown if no video is provided',
     }),
     defineField({
       name: 'backgroundColor',
@@ -201,19 +207,21 @@ export const productHeroSectionType = defineType({
     select: {
       title: 'title',
       pillText: 'pillText',
+      heroVideo: 'heroVideo.poster',
       heroImage: 'heroImage.image',
       ctaButtons: 'ctaButtons',
     },
-    prepare({ title, pillText, heroImage, ctaButtons }) {
+    prepare({ title, pillText, heroVideo, heroImage, ctaButtons }) {
       // Extract plain text from rich text for preview
       const titleText = title?.[0]?.children?.map((child: any) => child.text).join('') || 'Product Hero Section';
       const buttonCount = ctaButtons?.length || 0;
       const pillTextValue = pillText?.en || pillText || '';
-      
+      const mediaType = heroVideo ? 'Video' : 'Image';
+
       return {
         title: titleText,
-        subtitle: `${pillTextValue ? `${pillTextValue} • ` : ''}${buttonCount} CTA button${buttonCount !== 1 ? 's' : ''}`,
-        media: heroImage,
+        subtitle: `${pillTextValue ? `${pillTextValue} • ` : ''}${mediaType} • ${buttonCount} CTA button${buttonCount !== 1 ? 's' : ''}`,
+        media: heroVideo || heroImage,
       };
     },
   },
