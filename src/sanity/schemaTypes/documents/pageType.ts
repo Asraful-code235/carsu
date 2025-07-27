@@ -44,6 +44,7 @@ export const pageType = defineType({
         { type: 'heroSection' },
         { type: 'productHeroSection' },
         { type: 'productFeatureSection' },
+        { type: 'productInteractiveSection' },
         { type: 'aboutSection' },
         { type: 'pageHeroSection' },
         { type: 'contentSection' },

@@ -67,7 +67,7 @@ export default async function Page({ params }: PageProps) {
 
     const locale: Locale = localeParam;
     const slugString = slug.join('/');
-    
+
     const { data: pageData } = await sanityFetch({
       query: PAGE_BY_SLUG_QUERY,
       params: { slug: slugString },

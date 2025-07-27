@@ -107,6 +107,24 @@ const PRODUCT_FEATURE_SECTION_FRAGMENT = `
   }
 `;
 
+const PRODUCT_INTERACTIVE_SECTION_FRAGMENT = `
+  _type == 'productInteractiveSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    items[] {
+      title ${LOCALE_STRING_FRAGMENT},
+      content ${LOCALE_RICH_TEXT_FRAGMENT},
+      image ${LOCALIZED_IMAGE_FRAGMENT}
+    },
+    backgroundColor { hex },
+    padding { top, bottom },
+    settings {
+      defaultActiveItem,
+      animationDuration
+    }
+  }
+`;
+
 const FEATURE_SECTION_FRAGMENT = `
   _type == 'featureSection' => {
     type,
@@ -297,6 +315,7 @@ const ALL_SECTIONS_FRAGMENT = `
     ${HERO_SECTION_FRAGMENT},
     ${PRODUCT_HERO_SECTION_FRAGMENT},
     ${PRODUCT_FEATURE_SECTION_FRAGMENT},
+    ${PRODUCT_INTERACTIVE_SECTION_FRAGMENT},
     ${FEATURE_SECTION_FRAGMENT},
     ${TESTIMONIAL_SECTION_FRAGMENT},
     ${TRY_CARSU_BANNER_FRAGMENT},
