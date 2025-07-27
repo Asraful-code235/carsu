@@ -21,7 +21,7 @@ const colorVariants = {
   success: {
     filled: 'bg-green-600 text-white border-green-600',
     outline: 'bg-transparent text-green-600 border-green-600',
-    soft: 'bg-green-50 text-green-700 border-green-200',
+    soft: 'bg-[#CEF8DE] text-[#119D5E] border-green-200',
   },
   warning: {
     filled: 'bg-yellow-600 text-white border-yellow-600',
