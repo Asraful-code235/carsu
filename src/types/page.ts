@@ -838,24 +838,24 @@ export interface ProductBenefitsListSection {
   type: 'productBenefitsList';
   title: any; // Localized rich text
   description?: any; // Localized rich text
-  image: {
-    image: {
-      asset: {
-        _id: string;
-        url: string;
-        metadata?: {
-          dimensions: {
-            width: number;
-            height: number;
-          };
-        };
-      };
-    };
-    alt?: any; // Localized string
-  };
   benefits: Array<{
     title: any; // Localized string
     description?: any; // Localized rich text
+    image: {
+      image: {
+        asset: {
+          _id: string;
+          url: string;
+          metadata?: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
+          };
+        };
+      };
+      alt?: any; // Localized string
+    };
   }>;
   layout: 'imageLeft' | 'contentLeft';
   backgroundColor?: { hex: string };

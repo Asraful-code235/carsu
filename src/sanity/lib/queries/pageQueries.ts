@@ -421,10 +421,10 @@ const PRODUCT_BENEFITS_LIST_SECTION_FRAGMENT = `
     type,
     title ${LOCALE_RICH_TEXT_FRAGMENT},
     description ${LOCALE_RICH_TEXT_FRAGMENT},
-    image ${LOCALIZED_IMAGE_FRAGMENT},
     benefits[] {
       title ${LOCALE_STRING_FRAGMENT},
-      description ${LOCALE_RICH_TEXT_FRAGMENT}
+      description ${LOCALE_RICH_TEXT_FRAGMENT},
+      image ${LOCALIZED_IMAGE_FRAGMENT}
     },
     layout,
     backgroundColor { hex },

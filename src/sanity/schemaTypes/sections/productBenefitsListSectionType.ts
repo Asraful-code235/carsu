@@ -28,13 +28,6 @@ export const productBenefitsListSectionType = defineType({
       description: 'Optional description text below the title',
     }),
     defineField({
-      name: 'image',
-      title: 'Section Image',
-      type: 'imageWithAlt',
-      validation: (Rule) => Rule.required(),
-      description: 'Main image displayed alongside the benefits list',
-    }),
-    defineField({
       name: 'benefits',
       title: 'Benefits List',
       type: 'array',
@@ -56,6 +49,13 @@ export const productBenefitsListSectionType = defineType({
               title: 'Benefit Description',
               type: 'localeRichTextBlock',
               description: 'Detailed description of this benefit',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Benefit Image',
+              type: 'imageWithAlt',
+              validation: (Rule) => Rule.required(),
+              description: 'Image that will be displayed when this benefit is active/selected',
             }),
           ],
           preview: {

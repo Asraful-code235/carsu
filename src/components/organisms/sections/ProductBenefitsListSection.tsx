@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
 import { ProductBenefitsListSection as ProductBenefitsListSectionType } from '@/types/page';
 import { getLocalizedValue, getLocalizedRichText } from '@/lib/i18n/utils';
 import { urlFor } from '@/sanity/lib/image';
@@ -21,7 +24,11 @@ const paddingClasses = {
 };
 
 export function ProductBenefitsListSection({ section, locale }: ProductBenefitsListSectionProps) {
-  const { title, description, image, benefits, layout, backgroundColor, padding } = section;
+  const { title, description, benefits, layout, backgroundColor, padding } = section;
+
+  // State for active benefit (defaults to first benefit)
+  const [activeBenefitIndex, setActiveBenefitIndex] = useState(0);
+  const activeBenefit = benefits[activeBenefitIndex];
 
   const paddingClass = paddingClasses[padding?.top as keyof typeof paddingClasses] || paddingClasses.large;
   const backgroundStyle = backgroundColor?.hex ? { backgroundColor: backgroundColor.hex } : {};
@@ -44,12 +51,12 @@ export function ProductBenefitsListSection({ section, locale }: ProductBenefitsL
             isImageLeft ? 'lg:order-1' : 'lg:order-2'
           )}>
             <div className="relative aspect-[4/3] w-full max-w-lg mx-auto lg:max-w-none">
-              {image?.image?.asset && (
+              {activeBenefit?.image?.image?.asset && (
                 <Image
-                  src={urlFor(image.image.asset).width(600).height(450).url()}
-                  alt={getLocalizedValue(image.alt, locale) || 'Benefits illustration'}
+                  src={urlFor(activeBenefit.image.image.asset).width(600).height(450).url()}
+                  alt={getLocalizedValue(activeBenefit.image.alt, locale) || 'Benefit illustration'}
                   fill
-                  className="object-contain"
+                  className="object-contain transition-opacity duration-300"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
               )}
@@ -80,12 +87,27 @@ export function ProductBenefitsListSection({ section, locale }: ProductBenefitsL
             {/* Benefits List */}
             <div className="space-y-6">
               {benefits.map((benefit, index) => (
-                <div key={index} className="space-y-3">
+                <div
+                  key={index}
+                  className={cn(
+                    "space-y-3 cursor-pointer transition-all duration-200 p-4 rounded-lg",
+                    activeBenefitIndex === index
+                      ? "bg-blue-50 border-l-4 border-blue-600"
+                      : "hover:bg-gray-50"
+                  )}
+                  onClick={() => setActiveBenefitIndex(index)}
+                >
                   {/* Benefit Title */}
                   <div className="flex items-start gap-3">
                     {/* Bullet Point */}
-                    <div className="flex-shrink-0 w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
-                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 leading-tight">
+                    <div className={cn(
+                      "flex-shrink-0 w-2 h-2 rounded-full mt-2 transition-colors duration-200",
+                      activeBenefitIndex === index ? "bg-blue-600" : "bg-gray-400"
+                    )}></div>
+                    <h3 className={cn(
+                      "text-lg md:text-xl font-semibold leading-tight transition-colors duration-200",
+                      activeBenefitIndex === index ? "text-blue-900" : "text-gray-900"
+                    )}>
                       {getLocalizedValue(benefit.title, locale)}
                     </h3>
                   </div>
@@ -95,7 +117,10 @@ export function ProductBenefitsListSection({ section, locale }: ProductBenefitsL
                     <div className="ml-5">
                       <RichTextRenderer
                         content={getLocalizedRichText(benefit.description, locale)}
-                        className="prose prose-sm max-w-none [&_p]:text-gray-600 [&_p]:text-sm [&_p]:md:text-base [&_p]:leading-relaxed [&_p]:mb-0"
+                        className={cn(
+                          "prose prose-sm max-w-none [&_p]:text-sm [&_p]:md:text-base [&_p]:leading-relaxed [&_p]:mb-0 transition-colors duration-200",
+                          activeBenefitIndex === index ? "[&_p]:text-blue-800" : "[&_p]:text-gray-600"
+                        )}
                       />
                     </div>
                   )}
