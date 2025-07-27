@@ -94,7 +94,7 @@ export function PricingCalculatorSection({ data, locale = 'en' }: PricingCalcula
       className={cn('relative', paddingClass)}
       style={backgroundStyle}
     >
-      <div className="container mx-auto px-6 lg:px-24">
+      <div className="container mx-auto px-6 lg:px-24 -mt-24">
         <div className="text-start mb-12">
           {/* Badge */}
           {badge?.text && (
@@ -238,45 +238,45 @@ export function PricingCalculatorSection({ data, locale = 'en' }: PricingCalcula
           </div>
 
           {/* Right Side - Pricing Display */}
-          <div className="space-y-6">
+          <div className="gap-7 grid lg:grid-cols-2">
             {/* Total Card */}
-            <div className="bg-blue-600 text-white p-6 rounded-xl">
-              <div className="flex items-center justify-center mb-4">
+            <div className="bg-blue-600 text-white p-8 rounded-xl row-span-1 lg:row-span-2 h-full col-span-1 flex flex-col items-start justify-end">
+              <div className="flex items-center justify-center mb-12 p-4 bg-white rounded-lg">
                 <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">€</span>
+                  <span className="text-3xl text-blue-600">€</span>
                 </div>
               </div>
-              <div className="text-center">
-                <p className="text-blue-100 mb-2">{getLocalizedValue(totalLabel, locale)}</p>
-                <p className="text-3xl font-bold">{total.toFixed(2)} €</p>
+              <div className="text-start">
+                <p className="!text-white mb-2 text-3xl lg:text-4xl">{getLocalizedValue(totalLabel, locale)}</p>
+                <p className="text-5xl lg:text-6xl font-bold !text-white">{total.toFixed(2)} €</p>
               </div>
             </div>
 
             {/* Discount Card */}
-            <div className="bg-gray-100 p-4 rounded-lg">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+            <div className="bg-[#9DC2F95C] p-4 rounded-lg row-span-1 col-span-1 h-full">
+              <div className="flex flex-col items-start justify-center">
+                <div className="flex flex-col items-start gap-8 space-x-3 h-full justify-end mt-6">
+                  <div className="w-12 h-12 flex items-center justify-center p-4 bg-white rounded-lg">
                     <span className="text-blue-600 text-sm">%</span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{getLocalizedValue(discountLabel, locale)}</p>
-                    <p className="text-2xl font-bold text-gray-900">{discountPercent}%</p>
+                    <p className="font-medium text-xl text-gray-900">{getLocalizedValue(discountLabel, locale)}</p>
+                    <p className="text-2xl lg:text-[44px] font-bold text-gray-900">{discountPercent}%</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* VAT Card */}
-            <div className="bg-gray-100 p-4 rounded-lg">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+         <div className="bg-[#9DC2F95C] p-4 rounded-lg row-span-1 col-span-1 h-full">
+              <div className="flex flex-col items-start justify-center">
+                <div className="flex flex-col items-start gap-8 space-x-3 h-full justify-end mt-6">
+                  <div className="w-12 h-12 flex items-center justify-center p-4 bg-white rounded-lg">
                     <span className="text-blue-600 text-sm">📄</span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{getLocalizedValue(vatLabel, locale)} {vatPercent}%</p>
-                    <p className="text-xl font-bold text-gray-900">{vatAmount.toFixed(2)} €</p>
+                    <p className="font-medium text-xl text-gray-900">{getLocalizedValue(vatLabel, locale)} {vatPercent}%</p>
+                    <p className="text-2xl lg:text-[44px] font-bold text-gray-900">{vatAmount.toFixed(2)} €</p>
                   </div>
                 </div>
               </div>
