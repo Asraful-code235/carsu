@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { ChevronDown, Globe } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
-import { locales, localeNames, localeFlags, isValidLocale } from "@/lib/i18n/config";
+import { locales, localeNames, localeFlags } from "@/lib/i18n/config";
 import type { Locale } from "@/lib/i18n/config";
 
 interface LanguageSwitcherProps {
@@ -38,10 +38,10 @@ export function LanguageSwitcher({ currentLocale, className }: LanguageSwitcherP
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex items-center space-x-2 px-3 py-2 rounded-lg",
+          "flex items-center space-x-2 px-3 py-3.5 rounded-full",
           "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
           "transition-colors duration-200",
-          "border border-gray-200 hover:border-gray-300"
+          "border border-blue-500 hover:bg-blue-500 hover:text-white"
         )}
         aria-label={`Current language: ${localeNames[currentLocale]}`}
       >
