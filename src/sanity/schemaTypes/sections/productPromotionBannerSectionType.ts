@@ -15,6 +15,12 @@ export const productPromotionBannerSectionType = defineType({
       initialValue: 'productPromotionBanner',
     }),
     defineField({
+      name: 'badge',
+      title: 'Section Badge',
+      type: 'badge',
+      description: 'Optional badge that appears above the title',
+    }),
+    defineField({
       name: 'title',
       title: 'Banner Title',
       type: 'localeRichTextBlock',
@@ -186,19 +192,21 @@ export const productPromotionBannerSectionType = defineType({
     select: {
       title: 'title',
       subtitle: 'subtitle',
+      badge: 'badge.text.en',
       image: 'backgroundImage.image',
     },
-    prepare({ title, subtitle, image }) {
+    prepare({ title, subtitle, badge, image }) {
       // Extract plain text from rich text for preview
-      const titleText = title?.en?.[0]?.children?.map((child: any) => child.text).join('') || 
-                       title?.[0]?.children?.map((child: any) => child.text).join('') || 
+      const titleText = title?.en?.[0]?.children?.map((child: any) => child.text).join('') ||
+                       title?.[0]?.children?.map((child: any) => child.text).join('') ||
                        'Product Promotion Banner';
-      const subtitleText = subtitle?.en?.[0]?.children?.map((child: any) => child.text).join('') || 
+      const subtitleText = subtitle?.en?.[0]?.children?.map((child: any) => child.text).join('') ||
                           subtitle?.[0]?.children?.map((child: any) => child.text).join('') || '';
-      
+      const badgeText = badge ? ` • Badge: ${badge}` : '';
+
       return {
         title: titleText,
-        subtitle: subtitleText || 'Product Promotion Banner',
+        subtitle: `${subtitleText || 'Product Promotion Banner'}${badgeText}`,
         media: image,
       };
     },

@@ -56,6 +56,8 @@ export const pageType = defineType({
         { type: 'tryCarsuBanner' },
         { type: 'contactFormSection' },
         { type: 'faqSection' },
+        { type: 'pricingCalculatorSection' },
+        { type: 'featureCardsSection' },
       ],
       options: {
         sortable: true,

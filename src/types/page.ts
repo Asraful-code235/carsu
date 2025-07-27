@@ -302,6 +302,13 @@ export interface ProductBannerSection {
 
 export interface ProductPromotionBannerSection {
   type: 'productPromotionBanner';
+  badge?: {
+    text: any;
+    color?: string;
+    customColor?: { hex: string };
+    variant?: 'filled' | 'outline' | 'soft';
+    size?: 'sm' | 'md' | 'lg';
+  };
   title: any; // Localized rich text
   subtitle?: any; // Localized rich text
   description?: any; // Localized rich text
@@ -720,7 +727,81 @@ export interface FAQSection {
   };
 }
 
-export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | ProductBannerSection | ProductPromotionBannerSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection;
+export interface PricingCalculatorSection {
+  type: 'pricingCalculator';
+  badge?: {
+    text: any;
+    color?: string;
+    customColor?: { hex: string };
+    variant?: 'filled' | 'outline' | 'soft';
+    size?: 'sm' | 'md' | 'lg';
+  };
+  title: any; // Localized rich text
+  subtitle?: any; // Localized rich text
+  calculatorTitle: any; // Localized string
+  serviceSelectPlaceholder: any; // Localized string
+  optionSelectPlaceholder: any; // Localized string
+  vehicleInfoTitle: any; // Localized string
+  makeModelPlaceholder: any; // Localized string
+  mileagePlaceholder: any; // Localized string
+  estimateButtonText: any; // Localized string
+  totalLabel: any; // Localized string
+  discountLabel: any; // Localized string
+  vatLabel: any; // Localized string
+  backgroundColor?: { hex: string };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export interface FeatureCardsSection {
+  type: 'featureCards';
+  badge?: {
+    text: any;
+    color?: string;
+    customColor?: { hex: string };
+    variant?: 'filled' | 'outline' | 'soft';
+    size?: 'sm' | 'md' | 'lg';
+  };
+  title: any; // Localized rich text
+  subtitle?: any; // Localized rich text
+  featureCards: Array<{
+    icon?: {
+      image: {
+        asset: {
+          _id: string;
+          url: string;
+          metadata?: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
+          };
+        };
+      };
+      alt?: any; // Localized string
+    };
+    iconBackgroundColor?: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'indigo' | 'gray';
+    title: any; // Localized string
+    description: any; // Localized string
+  }>;
+  layout?: {
+    columns: '2' | '3' | '4';
+    cardSpacing?: 'small' | 'medium' | 'large';
+  };
+  textAlignment?: {
+    desktop: 'left' | 'center' | 'right';
+    mobile: 'left' | 'center' | 'right';
+  };
+  backgroundColor?: { hex: string };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | ProductBannerSection | ProductPromotionBannerSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection | PricingCalculatorSection | FeatureCardsSection;
 
 export interface PageConfiguration {
   _id: string;

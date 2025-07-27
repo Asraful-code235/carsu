@@ -153,6 +153,7 @@ const PRODUCT_BANNER_SECTION_FRAGMENT = `
 const PRODUCT_PROMOTION_BANNER_SECTION_FRAGMENT = `
   _type == 'productPromotionBannerSection' => {
     type,
+    badge ${LOCALIZED_BADGE_FRAGMENT},
     title ${LOCALE_RICH_TEXT_FRAGMENT},
     subtitle ${LOCALE_RICH_TEXT_FRAGMENT},
     description ${LOCALE_RICH_TEXT_FRAGMENT},
@@ -355,6 +356,48 @@ const CONTACT_FORM_SECTION_FRAGMENT = `
   }
 `;
 
+const PRICING_CALCULATOR_SECTION_FRAGMENT = `
+  _type == 'pricingCalculatorSection' => {
+    type,
+    badge ${LOCALIZED_BADGE_FRAGMENT},
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    subtitle ${LOCALE_RICH_TEXT_FRAGMENT},
+    calculatorTitle ${LOCALE_STRING_FRAGMENT},
+    serviceSelectPlaceholder ${LOCALE_STRING_FRAGMENT},
+    optionSelectPlaceholder ${LOCALE_STRING_FRAGMENT},
+    vehicleInfoTitle ${LOCALE_STRING_FRAGMENT},
+    makeModelPlaceholder ${LOCALE_STRING_FRAGMENT},
+    mileagePlaceholder ${LOCALE_STRING_FRAGMENT},
+    estimateButtonText ${LOCALE_STRING_FRAGMENT},
+    totalLabel ${LOCALE_STRING_FRAGMENT},
+    discountLabel ${LOCALE_STRING_FRAGMENT},
+    vatLabel ${LOCALE_STRING_FRAGMENT},
+    backgroundColor { hex },
+    padding { top, bottom }
+  }
+`;
+
+const FEATURE_CARDS_SECTION_FRAGMENT = `
+  _type == 'featureCardsSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    subtitle ${LOCALE_RICH_TEXT_FRAGMENT},
+    featureCards[] {
+      icon ${LOCALIZED_IMAGE_FRAGMENT},
+      iconBackgroundColor,
+      title ${LOCALE_STRING_FRAGMENT},
+      description ${LOCALE_STRING_FRAGMENT}
+    },
+    layout {
+      columns,
+      cardSpacing
+    },
+    textAlignment { desktop, mobile },
+    backgroundColor { hex },
+    padding { top, bottom }
+  }
+`;
+
 // Combined sections fragment
 const ALL_SECTIONS_FRAGMENT = `
   sections[] {
@@ -372,7 +415,9 @@ const ALL_SECTIONS_FRAGMENT = `
     ${ABOUT_SECTION_FRAGMENT},
     ${SERVICES_SECTION_FRAGMENT},
     ${FAQ_SECTION_FRAGMENT},
-    ${CONTACT_FORM_SECTION_FRAGMENT}
+    ${CONTACT_FORM_SECTION_FRAGMENT},
+    ${PRICING_CALCULATOR_SECTION_FRAGMENT},
+    ${FEATURE_CARDS_SECTION_FRAGMENT}
   }
 `;
 

@@ -2,6 +2,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import { CTAButton } from "@/components/atoms/ui/CTAButton";
+import { Badge } from "@/components/atoms/ui/Badge";
 import type { Locale } from "@/lib/i18n/config";
 import { getLocalizedRichText } from "@/lib/i18n/utils";
 
@@ -17,6 +18,13 @@ interface CTAButtonData {
 
 interface ProductPromotionBannerSectionData {
   type: 'productPromotionBanner';
+  badge?: {
+    text: any;
+    color?: string;
+    customColor?: { hex: string };
+    variant?: 'filled' | 'outline' | 'soft';
+    size?: 'sm' | 'md' | 'lg';
+  };
   title: any; // Localized rich text
   subtitle?: any; // Localized rich text
   description?: any; // Localized rich text
@@ -92,6 +100,7 @@ const textAlignmentClasses = {
 
 export function ProductPromotionBannerSection({ data, locale = 'en' }: ProductPromotionBannerSectionProps) {
   const {
+    badge,
     title,
     subtitle,
     description,
@@ -162,6 +171,20 @@ export function ProductPromotionBannerSection({ data, locale = 'en' }: ProductPr
             `lg:${desktopAlignment}`,
             mobileAlignment
           )}>
+            {/* Badge */}
+            {badge?.text && (
+              <div className="mb-6">
+                <Badge
+                  text={badge.text}
+                  color={badge.color as any}
+                  customColor={badge.customColor?.hex}
+                  variant={badge.variant}
+                  size={badge.size}
+                  locale={locale}
+                />
+              </div>
+            )}
+
             {/* Title */}
             <div className="mb-4">
               <RichTextRenderer

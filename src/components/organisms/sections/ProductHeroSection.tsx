@@ -206,7 +206,7 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
           )}
 
           {/* Hero Image */}
-          {heroImage && heroImage.image && heroImage.image.asset && (
+          {heroImage && heroImage?.image && heroImage?.image?.asset ? (
             <div className="container mx-auto w-full">
               <div className="relative">
                 <Image
@@ -219,7 +219,7 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
                 />
               </div>
             </div>
-          )}
+          ):null}
         </div>
       </div>
     </section>
