@@ -801,7 +801,40 @@ export interface FeatureCardsSection {
   };
 }
 
-export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | ProductBannerSection | ProductPromotionBannerSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection | PricingCalculatorSection | FeatureCardsSection;
+export interface ProductFeaturesGridSection {
+  type: 'productFeaturesGrid';
+  featureItems: Array<{
+    title: any; // Localized rich text
+    description?: any; // Localized rich text
+    features?: Array<{
+      text: any; // Localized string
+      icon: 'check' | 'star' | 'arrowRight' | 'plus' | 'bullet';
+    }>;
+    image: {
+      image: {
+        asset: {
+          _id: string;
+          url: string;
+          metadata?: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
+          };
+        };
+      };
+      alt?: any; // Localized string
+    };
+    imageSize: 'small' | 'medium' | 'large';
+  }>;
+  backgroundColor?: { hex: string };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | ProductBannerSection | ProductPromotionBannerSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection | PricingCalculatorSection | FeatureCardsSection | ProductFeaturesGridSection;
 
 export interface PageConfiguration {
   _id: string;

@@ -398,6 +398,24 @@ const FEATURE_CARDS_SECTION_FRAGMENT = `
   }
 `;
 
+const PRODUCT_FEATURES_GRID_SECTION_FRAGMENT = `
+  _type == 'productFeaturesGridSection' => {
+    type,
+    featureItems[] {
+      title ${LOCALE_RICH_TEXT_FRAGMENT},
+      description ${LOCALE_RICH_TEXT_FRAGMENT},
+      features[] {
+        text ${LOCALE_STRING_FRAGMENT},
+        icon
+      },
+      image ${LOCALIZED_IMAGE_FRAGMENT},
+      imageSize
+    },
+    backgroundColor { hex },
+    padding { top, bottom }
+  }
+`;
+
 // Combined sections fragment
 const ALL_SECTIONS_FRAGMENT = `
   sections[] {
@@ -417,7 +435,8 @@ const ALL_SECTIONS_FRAGMENT = `
     ${FAQ_SECTION_FRAGMENT},
     ${CONTACT_FORM_SECTION_FRAGMENT},
     ${PRICING_CALCULATOR_SECTION_FRAGMENT},
-    ${FEATURE_CARDS_SECTION_FRAGMENT}
+    ${FEATURE_CARDS_SECTION_FRAGMENT},
+    ${PRODUCT_FEATURES_GRID_SECTION_FRAGMENT}
   }
 `;
 

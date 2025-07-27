@@ -42,6 +42,7 @@ import { contactFormSectionType } from './sections/contactFormSectionType'
 import { faqSectionType } from './sections/faqSectionType'
 import { pricingCalculatorSectionType } from './sections/pricingCalculatorSectionType'
 import { featureCardsSectionType } from './sections/featureCardsSectionType'
+import { productFeaturesGridSectionType } from './sections/productFeaturesGridSectionType'
 
 // Legacy block content (keeping for backward compatibility)
 import { blockContentType } from './blockContentType'
@@ -91,6 +92,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     faqSectionType,
     pricingCalculatorSectionType,
     featureCardsSectionType,
+    productFeaturesGridSectionType,
 
     // Legacy types (for backward compatibility)
     blockContentType,

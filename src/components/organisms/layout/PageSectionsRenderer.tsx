@@ -15,6 +15,7 @@ import { ContactFormSection } from "@/components/organisms/sections/ContactFormS
 import { FAQSection } from "@/components/organisms/sections/FAQSection";
 import { PricingCalculatorSection } from "@/components/organisms/sections/PricingCalculatorSection";
 import { FeatureCardsSection } from "@/components/organisms/sections/FeatureCardsSection";
+import { ProductFeaturesGridSection } from "@/components/organisms/sections/ProductFeaturesGridSection";
 import type { PageSection } from "@/types/page";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -77,6 +78,8 @@ export function PageSectionsRenderer({ sections, locale = 'en' }: PageSectionsRe
             return <PricingCalculatorSection key={index} data={section} locale={locale} />;
           case 'featureCards':
             return <FeatureCardsSection key={index} data={section} locale={locale} />;
+          case 'productFeaturesGrid':
+            return <ProductFeaturesGridSection key={index} section={section} locale={locale} />;
           default:
             return (
               <div key={index} className="py-8 bg-yellow-50 border border-yellow-200">

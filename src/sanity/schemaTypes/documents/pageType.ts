@@ -58,6 +58,7 @@ export const pageType = defineType({
         { type: 'faqSection' },
         { type: 'pricingCalculatorSection' },
         { type: 'featureCardsSection' },
+        { type: 'productFeaturesGridSection' },
       ],
       options: {
         sortable: true,
