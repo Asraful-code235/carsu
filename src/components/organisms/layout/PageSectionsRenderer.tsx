@@ -17,6 +17,7 @@ import { PricingCalculatorSection } from "@/components/organisms/sections/Pricin
 import { FeatureCardsSection } from "@/components/organisms/sections/FeatureCardsSection";
 import { ProductFeaturesGridSection } from "@/components/organisms/sections/ProductFeaturesGridSection";
 import { ProductBenefitsListSection } from "@/components/organisms/sections/ProductBenefitsListSection";
+import { PricingSection } from "@/components/organisms/sections/PricingSection";
 import type { PageSection } from "@/types/page";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -83,6 +84,8 @@ export function PageSectionsRenderer({ sections, locale = 'en' }: PageSectionsRe
             return <ProductFeaturesGridSection key={index} section={section} locale={locale} />;
           case 'productBenefitsList':
             return <ProductBenefitsListSection key={index} section={section} locale={locale} />;
+          case 'pricing':
+            return <PricingSection key={index} data={section} locale={locale} />;
           default:
             return (
               <div key={index} className="py-8 bg-yellow-50 border border-yellow-200">

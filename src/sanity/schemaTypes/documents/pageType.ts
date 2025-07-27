@@ -142,6 +142,11 @@ export const pageType = defineType({
           title: '💰 Pricing Calculator',
           description: 'Interactive pricing calculator. Perfect for pricing pages.'
         },
+        {
+          type: 'pricingSection',
+          title: '💳 Pricing Section',
+          description: 'Pricing plans with features and CTA buttons. Perfect for pricing pages with up to 3 plans.'
+        },
 
         // === CTA BANNERS ===
         {

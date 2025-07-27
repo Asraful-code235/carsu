@@ -438,6 +438,33 @@ const PRODUCT_BENEFITS_LIST_SECTION_FRAGMENT = `
   }
 `;
 
+const PRICING_SECTION_FRAGMENT = `
+  _type == 'pricingSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    subtitle ${LOCALE_STRING_FRAGMENT},
+    billingToggle {
+      yearlyText ${LOCALE_STRING_FRAGMENT},
+      monthlyText ${LOCALE_STRING_FRAGMENT}
+    },
+    pricingPlans[] {
+      name ${LOCALE_STRING_FRAGMENT},
+      price ${LOCALE_STRING_FRAGMENT},
+      period ${LOCALE_STRING_FRAGMENT},
+      description ${LOCALE_STRING_FRAGMENT},
+      subdescription ${LOCALE_STRING_FRAGMENT},
+      features[] {
+        text ${LOCALE_RICH_TEXT_FRAGMENT},
+        included
+      },
+      ctaButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+      isPopular
+    },
+    backgroundColor { hex },
+    padding { top, bottom }
+  }
+`;
+
 // Combined sections fragment
 const ALL_SECTIONS_FRAGMENT = `
   sections[] {
@@ -459,7 +486,8 @@ const ALL_SECTIONS_FRAGMENT = `
     ${PRICING_CALCULATOR_SECTION_FRAGMENT},
     ${FEATURE_CARDS_SECTION_FRAGMENT},
     ${PRODUCT_FEATURES_GRID_SECTION_FRAGMENT},
-    ${PRODUCT_BENEFITS_LIST_SECTION_FRAGMENT}
+    ${PRODUCT_BENEFITS_LIST_SECTION_FRAGMENT},
+    ${PRICING_SECTION_FRAGMENT}
   }
 `;
 

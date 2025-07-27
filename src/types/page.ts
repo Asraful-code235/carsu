@@ -1,4 +1,4 @@
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 export interface SEOSettings {
   metaTitle?: string;
@@ -9,7 +9,7 @@ export interface SEOSettings {
 export interface PageCTAButton {
   text: string;
   href: string;
-  variant: 'primary' | 'secondary';
+  variant: "primary" | "secondary";
 }
 
 export interface BackgroundElement {
@@ -31,21 +31,21 @@ export interface BackgroundElement {
     right?: string;
     bottom?: string;
   };
-  size: 'sm' | 'md' | 'lg' | 'xl';
+  size: "sm" | "md" | "lg" | "xl";
   opacity: number;
   rotation: number;
   zIndex?: number;
 }
 
 export interface HeroSection {
-  type: 'hero';
+  type: "hero";
   heading: any[]; // Rich text array (Portable Text)
   subtitle: string;
   ctaButtons?: Array<{
     text: string;
     href: string;
-    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
-    size?: 'sm' | 'md' | 'lg';
+    variant: "primary" | "secondary" | "outline" | "ghost";
+    size?: "sm" | "md" | "lg";
     openInNewTab: boolean;
     icon?: string;
     disabled?: boolean;
@@ -101,7 +101,7 @@ export interface HeroSection {
 }
 
 export interface ProductHeroSection {
-  type: 'productHero';
+  type: "productHero";
   pillText?: any; // Localized string
   title: any; // Localized rich text object
   subtitle?: any; // Localized string
@@ -109,8 +109,8 @@ export interface ProductHeroSection {
   ctaButtons?: Array<{
     text: any; // Localized string
     href: string;
-    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
-    size?: 'sm' | 'md' | 'lg';
+    variant: "primary" | "secondary" | "outline" | "ghost";
+    size?: "sm" | "md" | "lg";
     openInNewTab: boolean;
     icon?: string;
     disabled?: boolean;
@@ -202,7 +202,7 @@ export interface ProductHeroSection {
 }
 
 export interface ProductFeatureSection {
-  type: 'productFeature';
+  type: "productFeature";
   image: {
     image: {
       asset: {
@@ -223,7 +223,7 @@ export interface ProductFeatureSection {
     priority?: boolean;
   };
   content: any; // Localized rich text object
-  layout?: 'imageLeft' | 'contentLeft';
+  layout?: "imageLeft" | "contentLeft";
   backgroundColor?: {
     hex: string;
   };
@@ -239,7 +239,7 @@ export interface ProductFeatureSection {
 }
 
 export interface ProductInteractiveSection {
-  type: 'productInteractive';
+  type: "productInteractive";
   title: any; // Localized rich text
   items: Array<{
     title: any; // Localized string
@@ -278,7 +278,7 @@ export interface ProductInteractiveSection {
 }
 
 export interface ProductBannerSection {
-  type: 'productBanner';
+  type: "productBanner";
   title: any; // Localized rich text
   description?: any; // Localized rich text
   primaryButton?: {
@@ -287,7 +287,7 @@ export interface ProductBannerSection {
     variant?: string;
     size?: string;
     icon?: string;
-    iconPosition?: 'left' | 'right';
+    iconPosition?: "left" | "right";
     openInNewTab?: boolean;
   };
   secondaryButton?: {
@@ -296,11 +296,11 @@ export interface ProductBannerSection {
     variant?: string;
     size?: string;
     icon?: string;
-    iconPosition?: 'left' | 'right';
+    iconPosition?: "left" | "right";
     openInNewTab?: boolean;
   };
   backgroundStyle?: {
-    type: 'solid' | 'gradient' | 'image';
+    type: "solid" | "gradient" | "image";
     primaryColor?: { hex: string };
     secondaryColor?: { hex: string };
     gradientDirection?: string;
@@ -326,8 +326,8 @@ export interface ProductBannerSection {
     };
   };
   textAlignment?: {
-    desktop: 'left' | 'center' | 'right';
-    mobile: 'left' | 'center' | 'right';
+    desktop: "left" | "center" | "right";
+    mobile: "left" | "center" | "right";
   };
   padding?: {
     top: string;
@@ -337,13 +337,13 @@ export interface ProductBannerSection {
 }
 
 export interface ProductPromotionBannerSection {
-  type: 'productPromotionBanner';
+  type: "productPromotionBanner";
   badge?: {
     text: any;
     color?: string;
     customColor?: { hex: string };
-    variant?: 'filled' | 'outline' | 'soft';
-    size?: 'sm' | 'md' | 'lg';
+    variant?: "filled" | "outline" | "soft";
+    size?: "sm" | "md" | "lg";
   };
   title: any; // Localized rich text
   subtitle?: any; // Localized rich text
@@ -354,7 +354,7 @@ export interface ProductPromotionBannerSection {
     variant?: string;
     size?: string;
     icon?: string;
-    iconPosition?: 'left' | 'right';
+    iconPosition?: "left" | "right";
     openInNewTab?: boolean;
   };
   secondaryButton?: {
@@ -363,7 +363,7 @@ export interface ProductPromotionBannerSection {
     variant?: string;
     size?: string;
     icon?: string;
-    iconPosition?: 'left' | 'right';
+    iconPosition?: "left" | "right";
     openInNewTab?: boolean;
   };
   backgroundImage?: {
@@ -387,8 +387,8 @@ export interface ProductPromotionBannerSection {
     opacity: number;
   };
   textAlignment?: {
-    desktop: 'left' | 'center' | 'right';
-    mobile: 'left' | 'center' | 'right';
+    desktop: "left" | "center" | "right";
+    mobile: "left" | "center" | "right";
   };
   height?: string;
   padding?: {
@@ -399,11 +399,11 @@ export interface ProductPromotionBannerSection {
 }
 
 export interface AboutSection {
-  type: 'about';
+  type: "about";
   title: any; // Localized rich text object
   subtitle?: string;
   content?: any; // Localized rich text object
-  layout?: 'textOnly' | 'textWithImage' | 'twoColumns';
+  layout?: "textOnly" | "textWithImage" | "twoColumns";
   image?: {
     image?: {
       asset?: {
@@ -423,13 +423,13 @@ export interface AboutSection {
     height?: number;
     priority?: boolean;
   };
-  imagePosition?: 'contentLeft' | 'contentRight';
+  imagePosition?: "contentLeft" | "contentRight";
   stats?: Array<{
     number: string;
     label: string;
     description?: string;
   }>;
-  textAlign?: 'left' | 'center' | 'right';
+  textAlign?: "left" | "center" | "right";
   backgroundColor?: {
     hex: string;
   };
@@ -440,28 +440,38 @@ export interface AboutSection {
 }
 
 export interface FeatureSection {
-  type: 'feature';
-  layout: 'contentLeft' | 'contentRight';
+  type: "feature";
+  layout: "contentLeft" | "contentRight";
   badge?: {
     text: string;
-    color: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'indigo' | 'gray' | 'custom';
+    color:
+      | "primary"
+      | "success"
+      | "warning"
+      | "error"
+      | "info"
+      | "purple"
+      | "pink"
+      | "indigo"
+      | "gray"
+      | "custom";
     customColor?: {
       hex: string;
     };
-    variant: 'filled' | 'outline' | 'soft';
-    size: 'sm' | 'md' | 'lg';
+    variant: "filled" | "outline" | "soft";
+    size: "sm" | "md" | "lg";
   };
   title: any[];
   subtitle?: string;
   description?: any[];
   features?: Array<{
     text: string;
-    icon: 'check' | 'star' | 'arrowRight' | 'plus';
+    icon: "check" | "star" | "arrowRight" | "plus";
   }>;
   ctaButtons?: Array<{
     text: string;
     href: string;
-    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    variant: "primary" | "secondary" | "outline" | "ghost";
     openInNewTab: boolean;
   }>;
   image: {
@@ -487,7 +497,7 @@ export interface FeatureSection {
 }
 
 export interface TestimonialsSection {
-  type: 'testimonials';
+  type: "testimonials";
   title: any[];
   subtitle?: string;
   testimonials: Array<{
@@ -521,7 +531,7 @@ export interface TestimonialsSection {
     backgroundColor?: {
       hex: string;
     };
-    textAlign: 'left' | 'center' | 'right';
+    textAlign: "left" | "center" | "right";
     padding: {
       top: string;
       bottom: string;
@@ -530,7 +540,7 @@ export interface TestimonialsSection {
 }
 
 export interface ServicesSection {
-  type: 'services';
+  type: "services";
   title: any[];
   description?: any[];
   services: Array<{
@@ -559,19 +569,19 @@ export interface ServicesSection {
     bottom: string;
   };
   settings?: {
-    layout: 'grid-2' | 'grid-3' | 'grid-4' | 'list';
+    layout: "grid-2" | "grid-3" | "grid-4" | "list";
     textAlignment?: {
-      desktop: 'left' | 'center' | 'right';
-      mobile: 'left' | 'center' | 'right';
+      desktop: "left" | "center" | "right";
+      mobile: "left" | "center" | "right";
     };
   };
 }
 
 export interface PageHeroSection {
-  type: 'pageHero';
+  type: "pageHero";
   title: any[]; // Rich text array (Portable Text)
   description: any[]; // Rich text array (Portable Text)
-  textAlign: 'left' | 'center' | 'right';
+  textAlign: "left" | "center" | "right";
   cards?: Array<{
     icon?: {
       image: {
@@ -600,7 +610,7 @@ export interface PageHeroSection {
 }
 
 export interface ContentSection {
-  type: 'content';
+  type: "content";
   content: any[]; // Rich text array (Portable Text)
   isContentCenter?: boolean;
   backgroundImage?: {
@@ -626,7 +636,7 @@ export interface ContentSection {
     text: string;
     description?: string;
     icon: string;
-    iconColor: 'primary' | 'success' | 'warning' | 'error' | 'gray';
+    iconColor: "primary" | "success" | "warning" | "error" | "gray";
     highlighted: boolean;
     link?: {
       href: string;
@@ -637,13 +647,13 @@ export interface ContentSection {
   ctaButtons?: Array<{
     text: string;
     href: string;
-    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
-    size?: 'sm' | 'md' | 'lg';
+    variant: "primary" | "secondary" | "outline" | "ghost";
+    size?: "sm" | "md" | "lg";
     openInNewTab: boolean;
     icon?: string;
     disabled?: boolean;
   }>;
-  textAlign: 'left' | 'center' | 'right';
+  textAlign: "left" | "center" | "right";
   backgroundColor?: {
     hex: string;
   };
@@ -654,13 +664,13 @@ export interface ContentSection {
 }
 
 export interface TryCarsuBannerSection {
-  type: 'tryCarsuBanner';
+  type: "tryCarsuBanner";
   title?: any[]; // Rich text array
   description?: any[]; // Rich text array
   ctaButton?: {
     text: string;
     href: string;
-    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    variant: "primary" | "secondary" | "outline" | "ghost";
     openInNewTab: boolean;
   };
   backgroundColor?: {
@@ -692,32 +702,42 @@ export interface TryCarsuBannerSection {
   };
   settings?: {
     fullWidth?: boolean;
-    borderRadius?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+    borderRadius?: "none" | "sm" | "md" | "lg" | "xl" | "full";
     textAlignment?: {
-      desktop: 'left' | 'center';
-      mobile: 'left' | 'center';
+      desktop: "left" | "center";
+      mobile: "left" | "center";
     };
-    imagePosition?: 'left' | 'right';
+    imagePosition?: "left" | "right";
   };
 }
 
 export interface ContactFormSection {
-  type: 'contactForm';
+  type: "contactForm";
   title?: any[]; // Rich text array
   badge?: {
     text: string;
-    color: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'indigo' | 'gray' | 'custom';
+    color:
+      | "primary"
+      | "success"
+      | "warning"
+      | "error"
+      | "info"
+      | "purple"
+      | "pink"
+      | "indigo"
+      | "gray"
+      | "custom";
     customColor?: {
       hex: string;
     };
-    variant: 'filled' | 'outline' | 'soft';
-    size: 'sm' | 'md' | 'lg';
+    variant: "filled" | "outline" | "soft";
+    size: "sm" | "md" | "lg";
   };
   features?: Array<{
     text: string;
     description?: string;
     icon: string;
-    iconColor: 'primary' | 'success' | 'warning' | 'error' | 'gray';
+    iconColor: "primary" | "success" | "warning" | "error" | "gray";
     highlighted: boolean;
     link?: {
       href: string;
@@ -730,14 +750,14 @@ export interface ContactFormSection {
     name: string;
     label: string;
     placeholder: string;
-    type: 'text' | 'email' | 'tel' | 'textarea';
+    type: "text" | "email" | "tel" | "textarea";
     required: boolean;
-    width: 'half' | 'full';
+    width: "half" | "full";
   }>;
   submitButton: {
     text: string;
     href: string;
-    variant: 'primary' | 'secondary' | 'outline' | 'ghost';
+    variant: "primary" | "secondary" | "outline" | "ghost";
     openInNewTab: boolean;
   };
   backgroundColor?: {
@@ -748,13 +768,13 @@ export interface ContactFormSection {
     bottom: string;
   };
   settings?: {
-    layout: 'contentLeft' | 'contentRight';
+    layout: "contentLeft" | "contentRight";
     fullWidth?: boolean;
   };
 }
 
 export interface FAQSection {
-  type: 'faq';
+  type: "faq";
   title?: any[]; // Rich text array
   description?: any[]; // Rich text array
   faqCategories: Array<{
@@ -773,7 +793,7 @@ export interface FAQSection {
     bottom: string;
   };
   settings?: {
-    layout: 'sideBySide' | 'twoColumn' | 'singleColumn' | 'tabbed';
+    layout: "sideBySide" | "twoColumn" | "singleColumn" | "tabbed";
     showCategoryTabs?: boolean;
     allowMultipleOpen?: boolean;
     highlightFeatured?: boolean;
@@ -782,13 +802,13 @@ export interface FAQSection {
 }
 
 export interface PricingCalculatorSection {
-  type: 'pricingCalculator';
+  type: "pricingCalculator";
   badge?: {
     text: any;
     color?: string;
     customColor?: { hex: string };
-    variant?: 'filled' | 'outline' | 'soft';
-    size?: 'sm' | 'md' | 'lg';
+    variant?: "filled" | "outline" | "soft";
+    size?: "sm" | "md" | "lg";
   };
   title: any; // Localized rich text
   subtitle?: any; // Localized rich text
@@ -810,13 +830,13 @@ export interface PricingCalculatorSection {
 }
 
 export interface FeatureCardsSection {
-  type: 'featureCards';
+  type: "featureCards";
   badge?: {
     text: any;
     color?: string;
     customColor?: { hex: string };
-    variant?: 'filled' | 'outline' | 'soft';
-    size?: 'sm' | 'md' | 'lg';
+    variant?: "filled" | "outline" | "soft";
+    size?: "sm" | "md" | "lg";
   };
   title: any; // Localized rich text
   subtitle?: any; // Localized rich text
@@ -836,17 +856,26 @@ export interface FeatureCardsSection {
       };
       alt?: any; // Localized string
     };
-    iconBackgroundColor?: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'indigo' | 'gray';
+    iconBackgroundColor?:
+      | "primary"
+      | "success"
+      | "warning"
+      | "error"
+      | "info"
+      | "purple"
+      | "pink"
+      | "indigo"
+      | "gray";
     title: any; // Localized string
     description: any; // Localized string
   }>;
   layout?: {
-    columns: '2' | '3' | '4';
-    cardSpacing?: 'small' | 'medium' | 'large';
+    columns: "2" | "3" | "4";
+    cardSpacing?: "small" | "medium" | "large";
   };
   textAlignment?: {
-    desktop: 'left' | 'center' | 'right';
-    mobile: 'left' | 'center' | 'right';
+    desktop: "left" | "center" | "right";
+    mobile: "left" | "center" | "right";
   };
   backgroundColor?: { hex: string };
   padding?: {
@@ -856,13 +885,13 @@ export interface FeatureCardsSection {
 }
 
 export interface ProductFeaturesGridSection {
-  type: 'productFeaturesGrid';
+  type: "productFeaturesGrid";
   featureItems: Array<{
     title: any; // Localized rich text
     description?: any; // Localized rich text
     features?: Array<{
       text: any; // Localized string
-      icon: 'check' | 'star' | 'arrowRight' | 'plus' | 'bullet';
+      icon: "check" | "star" | "arrowRight" | "plus" | "bullet";
     }>;
     image: {
       image: {
@@ -879,7 +908,7 @@ export interface ProductFeaturesGridSection {
       };
       alt?: any; // Localized string
     };
-    imageSize: 'small' | 'medium' | 'large';
+    imageSize: "small" | "medium" | "large";
   }>;
   backgroundColor?: { hex: string };
   padding?: {
@@ -889,7 +918,7 @@ export interface ProductFeaturesGridSection {
 }
 
 export interface ProductBenefitsListSection {
-  type: 'productBenefitsList';
+  type: "productBenefitsList";
   title: any; // Localized rich text
   description?: any; // Localized rich text
   benefits: Array<{
@@ -911,7 +940,7 @@ export interface ProductBenefitsListSection {
       alt?: any; // Localized string
     };
   }>;
-  layout: 'imageLeft' | 'contentLeft';
+  layout: "imageLeft" | "contentLeft";
   backgroundColor?: { hex: string };
   padding?: {
     top: string;
@@ -919,7 +948,63 @@ export interface ProductBenefitsListSection {
   };
 }
 
-export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | ProductInteractiveSection | ProductBannerSection | ProductPromotionBannerSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection | PricingCalculatorSection | FeatureCardsSection | ProductFeaturesGridSection | ProductBenefitsListSection;
+export interface PricingSection {
+  type: "pricing";
+  title?: any; // Localized rich text
+  subtitle?: any; // Localized string
+  billingToggle?: {
+    yearlyText?: any; // Localized string
+    monthlyText?: any; // Localized string
+  };
+  pricingPlans: Array<{
+    name: any; // Localized string
+    price: any; // Localized string
+    period?: any; // Localized string
+    description?: any; // Localized string
+    subdescription?: any; // Localized string
+    features: Array<{
+      text: any; // Localized rich text
+      included: boolean;
+    }>;
+    ctaButton?: {
+      text: any; // Localized string
+      href: string;
+      variant: "primary" | "secondary" | "outline" | "ghost";
+      size?: "sm" | "md" | "lg";
+      openInNewTab: boolean;
+      icon?: string;
+      disabled?: boolean;
+    };
+    isPopular: boolean;
+  }>;
+  backgroundColor?: { hex: string };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export type PageSection =
+  | HeroSection
+  | ProductHeroSection
+  | ProductFeatureSection
+  | ProductInteractiveSection
+  | ProductBannerSection
+  | ProductPromotionBannerSection
+  | AboutSection
+  | PageHeroSection
+  | ContentSection
+  | FeatureSection
+  | ServicesSection
+  | TestimonialsSection
+  | TryCarsuBannerSection
+  | ContactFormSection
+  | FAQSection
+  | PricingCalculatorSection
+  | FeatureCardsSection
+  | ProductFeaturesGridSection
+  | ProductBenefitsListSection
+  | PricingSection;
 
 export interface PageConfiguration {
   _id: string;
