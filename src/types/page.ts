@@ -165,6 +165,43 @@ export interface ProductHeroSection {
   };
 }
 
+export interface ProductFeatureSection {
+  type: 'productFeature';
+  image: {
+    image: {
+      asset: {
+        _id: string;
+        url: string;
+        metadata?: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+      };
+    };
+    alt?: any; // Localized string
+    caption?: string;
+    width?: number;
+    height?: number;
+    priority?: boolean;
+  };
+  content: any; // Localized rich text object
+  layout?: 'imageLeft' | 'contentLeft';
+  backgroundColor?: {
+    hex: string;
+  };
+  padding?: {
+    top: string;
+    bottom: string;
+  };
+  settings?: {
+    maxWidth?: string;
+    horizontalPadding?: string;
+    gap?: string;
+  };
+}
+
 export interface AboutSection {
   type: 'about';
   title: any; // Localized rich text object
@@ -530,7 +567,7 @@ export interface FAQSection {
   };
 }
 
-export type PageSection = HeroSection | ProductHeroSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection;
+export type PageSection = HeroSection | ProductHeroSection | ProductFeatureSection | AboutSection | PageHeroSection | ContentSection | FeatureSection | ServicesSection | TestimonialsSection | TryCarsuBannerSection | ContactFormSection | FAQSection;
 
 export interface PageConfiguration {
   _id: string;

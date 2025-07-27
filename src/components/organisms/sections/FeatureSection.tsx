@@ -163,7 +163,7 @@ export function FeatureSection({ data, locale = 'en' }: FeatureSectionProps) {
       </div>
 
       {/* Badge */}
-      {badge && (
+      {badge&& badge.text && (
         <div className={cn("mb-4", alignmentClasses)}>
           <Badge
             text={badge.text}

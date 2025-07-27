@@ -153,13 +153,13 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
         <div className="text-center">
           {/* Pill Text */}
           {pillText && (
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-medium mb-6">
+            <div className="inline-flex items-center px-4 py-2 rounded-full  text-blue-600 text-sm font-medium mb-6">
               {getLocalizedValue(pillText, locale)}
             </div>
           )}
 
           {/* Title */}
-          <div className="max-w-4xl mx-auto mb-8">
+          <div className="max-w-[1280px] mx-auto mb-8">
             <RichTextRenderer
               content={getLocalizedRichText(title, locale)}
               className="prose-headings:text-4xl prose-headings:sm:text-5xl prose-headings:lg:text-6xl prose-headings:font-bold prose-headings:leading-tight prose-headings:text-gray-900 prose-headings:mb-0"
@@ -168,7 +168,7 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
 
           {/* Subtitle */}
           {subtitle && (
-            <div className="max-w-2xl mx-auto mb-6">
+            <div className="max-w-[1280px] mx-auto mb-6">
               <p className="text-lg text-[#4D525E] leading-normal">
                 {getLocalizedValue(subtitle, locale)}
               </p>
@@ -177,7 +177,7 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
 
           {/* Description */}
           {description && (
-            <div className="max-w-3xl mx-auto mb-8">
+            <div className="max-w-[1280px] mx-auto mb-8">
               <RichTextRenderer
                 content={getLocalizedRichText(description, locale)}
                 className="prose prose-lg prose-gray max-w-none text-[#4D525E]"
