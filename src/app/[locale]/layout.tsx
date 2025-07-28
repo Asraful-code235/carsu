@@ -22,7 +22,7 @@ interface LocaleLayoutProps {
   }>;
 }
 
-export const revalidate = 60
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -33,27 +33,23 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   const { locale: localeParam } = await params;
-  
+
   // Validate locale
   if (!isValidLocale(localeParam)) {
     notFound();
   }
-  
-  const locale: Locale = localeParam;
-  const isDraftMode = (await draftMode()).isEnabled;
 
+  const locale: Locale = localeParam;
   return (
     <ErrorBoundary>
       <HeaderWrapper locale={locale} />
-      <main className="bg-white ">
-        {children}
-      </main>
+      <main className="bg-white ">{children}</main>
       <FooterWrapper locale={locale} />
       <SanityLive />
-      {isDraftMode && (
+      {(await draftMode()).isEnabled && (
         <>
-          {process.env.NODE_ENV === 'development' && <VisualEditing />}
           <DisableDraftMode />
+          <VisualEditing />
         </>
       )}
     </ErrorBoundary>

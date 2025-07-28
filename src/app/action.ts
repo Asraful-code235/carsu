@@ -1,10 +1,7 @@
-'use server'
+import { draftMode } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
-import {draftMode} from 'next/headers'
-
-export async function disableDraftMode() {
-  const disable = (await draftMode()).disable()
-  const delay = new Promise((resolve) => setTimeout(resolve, 1000))
-
-  await Promise.allSettled([disable, delay]);
+export async function GET(request: NextRequest) {
+  (await draftMode()).disable();
+  return NextResponse.redirect(new URL("/", request.url));
 }
