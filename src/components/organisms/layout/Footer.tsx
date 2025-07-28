@@ -15,7 +15,7 @@ import {
 import { RichTextRenderer } from '@/components/atoms/text/RichTextRenderer';
 import { urlFor } from '@/sanity/lib/image';
 import type { Locale } from '@/lib/i18n/config';
-import { getLocalizedValue, getLocalizedHref } from '@/lib/i18n/utils';
+import { getLocalizedValue, getLocalizedHref, getLocalizedRichText } from '@/lib/i18n/utils';
 
 interface FooterProps {
   data: {
@@ -81,12 +81,15 @@ export function Footer({ data, locale = 'en' }: FooterProps) {
 
 
 
+
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const currentYear = new Date().getFullYear();
-  const processedCopyright = copyrightText?.replace('{year}', currentYear.toString()) || 
+  const localizedCopyright = getLocalizedValue(copyrightText, locale);
+  const processedCopyright = localizedCopyright?.replace('{year}', currentYear.toString()) ||
     `© ${currentYear} Your Company Name. All rights reserved.`;
 
   return (
@@ -111,27 +114,36 @@ export function Footer({ data, locale = 'en' }: FooterProps) {
             {/* Description */}
             {description && (
               <div className="text-gray-600 text-lg leading-relaxed mb-12 max-w-sm">
-                <RichTextRenderer content={description} />
+                <RichTextRenderer content={getLocalizedRichText(description, locale)} />
               </div>
             )}
 
             {/* Social Media Icons */}
             {socialLinks && socialLinks.length > 0 && (
               <div className="flex gap-4">
-                {socialLinks.map((social, index) => {
-                  const IconComponent = socialIcons[social.platform];
-                  return (
-                    <a
-                      key={index}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-9 h-9 bg-gray-50 rounded-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors group"
-                    >
-                      <IconComponent className="w-4 h-4 text-blue-600 group-hover:text-white" />
-                    </a>
-                  );
-                })}
+                {socialLinks
+                  .filter(social => social.platform && social.url) // Filter out invalid entries
+                  .map((social, index) => {
+                    const IconComponent = socialIcons[social.platform as keyof typeof socialIcons];
+
+                    // Skip rendering if IconComponent is undefined
+                    if (!IconComponent) {
+                      console.warn(`Unknown social platform: ${social.platform}`);
+                      return null;
+                    }
+
+                    return (
+                      <a
+                        key={`${social.platform}-${index}`}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 bg-gray-50 rounded-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors group"
+                      >
+                        <IconComponent className="w-4 h-4 text-blue-600 group-hover:text-white" />
+                      </a>
+                    );
+                  })}
               </div>
             )}
           </div>
@@ -169,17 +181,17 @@ export function Footer({ data, locale = 'en' }: FooterProps) {
           <div className="mt-16 pt-16 border-t border-gray-200">
             <div className="max-w-md mx-auto text-center">
               <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                {newsletter.title}
+                {getLocalizedValue(newsletter.title, locale)}
               </h3>
               {newsletter.description && (
                 <p className="text-gray-600 mb-6">
-                  {newsletter.description}
+                  {getLocalizedValue(newsletter.description, locale)}
                 </p>
               )}
               <form className="flex gap-3">
                 <input
                   type="email"
-                  placeholder={newsletter.placeholder}
+                  placeholder={getLocalizedValue(newsletter.placeholder, locale)}
                   className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                   required
                 />
@@ -187,7 +199,7 @@ export function Footer({ data, locale = 'en' }: FooterProps) {
                   type="submit"
                   className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
                 >
-                  {newsletter.buttonText}
+                  {getLocalizedValue(newsletter.buttonText, locale)}
                 </button>
               </form>
             </div>

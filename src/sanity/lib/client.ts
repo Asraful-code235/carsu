@@ -4,26 +4,18 @@ import { apiVersion, dataset, projectId } from '../env'
 
 // Get the appropriate studio URL based on environment
 function getStudioUrl(): string {
+  // Use environment variable if available
+  if (process.env.NEXT_PUBLIC_SANITY_STUDIO_URL) {
+    return process.env.NEXT_PUBLIC_SANITY_STUDIO_URL;
+  }
+
   // Check if we're on Vercel
-  const isVercel = process.env.VERCEL || process.env.VERCEL_URL;
-
-  if (isVercel) {
-    // On Vercel, use the Vercel URL
-    if (process.env.VERCEL_URL) {
-      return `https://${process.env.VERCEL_URL}/studio`;
-    }
-    return 'https://carsu-three.vercel.app/studio';
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}/studio`;
   }
 
-  // Local development
-  const studioUrl = 'http://localhost:3000/studio';
-
-  // Debug logging in development
-  if (process.env.NODE_ENV === 'development') {
-    console.log('🔧 Sanity Client Studio URL:', studioUrl);
-  }
-
-  return studioUrl;
+  // Default fallback
+  return 'http://localhost:3000/studio';
 }
 
 export const client = createClient({

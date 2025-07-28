@@ -5,24 +5,28 @@ export async function GET(request: NextRequest) {
   try {
     console.log("🔧 Draft mode enable called");
     console.log("🔧 Request URL:", request.url);
-    console.log("🔧 Request headers:", Object.fromEntries(request.headers.entries()));
+
+    // Validate the preview secret if provided
+    const { searchParams } = request.nextUrl;
+    const secret = searchParams.get("sanity-preview-secret");
+    const pathname = searchParams.get("sanity-preview-pathname") || "/";
+
+    // Optional: Add secret validation for security
+    // if (secret && secret !== process.env.SANITY_PREVIEW_SECRET) {
+    //   return NextResponse.json({ error: "Invalid preview secret" }, { status: 401 });
+    // }
 
     // Enable draft mode
     const draft = await draftMode();
     draft.enable();
 
     console.log("🔧 Draft mode enabled successfully");
+    console.log("🔧 Redirecting to:", pathname);
 
-    // Get the slug parameter or default to home page
-    const { searchParams } = request.nextUrl;
-    const slug = searchParams.get("slug") || "/";
-
-    // Build the redirect URL using the current request's host
+    // Build the redirect URL
     const host = request.headers.get("host");
     const protocol = request.headers.get("x-forwarded-proto") || "http";
-    const redirectUrl = `${protocol}://${host}${slug}`;
-
-    console.log("🔧 Redirecting to:", redirectUrl);
+    const redirectUrl = `${protocol}://${host}${pathname}`;
 
     return NextResponse.redirect(redirectUrl);
   } catch (error) {

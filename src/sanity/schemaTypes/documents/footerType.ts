@@ -50,8 +50,8 @@ export const footerType = defineType({
     defineField({
       name: 'description',
       title: 'Footer Description',
-      type: 'richTextBlock',
-      description: 'Brief description or tagline for your company',
+      type: 'localeRichTextBlock',
+      description: 'Brief description or tagline for your company (translatable)',
     }),
     defineField({
       name: 'columns',
@@ -171,9 +171,13 @@ export const footerType = defineType({
     defineField({
       name: 'copyrightText',
       title: 'Copyright Text',
-      type: 'string',
-      description: 'Copyright notice (year will be automatically added)',
-      initialValue: '© {year} Your Company Name. All rights reserved.',
+      type: 'localeString',
+      description: 'Copyright notice (year will be automatically added with {year})',
+      initialValue: {
+        en: '© {year} Your Company Name. All rights reserved.',
+        es: '© {year} Tu Nombre de Empresa. Todos los derechos reservados.',
+        it: '© {year} Il Nome della Tua Azienda. Tutti i diritti riservati.'
+      },
     }),
     defineField({
       name: 'showBackToTop',
@@ -195,27 +199,42 @@ export const footerType = defineType({
         defineField({
           name: 'title',
           title: 'Newsletter Title',
-          type: 'string',
-          initialValue: 'Subscribe to our newsletter',
+          type: 'localeString',
+          initialValue: {
+            en: 'Subscribe to our newsletter',
+            es: 'Suscríbete a nuestro boletín',
+            it: 'Iscriviti alla nostra newsletter'
+          },
         }),
         defineField({
           name: 'description',
           title: 'Newsletter Description',
-          type: 'text',
-          rows: 2,
-          initialValue: 'Get the latest updates and news delivered to your inbox.',
+          type: 'localeString',
+          initialValue: {
+            en: 'Get the latest updates and news delivered to your inbox.',
+            es: 'Recibe las últimas actualizaciones y noticias en tu bandeja de entrada.',
+            it: 'Ricevi gli ultimi aggiornamenti e notizie nella tua casella di posta.'
+          },
         }),
         defineField({
           name: 'placeholder',
           title: 'Email Placeholder',
-          type: 'string',
-          initialValue: 'Enter your email address',
+          type: 'localeString',
+          initialValue: {
+            en: 'Enter your email address',
+            es: 'Ingresa tu dirección de correo electrónico',
+            it: 'Inserisci il tuo indirizzo email'
+          },
         }),
         defineField({
           name: 'buttonText',
           title: 'Subscribe Button Text',
-          type: 'string',
-          initialValue: 'Subscribe',
+          type: 'localeString',
+          initialValue: {
+            en: 'Subscribe',
+            es: 'Suscribirse',
+            it: 'Iscriviti'
+          },
         }),
       ],
     }),
