@@ -19,8 +19,11 @@ const liveDefinition = config.enabled
       browserToken: token,
     })
   : {
-      // Fallback for when live is disabled
-      sanityFetch: client.fetch.bind(client),
+      // Fallback for when live is disabled - match the defineLive API
+      sanityFetch: async ({ query, params }: { query: string; params?: any }) => {
+        const result = await client.fetch(query, params || {});
+        return { data: result };
+      },
       SanityLive: () => null,
     };
 
