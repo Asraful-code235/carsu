@@ -1,6 +1,7 @@
 import { createClient } from 'next-sanity'
 
 import { apiVersion, dataset, projectId } from '../env'
+import { getLiveConfig } from './live-config'
 
 // Get the appropriate studio URL based on environment
 function getStudioUrl(): string {
@@ -18,13 +19,17 @@ function getStudioUrl(): string {
   return 'http://localhost:3000/studio';
 }
 
+const config = getLiveConfig();
+
 export const client = createClient({
   projectId,
   dataset,
   apiVersion,
   token: process.env.SANITY_VIEWER_TOKEN,
-  useCdn: true,
+  useCdn: config.useCdn,
   stega: {
     studioUrl: getStudioUrl(),
+    // Only enable stega when live editing is enabled
+    enabled: config.enabled,
   },
 })

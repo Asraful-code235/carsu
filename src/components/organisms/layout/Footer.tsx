@@ -128,7 +128,10 @@ export function Footer({ data, locale = 'en' }: FooterProps) {
 
                     // Skip rendering if IconComponent is undefined
                     if (!IconComponent) {
-                      console.warn(`Unknown social platform: ${social.platform}`);
+                      // Only log in development to avoid production console spam
+                      if (process.env.NODE_ENV === 'development') {
+                        console.warn(`Unknown social platform: ${social.platform}`);
+                      }
                       return null;
                     }
 
