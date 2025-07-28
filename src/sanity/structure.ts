@@ -1,20 +1,22 @@
-import type {StructureResolver} from 'sanity/structure'
+import type { StructureResolver } from "sanity/structure";
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Content Management')
+    .title("Content Management")
     .items([
       // Blog content
       S.listItem()
-        .title('Blog')
+        .title("Blog")
         .child(
           S.list()
-            .title('Blog Content')
+            .title("Blog Content")
             .items([
-              S.documentTypeListItem('post').title('Posts'),
-              S.documentTypeListItem('category').title('Categories'),
-              S.documentTypeListItem('author').title('Authors'),
+              S.documentTypeListItem("post").title("Posts"),
+              S.documentTypeListItem("category").title("Categories"),
+              S.documentTypeListItem("author").title("Authors"),
+              S.divider(),
+              S.documentTypeListItem("blogHeader").title("Blog Header Configurations"),
             ])
         ),
 
@@ -22,38 +24,39 @@ export const structure: StructureResolver = (S) =>
 
       // Pages
       S.listItem()
-        .title('Pages')
+        .title("Pages")
         .child(
           S.list()
-            .title('Page Management')
-            .items([
-              S.documentTypeListItem('page').title('All Pages'),
-            ])
+            .title("Page Management")
+            .items([S.documentTypeListItem("page").title("All Pages")])
         ),
 
       // Site Configuration
       S.listItem()
-        .title('Site Configuration')
+        .title("Site Configuration")
         .child(
           S.list()
-            .title('Site Settings')
+            .title("Site Settings")
             .items([
               // Singleton Layout Configuration
               S.listItem()
-                .title('Layout Configuration')
-                .id('siteLayout')
+                .title("Layout Configuration")
+                .id("siteLayout")
                 .child(
-                  S.document()
-                    .schemaType('siteLayout')
-                    .documentId('siteLayout')
-                    .title('Site Layout Configuration')
+                  S.document() 
+                    .schemaType("siteLayout")
+                    .documentId("siteLayout")
+                    .title("Site Layout Configuration")
                 ),
 
               // Header configurations
-              S.documentTypeListItem('header').title('Header Configurations'),
+              S.documentTypeListItem("header").title("Header Configurations"),
 
               // Footer configurations
-              S.documentTypeListItem('footer').title('Footer Configurations'),
+              S.documentTypeListItem("footer").title("Footer Configurations"),
+
+              S.divider(),
+
             ])
         ),
 
@@ -61,6 +64,21 @@ export const structure: StructureResolver = (S) =>
 
       // Filter out the documents we've already included above
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['post', 'category', 'author', 'header', 'footer', 'siteLayout', 'page'].includes(item.getId()!),
+        (item) =>
+          item.getId() &&
+          ![
+            "post",
+            "category",
+            "author",
+            "blogHeader",
+            "header",
+            "footer",
+            "siteLayout",
+            "page",
+            "testimonial",
+            'testimonialSection',
+            'productBenefitsListSection'
+
+          ].includes(item.getId()!)
       ),
-    ])
+    ]);

@@ -15,7 +15,7 @@ export function DropdownWidthDebug() {
     md: 'w-[480px]', // Exactly 480px  
     lg: 'w-[640px]', // Exactly 640px
     xl: 'w-[800px]', // Exactly 800px
-    full: 'w-screen max-w-7xl',
+    full: 'w-screen container',
   };
 
   return (

@@ -36,7 +36,7 @@ export interface NavigationLink {
 }
 
 export interface CTAButton {
-  title: string;
+  text: string;
   href: string;
   variant: 'primary' | 'secondary' | 'outline';
   openInNewTab?: boolean;
