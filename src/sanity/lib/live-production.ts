@@ -11,16 +11,28 @@ const createLiveDefinition = () => {
       client: client.withConfig({
         apiVersion,
         useCdn: false, // Disable CDN for live updates
-        perspective: 'published', // Use published perspective in production
+        perspective: "published", // Use published perspective in production
       }),
       serverToken: token,
       browserToken: token,
     });
   } catch (error) {
-    console.warn('Failed to initialize Sanity Live in production, falling back to regular fetch:', error);
-    // Fallback when live fails to initialize
+    console.warn(
+      "Failed to initialize Sanity Live in production, falling back to regular fetch:",
+      error
+    );
+    // Fallback when live fails to initialize - match the defineLive API
     return {
-      sanityFetch: client.fetch.bind(client),
+      sanityFetch: async ({
+        query,
+        params,
+      }: {
+        query: string;
+        params?: any;
+      }) => {
+        const result = await client.fetch(query, params || {});
+        return { data: result };
+      },
       SanityLive: () => null,
     };
   }
