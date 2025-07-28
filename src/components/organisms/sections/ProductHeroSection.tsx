@@ -9,8 +9,8 @@ import { getLocalizedValue, getLocalizedRichText } from "@/lib/i18n/utils";
 interface CTAButton {
   text: any; // Localized string
   href: string;
-  variant: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
   openInNewTab: boolean;
   icon?: string;
   disabled?: boolean;
@@ -29,14 +29,14 @@ interface BackgroundElement {
     right?: string;
     bottom?: string;
   };
-  size: 'sm' | 'md' | 'lg' | 'xl';
+  size: "sm" | "md" | "lg" | "xl";
   opacity: number;
   rotation: number;
   zIndex?: number;
 }
 
 interface ProductHeroSectionData {
-  type: 'productHero';
+  type: "productHero";
   pillText?: any; // Localized string
   title: any; // Localized rich text object
   subtitle?: any; // Localized string
@@ -116,15 +116,23 @@ interface ProductHeroSectionProps {
 
 const getSizeClass = (size: string) => {
   switch (size) {
-    case 'sm': return 'w-16 h-16';
-    case 'md': return 'w-24 h-24';
-    case 'lg': return 'w-32 h-32';
-    case 'xl': return 'w-48 h-48';
-    default: return 'w-24 h-24';
+    case "sm":
+      return "w-16 h-16";
+    case "md":
+      return "w-24 h-24";
+    case "lg":
+      return "w-32 h-32";
+    case "xl":
+      return "w-48 h-48";
+    default:
+      return "w-24 h-24";
   }
 };
 
-export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionProps) {
+export function ProductHeroSection({
+  data,
+  locale = "en",
+}: ProductHeroSectionProps) {
   const {
     pillText,
     title,
@@ -135,7 +143,7 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
     heroImage,
     backgroundColor,
     backgroundElements,
-    settings
+    settings,
   } = data;
 
   const backgroundStyle = backgroundColor?.hex
@@ -151,6 +159,30 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
       )}
       style={backgroundStyle}
     >
+      <Image
+        src={"/icon 2.svg"}
+        alt="icon 2"
+        width={100}
+        loading="lazy"
+        height={100}
+        className="absolute top-44 left-0 h-auto object-contain w-[88px] "
+      />
+
+      <Image
+        src={"/icon3.svg"}
+        alt="icon 2"
+        width={100}
+        height={100}
+        className="absolute top-[40%] right-44 h-auto object-contain w-[465.83px] "
+      />
+
+      <Image
+        src={"/icon 4.svg"}
+        alt="icon 2"
+        width={100}
+        height={100}
+        className="absolute top-[40%] left-44 h-auto object-contain w-[57.65px] "
+      />
       {/* Background decorative elements */}
       {backgroundElements && backgroundElements.length > 0 && (
         <div className="absolute inset-0 overflow-hidden">
@@ -248,16 +280,34 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
               <div className="relative">
                 <video
                   src={heroVideo.video.asset.url}
-                  poster={heroVideo.poster?.asset?.url ? urlFor(heroVideo.poster.asset).width(2304).height(1440).url() : undefined}
-                  width={heroVideo.width || heroVideo.video.asset.metadata?.dimensions?.width || 2304}
-                  height={heroVideo.height || heroVideo.video.asset.metadata?.dimensions?.height || 1440}
+                  poster={
+                    heroVideo.poster?.asset?.url
+                      ? urlFor(heroVideo.poster.asset)
+                          .width(2304)
+                          .height(1440)
+                          .url()
+                      : undefined
+                  }
+                  width={
+                    heroVideo.width ||
+                    heroVideo.video.asset.metadata?.dimensions?.width ||
+                    2304
+                  }
+                  height={
+                    heroVideo.height ||
+                    heroVideo.video.asset.metadata?.dimensions?.height ||
+                    1440
+                  }
                   className="w-full h-auto rounded-2xl"
                   autoPlay={heroVideo.autoplay}
                   loop={heroVideo.loop}
                   muted={heroVideo.muted}
                   controls={heroVideo.controls}
                   playsInline
-                  aria-label={getLocalizedValue(heroVideo.alt, locale) || "Product hero video"}
+                  aria-label={
+                    getLocalizedValue(heroVideo.alt, locale) ||
+                    "Product hero video"
+                  }
                 >
                   Your browser does not support the video tag.
                 </video>
@@ -267,10 +317,24 @@ export function ProductHeroSection({ data, locale = 'en' }: ProductHeroSectionPr
             <div className="container mx-auto w-full">
               <div className="relative">
                 <Image
-                  src={urlFor(heroImage.image.asset).width(2304).height(1440).url()}
-                  alt={getLocalizedValue(heroImage.alt, locale) || "Product hero image"}
-                  width={heroImage.width || heroImage.image.asset.metadata?.dimensions?.width || 2304}
-                  height={heroImage.height || heroImage.image.asset.metadata?.dimensions?.height || 1440}
+                  src={urlFor(heroImage.image.asset)
+                    .width(2304)
+                    .height(1440)
+                    .url()}
+                  alt={
+                    getLocalizedValue(heroImage.alt, locale) ||
+                    "Product hero image"
+                  }
+                  width={
+                    heroImage.width ||
+                    heroImage.image.asset.metadata?.dimensions?.width ||
+                    2304
+                  }
+                  height={
+                    heroImage.height ||
+                    heroImage.image.asset.metadata?.dimensions?.height ||
+                    1440
+                  }
                   className="w-full h-auto rounded-2xl"
                   priority={heroImage.priority}
                 />

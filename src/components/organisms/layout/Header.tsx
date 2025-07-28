@@ -100,6 +100,8 @@ export function Header({ data, sticky = true, transparent = false, className, lo
   const renderDropdownItem = (item: DropdownItem, showImages: boolean) => {
     const isActive = isLinkActive(item.href);
 
+    console.log("item",item)
+
     return (
       <Link
         key={item.href}
@@ -112,7 +114,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
         )}
       >
         <div className="flex items-center space-x-2">
-          {showImages && item.image?.asset && (
+          {showImages && item?.image?.asset && (
             <div className="flex-shrink-0 overflow-hidden">
               <Image
                 src={urlFor(item.image.asset).width(48).height(48).url()}
@@ -138,6 +140,8 @@ export function Header({ data, sticky = true, transparent = false, className, lo
   };
 
   const renderNavigationLink = (link: NavigationLink, isMobile = false) => {
+
+    console.log("link",link)
     if (link.hasDropdown && link.dropdownItems?.length) {
       const layout = link.dropdownLayout || { columns: 1, showImages: false, width: 'md' };
       const isDropdownActive = hasActiveDropdownItem(link.dropdownItems);
