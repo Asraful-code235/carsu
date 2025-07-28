@@ -39,6 +39,7 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const isDraftMode = (await draftMode()).isEnabled;
   const locale: Locale = localeParam;
   return (
     <ErrorBoundary>
@@ -46,10 +47,10 @@ export default async function LocaleLayout({
       <main className="bg-white ">{children}</main>
       <FooterWrapper locale={locale} />
       <SanityLive />
-      {(await draftMode()).isEnabled && (
+      {isDraftMode && (
         <>
-          <DisableDraftMode />
           <VisualEditing />
+          <DisableDraftMode />
         </>
       )}
     </ErrorBoundary>
