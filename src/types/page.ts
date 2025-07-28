@@ -985,6 +985,48 @@ export interface PricingSection {
   };
 }
 
+export interface InteractiveFeaturesSection {
+  type: "interactiveFeatures";
+  title?: any; // Localized rich text
+  pillText?: any; // Localized string
+  description?: any; // Localized rich text
+  primaryButton?: {
+    text: any;
+    href: string;
+    variant?: string;
+    size?: string;
+    openInNewTab?: boolean;
+    icon?: string;
+  };
+  secondaryButton?: {
+    text: any;
+    href: string;
+    variant?: string;
+    size?: string;
+    openInNewTab?: boolean;
+    icon?: string;
+  };
+  centerImage?: {
+    image: any;
+    alt?: any;
+  };
+  featureCards?: Array<{
+    title: any; // Localized string
+    description: any; // Localized rich text
+    icon?: {
+      image: any;
+      alt?: any;
+    };
+    isDefault: boolean;
+  }>;
+  backgroundColor?: { hex: string };
+  padding?: { top: string; bottom: string };
+  settings?: {
+    animationDuration?: string;
+    showAllCardsOnMobile?: boolean;
+  };
+}
+
 export type PageSection =
   | HeroSection
   | ProductHeroSection
@@ -1003,6 +1045,7 @@ export type PageSection =
   | FAQSection
   | PricingCalculatorSection
   | FeatureCardsSection
+  | InteractiveFeaturesSection
   | ProductFeaturesGridSection
   | ProductBenefitsListSection
   | PricingSection;

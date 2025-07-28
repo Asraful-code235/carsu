@@ -466,6 +466,30 @@ const PRICING_SECTION_FRAGMENT = `
   }
 `;
 
+const INTERACTIVE_FEATURES_SECTION_FRAGMENT = `
+  _type == 'interactiveFeaturesSection' => {
+    type,
+    title ${LOCALE_RICH_TEXT_FRAGMENT},
+    pillText ${LOCALE_STRING_FRAGMENT},
+    description ${LOCALE_RICH_TEXT_FRAGMENT},
+    primaryButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    secondaryButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
+    centerImage ${LOCALIZED_IMAGE_FRAGMENT},
+    featureCards[] {
+      title ${LOCALE_STRING_FRAGMENT},
+      description ${LOCALE_RICH_TEXT_FRAGMENT},
+      icon ${LOCALIZED_IMAGE_FRAGMENT},
+      isDefault
+    },
+    backgroundColor { hex },
+    padding { top, bottom },
+    settings {
+      animationDuration,
+      showAllCardsOnMobile
+    }
+  }
+`;
+
 // Combined sections fragment
 const ALL_SECTIONS_FRAGMENT = `
   sections[] {
@@ -486,6 +510,7 @@ const ALL_SECTIONS_FRAGMENT = `
     ${CONTACT_FORM_SECTION_FRAGMENT},
     ${PRICING_CALCULATOR_SECTION_FRAGMENT},
     ${FEATURE_CARDS_SECTION_FRAGMENT},
+    ${INTERACTIVE_FEATURES_SECTION_FRAGMENT},
     ${PRODUCT_FEATURES_GRID_SECTION_FRAGMENT},
     ${PRODUCT_BENEFITS_LIST_SECTION_FRAGMENT},
     ${PRICING_SECTION_FRAGMENT}

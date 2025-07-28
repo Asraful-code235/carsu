@@ -46,6 +46,7 @@ import { featureCardsSectionType } from "./sections/featureCardsSectionType";
 import { productFeaturesGridSectionType } from "./sections/productFeaturesGridSectionType";
 import { productBenefitsListSectionType } from "./sections/productBenefitsListSectionType";
 import { pricingSectionType } from "./sections/pricingSectionType";
+import { interactiveFeaturesSectionType } from "./sections/interactiveFeaturesSectionType";
 
 // Legacy block content (keeping for backward compatibility)
 import { blockContentType } from "./blockContentType";
@@ -100,6 +101,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     productFeaturesGridSectionType,
     productBenefitsListSectionType,
     pricingSectionType,
+    interactiveFeaturesSectionType,
 
     // Legacy types (for backward compatibility)
     blockContentType,

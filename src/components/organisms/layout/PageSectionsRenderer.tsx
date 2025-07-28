@@ -18,6 +18,7 @@ import { FeatureCardsSection } from "@/components/organisms/sections/FeatureCard
 import { ProductFeaturesGridSection } from "@/components/organisms/sections/ProductFeaturesGridSection";
 import { ProductBenefitsListSection } from "@/components/organisms/sections/ProductBenefitsListSection";
 import { PricingSection } from "@/components/organisms/sections/PricingSection";
+import { InteractiveFeaturesSection } from "@/components/organisms/sections/InteractiveFeaturesSection";
 import type { PageSection } from "@/types/page";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -80,6 +81,8 @@ export function PageSectionsRenderer({ sections, locale = 'en' }: PageSectionsRe
             return <PricingCalculatorSection key={index} data={section} locale={locale} />;
           case 'featureCards':
             return <FeatureCardsSection key={index} data={section} locale={locale} />;
+          case 'interactiveFeatures':
+            return <InteractiveFeaturesSection key={index} data={section} locale={locale} />;
           case 'productFeaturesGrid':
             return <ProductFeaturesGridSection key={index} section={section} locale={locale} />;
           case 'productBenefitsList':

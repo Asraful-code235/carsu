@@ -101,6 +101,11 @@ export const pageType = defineType({
           title: '🃏 Feature Cards Section',
           description: 'Grid of feature cards with icons, titles and descriptions. Good for feature overviews.'
         },
+        {
+          type: 'interactiveFeaturesSection',
+          title: '🎯 Interactive Features Section',
+          description: 'Interactive features with center image and clickable cards. Perfect for showcasing multiple features with visual feedback.'
+        },
 
         // === CONTENT SECTIONS ===
         {
