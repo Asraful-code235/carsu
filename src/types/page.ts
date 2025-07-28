@@ -1006,14 +1006,14 @@ export interface InteractiveFeaturesSection {
     openInNewTab?: boolean;
     icon?: string;
   };
-  centerImage?: {
-    image: any;
-    alt?: any;
-  };
   featureCards?: Array<{
     title: any; // Localized string
     description: any; // Localized rich text
     icon?: {
+      image: any;
+      alt?: any;
+    };
+    centerImage: {
       image: any;
       alt?: any;
     };

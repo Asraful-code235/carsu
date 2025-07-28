@@ -474,11 +474,11 @@ const INTERACTIVE_FEATURES_SECTION_FRAGMENT = `
     description ${LOCALE_RICH_TEXT_FRAGMENT},
     primaryButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
     secondaryButton ${LOCALIZED_CTA_BUTTON_FRAGMENT},
-    centerImage ${LOCALIZED_IMAGE_FRAGMENT},
     featureCards[] {
       title ${LOCALE_STRING_FRAGMENT},
       description ${LOCALE_RICH_TEXT_FRAGMENT},
       icon ${LOCALIZED_IMAGE_FRAGMENT},
+      centerImage ${LOCALIZED_IMAGE_FRAGMENT},
       isDefault
     },
     backgroundColor { hex },

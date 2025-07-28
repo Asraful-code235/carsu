@@ -17,6 +17,10 @@ interface FeatureCard {
     image: any;
     alt?: any;
   };
+  centerImage: {
+    image: any;
+    alt?: any;
+  };
   isDefault: boolean;
 }
 
@@ -42,10 +46,7 @@ interface InteractiveFeaturesSectionProps {
       openInNewTab?: boolean;
       icon?: string;
     };
-    centerImage?: {
-      image: any;
-      alt?: any;
-    };
+
     featureCards?: FeatureCard[];
     backgroundColor?: { hex: string };
     padding?: { top: string; bottom: string };
@@ -67,7 +68,6 @@ export function InteractiveFeaturesSection({
     description,
     primaryButton,
     secondaryButton,
-    centerImage,
     featureCards = [],
     backgroundColor,
     padding,
@@ -133,7 +133,7 @@ export function InteractiveFeaturesSection({
               {getLocalizedValue(pillText, locale)}
             </div>
           )}
-          ƒ{/* Description */}
+          {/* Description */}
           {description && getLocalizedRichText(description, locale) && (
             <div className="text-[#4D525E] font-dm-sans text-base leading-7 mb-8 max-w-3xl mx-auto">
               <RichTextRenderer content={getLocalizedRichText(description, locale)} />
@@ -234,15 +234,26 @@ export function InteractiveFeaturesSection({
               })}
             </div>
 
-            {/* Center Image */}
-            {centerImage?.image?.asset && (
-              <div className="flex justify-center w-full lg:w-1/3 h-full ">
+            {/* Center Image - Dynamic based on active card */}
+            {featureCards[activeCardIndex]?.centerImage?.image?.asset && (
+              <div className="flex justify-center w-full lg:w-1/3 h-full">
                 <div className="relative w-full lg:max-w-md min-h-[300px] lg:min-h-[526px]">
                   <Image
-                    src={urlFor(centerImage.image).width(800).height(600).url()}
-                    alt={getLocalizedValue(centerImage.alt, locale) || ""}
+                    src={urlFor(featureCards[activeCardIndex].centerImage.image)
+                      .width(800)
+                      .height(600)
+                      .url()}
+                    alt={
+                      getLocalizedValue(
+                        featureCards[activeCardIndex].centerImage.alt,
+                        locale
+                      ) || ""
+                    }
                     fill
-                    className="aspect-auto object-contain"
+                    className={cn(
+                      "aspect-auto object-contain transition-all",
+                      getAnimationDuration()
+                    )}
                     priority
                   />
                 </div>
@@ -314,9 +325,33 @@ export function InteractiveFeaturesSection({
           </div>
         )}
 
-        {/* Mobile: Show only default active card below image */}
+        {/* Mobile: Show center image and default active card */}
         {!settings?.showAllCardsOnMobile && featureCards.length > 0 && (
           <div className="block lg:hidden mt-8">
+            {/* Mobile Center Image */}
+            {featureCards.find(card => card.isDefault)?.centerImage?.image?.asset && (
+              <div className="flex justify-center mb-8">
+                <div className="relative w-full max-w-sm min-h-[250px]">
+                  <Image
+                    src={urlFor(featureCards.find(card => card.isDefault)!.centerImage.image)
+                      .width(600)
+                      .height(450)
+                      .url()}
+                    alt={
+                      getLocalizedValue(
+                        featureCards.find(card => card.isDefault)!.centerImage.alt,
+                        locale
+                      ) || ""
+                    }
+                    fill
+                    className="aspect-auto object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Default Card */}
             {featureCards
               .filter((card) => card.isDefault)
               .map((card, index) => (

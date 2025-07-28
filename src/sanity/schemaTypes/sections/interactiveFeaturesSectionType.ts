@@ -45,13 +45,7 @@ export const interactiveFeaturesSectionType = defineType({
       type: 'ctaButton',
       description: 'Secondary call-to-action button',
     }),
-    defineField({
-      name: 'centerImage',
-      title: 'Center Image',
-      type: 'imageWithAlt',
-      validation: (Rule) => Rule.required(),
-      description: 'Main image displayed in the center of the section',
-    }),
+
     defineField({
       name: 'featureCards',
       title: 'Feature Cards',
@@ -81,6 +75,13 @@ export const interactiveFeaturesSectionType = defineType({
               description: 'Icon or image for the feature card',
             }),
             defineField({
+              name: 'centerImage',
+              title: 'Center Image',
+              type: 'imageWithAlt',
+              validation: (Rule) => Rule.required(),
+              description: 'Main image displayed in the center when this card is active',
+            }),
+            defineField({
               name: 'isDefault',
               title: 'Default Active Card',
               type: 'boolean',
@@ -94,12 +95,13 @@ export const interactiveFeaturesSectionType = defineType({
               titleEs: 'title.es',
               isDefault: 'isDefault',
               icon: 'icon.image',
+              centerImage: 'centerImage.image',
             },
-            prepare({ title, titleEs, isDefault, icon }) {
+            prepare({ title, titleEs, isDefault, icon, centerImage }) {
               return {
                 title: title || 'Feature Card',
-                subtitle: `${isDefault ? '⭐ Default Active' : ''} ${titleEs ? `• ES: ${titleEs}` : ''}`,
-                media: icon,
+                subtitle: `${isDefault ? '⭐ Default Active' : ''} ${titleEs ? `• ES: ${titleEs}` : ''} ${centerImage ? '• Has Center Image' : '• No Center Image'}`,
+                media: centerImage || icon,
               };
             },
           },
