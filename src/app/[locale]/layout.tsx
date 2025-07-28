@@ -52,7 +52,7 @@ export default async function LocaleLayout({
       <SanityLive />
       {isDraftMode && (
         <>
-          <VisualEditing />
+          {process.env.NODE_ENV === 'development' && <VisualEditing />}
           <DisableDraftMode />
         </>
       )}

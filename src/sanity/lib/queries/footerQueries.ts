@@ -1,7 +1,7 @@
 /**
  * Footer-related GROQ queries for Sanity CMS
  */
-import { LOCALE_STRING_FRAGMENT } from "./fragments";
+import { LOCALE_STRING_FRAGMENT, LOCALE_RICH_TEXT_FRAGMENT } from "./fragments";
 
 export const FOOTER_QUERY = `*[_type == "footer"][0] {
   title,
@@ -16,7 +16,7 @@ export const FOOTER_QUERY = `*[_type == "footer"][0] {
     width,
     height
   },
-  description,
+  description ${LOCALE_RICH_TEXT_FRAGMENT},
   columns[] {
     title ${LOCALE_STRING_FRAGMENT},
     links[] {
