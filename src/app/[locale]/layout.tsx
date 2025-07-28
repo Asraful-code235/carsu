@@ -22,6 +22,8 @@ interface LocaleLayoutProps {
   }>;
 }
 
+export const revalidate = 60
+
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
