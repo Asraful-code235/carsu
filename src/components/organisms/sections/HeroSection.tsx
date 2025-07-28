@@ -97,7 +97,7 @@ export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
     <section
       className={cn(
         "relative overflow-hidden",
-        settings?.fullHeight ? "min-h-screen" : "min-h-[90vh]",
+        settings?.fullHeight ? "lg:min-h-screen" : "lg:min-h-[90vh]",
         !backgroundColor && "bg-gradient-to-b from-blue-50/50 to-transparent"
       )}
       style={backgroundStyle}

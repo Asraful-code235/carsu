@@ -32,7 +32,7 @@ interface CTAButtonProps {
 
 const buttonVariants = {
   primary: "bg-blue-600 text-white hover:bg-blue-700 border-blue-600",
-  secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 border-gray-100",
+  secondary: "bg-white text-[#4D525E] border border-[#4D525E] hover:border-blue-500 hover:text-blue-500",
   outline: "bg-transparent text-blue-600 hover:bg-blue-50 border-blue-600",
   ghost: "bg-transparent text-gray-600 hover:bg-gray-50 border-transparent",
 };

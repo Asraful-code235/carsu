@@ -151,7 +151,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
               isDropdownActive
                 ? "text-blue-600 font-medium"
                 : "text-[#363849] hover:text-blue-600",
-              isMobile ? "justify-between w-full py-3" : ""
+              isMobile ? "justify-between w-full py-3 px-4" : ""
             )}
           >
             {getLocalizedValue(link.title, locale)}
@@ -164,7 +164,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
               getDropdownWidth(layout.width)
             )}>
               <div className={cn(
-                "p-3 grid gap-1",
+                " grid gap-1",
                 getGridColumns(layout.columns)
               )}>
                 {link.dropdownItems.map((item) => renderDropdownItem(item, layout.showImages))}
@@ -181,7 +181,7 @@ export function Header({ data, sticky = true, transparent = false, className, lo
                     key={item.href}
                     href={getLocalizedHref(item.href, locale)}
                     className={cn(
-                      "block px-4 py-2 transition-colors",
+                      "block  py-2 transition-colors",
                       isActive
                         ? "text-blue-600 font-medium"
                         : "text-gray-600 hover:text-blue-600"

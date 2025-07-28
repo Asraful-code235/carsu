@@ -45,7 +45,6 @@ export function LanguageSwitcher({ currentLocale, className }: LanguageSwitcherP
         )}
         aria-label={`Current language: ${localeNames[currentLocale]}`}
       >
-        <Globe className="h-4 w-4" />
         <span className="text-sm font-medium">
           {localeFlags[currentLocale]} {localeNames[currentLocale]}
         </span>

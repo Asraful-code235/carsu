@@ -148,6 +148,7 @@ export function InteractiveFeaturesSection({
                   href={primaryButton.href}
                   variant={primaryButton.variant as any}
                   size={primaryButton.size as any}
+                  className="max-sm:w-full"
                   openInNewTab={primaryButton.openInNewTab}
                   icon={primaryButton.icon}
                   locale={locale}
@@ -157,6 +158,7 @@ export function InteractiveFeaturesSection({
                 <CTAButton
                   text={secondaryButton.text}
                   href={secondaryButton.href}
+                  className="max-sm:w-full"
                   variant={secondaryButton.variant as any}
                   size={secondaryButton.size as any}
                   openInNewTab={secondaryButton.openInNewTab}
@@ -189,7 +191,7 @@ export function InteractiveFeaturesSection({
                       settings?.showAllCardsOnMobile
                         ? "block"
                         : isDefaultCard
-                          ? "block lg:block"
+                          ? "hidden lg:block"
                           : "hidden lg:block"
                     )}
                     onClick={() => setActiveCardIndex(index)}
@@ -234,8 +236,8 @@ export function InteractiveFeaturesSection({
 
             {/* Center Image */}
             {centerImage?.image?.asset && (
-              <div className="flex justify-center lg:w-1/3 h-full ">
-                <div className="relative w-full max-w-md min-h-[300px] lg:min-h-[526px]">
+              <div className="flex justify-center w-full lg:w-1/3 h-full ">
+                <div className="relative w-full lg:max-w-md min-h-[300px] lg:min-h-[526px]">
                   <Image
                     src={urlFor(centerImage.image).width(800).height(600).url()}
                     alt={getLocalizedValue(centerImage.alt, locale) || ""}
@@ -267,7 +269,7 @@ export function InteractiveFeaturesSection({
                       settings?.showAllCardsOnMobile
                         ? "block"
                         : isDefaultCard
-                          ? "block lg:block"
+                          ? "hidden lg:block"
                           : "hidden lg:block"
                     )}
                     onClick={() => setActiveCardIndex(actualIndex)}
