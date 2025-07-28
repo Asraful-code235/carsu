@@ -4,13 +4,17 @@ import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils/cn";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedValue, getLocalizedRichText, getLocalizedHref } from "@/lib/i18n/utils";
+import {
+  getLocalizedValue,
+  getLocalizedRichText,
+  getLocalizedHref,
+} from "@/lib/i18n/utils";
 
 interface CTAButton {
   text: any; // Localized string
   href: string;
-  variant: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
   openInNewTab: boolean;
   icon?: string;
   disabled?: boolean;
@@ -29,14 +33,14 @@ interface BackgroundElement {
     right?: string;
     bottom?: string;
   };
-  size: 'sm' | 'md' | 'lg' | 'xl';
+  size: "sm" | "md" | "lg" | "xl";
   opacity: number;
   rotation: number;
   zIndex?: number;
 }
 
 interface HeroSectionData {
-  type: 'hero';
+  type: "hero";
   heading: any; // Localized rich text object
   subtitle: any; // Localized string
   ctaButtons?: CTAButton[];
@@ -76,16 +80,24 @@ interface HeroSectionProps {
   locale?: Locale;
 }
 
-export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
-  const { heading, subtitle, ctaButtons, heroImage, backgroundElements, backgroundColor, settings } = data;
+export function HeroSection({ data, locale = "en" }: HeroSectionProps) {
+  const {
+    heading,
+    subtitle,
+    ctaButtons,
+    heroImage,
+    backgroundElements,
+    backgroundColor,
+    settings,
+  } = data;
 
   const getSizeClass = (size: string) => {
     const sizeMap = {
-      sm: 'w-32 h-32',
-      md: 'w-56 h-56',
-      lg: 'w-80 h-80',
+      sm: "w-32 h-32",
+      md: "w-56 h-56",
+      lg: "w-80 h-80",
     };
-    return sizeMap[size as keyof typeof sizeMap] || 'w-56 h-56';
+    return sizeMap[size as keyof typeof sizeMap] || "w-56 h-56";
   };
 
   // Generate background style
@@ -102,6 +114,31 @@ export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
       )}
       style={backgroundStyle}
     >
+      <Image
+        src={"/icon 2.svg"}
+        alt="icon 2"
+        width={100}
+        loading="lazy"
+        height={100}
+        className="absolute top-44 left-0 h-auto object-contain w-[88px] "
+      />
+
+      <Image
+        src={"/icon3.svg"}
+        alt="icon 2"
+        width={100}
+        height={100}
+        className="absolute top-[40%] right-44 h-auto object-contain w-[465.83px] "
+      />
+
+      <Image
+        src={"/icon 4.svg"}
+        alt="icon 2"
+        width={100}
+        height={100}
+        className="absolute top-[40%] left-44 h-auto object-contain w-[57.65px] "
+      />
+
       {/* Background decorative elements */}
       {backgroundElements && backgroundElements.length > 0 && (
         <div className="absolute inset-0 overflow-hidden">
@@ -139,7 +176,6 @@ export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
 
       <div className="relative container mx-auto px-6 lg:px-24 pt-20 pb-32">
         <div className="text-center">
-        
           <div className="max-w-4xl mx-auto mb-8">
             <div className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
               <RichTextRenderer
@@ -171,7 +207,7 @@ export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
                     href={getLocalizedHref(button.href, locale)}
                     className={cn(
                       "px-8 py-4 rounded-full transition-all duration-200 text-lg font-medium max-sm:w-full min-w-[140px]",
-                      button.variant === 'primary'
+                      button.variant === "primary"
                         ? "bg-blue-600 text-white hover:bg-blue-700"
                         : "border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     )}
@@ -188,10 +224,21 @@ export function HeroSection({ data, locale = 'en' }: HeroSectionProps) {
             <div className="container mx-auto w-full ">
               <div className="relative">
                 <Image
-                  src={urlFor(heroImage.image.asset).width(2304).height(1440).url()}
+                  src={urlFor(heroImage.image.asset)
+                    .width(2304)
+                    .height(1440)
+                    .url()}
                   alt={getLocalizedValue(heroImage.alt, locale) || "Hero image"}
-                  width={heroImage.width || heroImage.image.asset.metadata?.dimensions?.width || 2304}
-                  height={heroImage.height || heroImage.image.asset.metadata?.dimensions?.height || 1440}
+                  width={
+                    heroImage.width ||
+                    heroImage.image.asset.metadata?.dimensions?.width ||
+                    2304
+                  }
+                  height={
+                    heroImage.height ||
+                    heroImage.image.asset.metadata?.dimensions?.height ||
+                    1440
+                  }
                   className="w-full h-auto rounded-2xl"
                   priority={heroImage.priority}
                 />

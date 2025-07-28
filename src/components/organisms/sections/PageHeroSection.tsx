@@ -54,8 +54,9 @@ const alignmentClasses = {
   right: "text-right md:text-left",
 };
 
-export function PageHeroSection({ data, locale = 'en' }: PageHeroSectionProps) {
-  const { title, description, textAlign, cards, backgroundColor, padding } = data;
+export function PageHeroSection({ data, locale = "en" }: PageHeroSectionProps) {
+  const { title, description, textAlign, cards, backgroundColor, padding } =
+    data;
 
   const topPadding =
     paddingClasses[padding.top as keyof typeof paddingClasses] ||
@@ -74,6 +75,30 @@ export function PageHeroSection({ data, locale = 'en' }: PageHeroSectionProps) {
       }}
     >
       <div className="container mx-auto px-6 lg:px-24">
+        <Image
+          src={"/icon 2.svg"}
+          alt="icon 2"
+          width={100}
+          loading="lazy"
+          height={100}
+          className="absolute top-44 left-0 h-auto object-contain w-[88px] "
+        />
+
+        <Image
+          src={"/icon3.svg"}
+          alt="icon 2"
+          width={100}
+          height={100}
+          className="absolute top-[40%] right-44 h-auto object-contain w-[465.83px] "
+        />
+
+        <Image
+          src={"/icon 4.svg"}
+          alt="icon 2"
+          width={100}
+          height={100}
+          className="absolute top-[40%] left-44 h-auto object-contain w-[57.65px] "
+        />
         {/* Two column grid layout for md+ screens */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Left Column - Content */}
@@ -107,8 +132,14 @@ export function PageHeroSection({ data, locale = 'en' }: PageHeroSectionProps) {
                     {card.icon?.image?.asset && (
                       <div className="mb-6 h-full'">
                         <Image
-                          src={urlFor(card.icon.image.asset).width(64).height(64).url()}
-                          alt={getLocalizedValue(card.icon.alt, locale) || 'Card icon'}
+                          src={urlFor(card.icon.image.asset)
+                            .width(64)
+                            .height(64)
+                            .url()}
+                          alt={
+                            getLocalizedValue(card.icon.alt, locale) ||
+                            "Card icon"
+                          }
                           width={64}
                           height={64}
                           className="w-[72px] h-[72px] object-contain object-center"
@@ -117,10 +148,7 @@ export function PageHeroSection({ data, locale = 'en' }: PageHeroSectionProps) {
                     )}
 
                     {/* Title */}
-                    <h3
-                      className="font-semibold text-gray-900 leading-tight text-lg  w-full h-full"
-                    
-                    >
+                    <h3 className="font-semibold text-gray-900 leading-tight text-lg  w-full h-full">
                       {getLocalizedValue(card.title, locale)}
                     </h3>
                   </div>

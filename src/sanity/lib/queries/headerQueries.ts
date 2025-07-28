@@ -51,9 +51,11 @@ export const HEADER_QUERY = defineQuery(`
           it
         },
         image {
-          asset-> {
-            _id,
-            url
+          image {
+            asset-> {
+              _id,
+              url
+            }
           },
           alt {
             en,
@@ -139,9 +141,11 @@ export const DEFAULT_HEADER_QUERY = defineQuery(`
           it
         },
         image {
-          asset-> {
-            _id,
-            url
+          image {
+            asset-> {
+              _id,
+              url
+            }
           },
           alt {
             en,
@@ -233,9 +237,11 @@ export const SITE_LAYOUT_HEADER_QUERY = defineQuery(`
                 it
               },
               image {
-                asset-> {
-                  _id,
-                  url
+                image {
+                  asset-> {
+                    _id,
+                    url
+                  }
                 },
                 alt {
                   en,
