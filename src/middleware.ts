@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { locales, defaultLocale, isValidLocale } from './src/lib/i18n/config';
+import { defaultLocale, isValidLocale } from './lib/i18n/config';
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -30,9 +30,7 @@ export function middleware(request: NextRequest) {
   const locale = getLocaleFromRequest(request) || defaultLocale;
 
   // Redirect to localized path
-  // Handle root path specially
-  const pathWithoutLeadingSlash = pathname === '/' ? '' : pathname;
-  const localizedPath = `/${locale}${pathWithoutLeadingSlash}`;
+  const localizedPath = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
 
   return NextResponse.redirect(new URL(localizedPath, request.url));
 }
@@ -80,6 +78,8 @@ export const config = {
      * - favicon.ico (favicon file)
      * - studio (Sanity Studio)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|studio).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|studio|robots.txt|sitemap.xml).*)',
+    // Explicitly match root path
+    '/',
   ],
 };
