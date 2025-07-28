@@ -10,6 +10,7 @@ import {
   getLocalizedHref,
 } from "@/lib/i18n/utils";
 import { PortableText } from "next-sanity";
+import { GradientEllipse } from "@/components/atoms/decorative/GradientEllipse";
 
 interface TryCarsuBannerProps {
   title?: any; // Localized rich text object
@@ -140,17 +141,14 @@ export function TryCarsuBanner({
     >
       <div className={containerClasses}>
         {/* Glow Effect */}
-        {glowImage && glowImage.image && glowImage.image.asset && (
-          <div className="absolute -top-40 left-1/2 transform -translate-x-1/2 z-10 opacity-100">
-            <Image
-              src={urlFor(glowImage.image.asset).width(384).height(384).url()}
-              alt={glowImage.alt || "Glow effect"}
-              width={384}
-              height={384}
-              className="w-96 h-96 object-contain rounded-full"
-            />
-          </div>
-        )}
+        <GradientEllipse
+          color="#93F4B8"
+          position="top"
+          size="lg"
+          opacity={0.6}
+          blur="xl"
+          className="z-0"
+        />
 
         {/* Main Banner Container */}
         <div

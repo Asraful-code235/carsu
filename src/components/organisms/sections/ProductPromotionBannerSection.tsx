@@ -5,6 +5,7 @@ import { CTAButton } from "@/components/atoms/ui/CTAButton";
 import { Badge } from "@/components/atoms/ui/Badge";
 import type { Locale } from "@/lib/i18n/config";
 import { getLocalizedRichText } from "@/lib/i18n/utils";
+import { GradientEllipse } from "@/components/atoms/decorative/GradientEllipse";
 
 interface CTAButtonData {
   text: any; // Localized string
@@ -152,9 +153,11 @@ export function ProductPromotionBannerSection({
   return (
     <section className="relative">
       <div className="container mx-auto w-full px-6 lg:px-24 py-20">
+
+        
         <div
           className={cn(
-            "relative overflow-hidden flex items-center justify-center",
+            "relative overflow-hidden flex items-center justify-center z-10",
             heightClass,
             borderRadiusClass
           )}
@@ -167,23 +170,27 @@ export function ProductPromotionBannerSection({
             backgroundRepeat: "no-repeat",
           }}
         >
+
+        
           {/* Background Overlay */}
           {overlay?.enabled && (
             <div className="absolute inset-0" style={getOverlayStyle()} />
           )}
 
+         
+
           {/* Content */}
           <div
             className={cn(
-              "relative z-10 w-full max-w-none mx-auto px-6 lg:px-12",
+              "relative !z-20 w-full max-w-none mx-auto px-6 lg:px-12",
               topPadding,
               bottomPadding,
               // Mobile alignment
               mobileAlignment,
               // Desktop alignment (responsive)
-              textAlignment.desktop === 'left' && 'lg:text-left',
-              textAlignment.desktop === 'center' && 'lg:text-center',
-              textAlignment.desktop === 'right' && 'lg:text-right'
+              textAlignment.desktop === "left" && "lg:text-left",
+              textAlignment.desktop === "center" && "lg:text-center",
+              textAlignment.desktop === "right" && "lg:text-right"
             )}
           >
             {/* Title */}
@@ -216,9 +223,12 @@ export function ProductPromotionBannerSection({
                   className={cn(
                     "prose prose-lg w-full [&_p]:text-white [&_p]:text-lg [&_p]:md:text-xl [&_p]:font-medium [&_p]:mb-0 [&_strong]:font-semibold [&_strong]:text-white",
                     // Max width and centering based on alignment
-                    textAlignment.desktop === 'center' && 'max-w-[1048px] mx-auto',
-                    textAlignment.desktop === 'left' && 'w-full lg:max-w-[625px]',
-                    textAlignment.desktop === 'right' && 'max-w-[1048px] ml-auto'
+                    textAlignment.desktop === "center" &&
+                      "max-w-[1048px] mx-auto",
+                    textAlignment.desktop === "left" &&
+                      "w-full lg:max-w-[625px]",
+                    textAlignment.desktop === "right" &&
+                      "max-w-[1048px] ml-auto"
                   )}
                 />
               </div>
@@ -232,9 +242,11 @@ export function ProductPromotionBannerSection({
                   className={cn(
                     "prose prose-base w-full [&_p]:text-white/90 [&_p]:text-sm [&_p]:md:text-base [&_p]:leading-relaxed [&_p]:mb-0 [&_strong]:font-semibold [&_strong]:text-white",
                     // Max width and centering based on alignment
-                    textAlignment.desktop === 'center' && 'max-w-[1048px] mx-auto',
-                    textAlignment.desktop === 'left' && 'max-w-[1048px]',
-                    textAlignment.desktop === 'right' && 'max-w-[1048px] ml-auto'
+                    textAlignment.desktop === "center" &&
+                      "max-w-[1048px] mx-auto",
+                    textAlignment.desktop === "left" && "max-w-[1048px]",
+                    textAlignment.desktop === "right" &&
+                      "max-w-[1048px] ml-auto"
                   )}
                 />
               </div>
@@ -242,17 +254,19 @@ export function ProductPromotionBannerSection({
 
             {/* CTA Buttons */}
             {(primaryButton || secondaryButton) && (
-              <div className={cn(
-                "flex flex-col sm:flex-row gap-4",
-                // Mobile button alignment
-                textAlignment.mobile === 'left' && 'justify-start',
-                textAlignment.mobile === 'center' && 'justify-center',
-                textAlignment.mobile === 'right' && 'justify-end',
-                // Desktop button alignment
-                textAlignment.desktop === 'left' && 'lg:justify-start',
-                textAlignment.desktop === 'center' && 'lg:justify-center',
-                textAlignment.desktop === 'right' && 'lg:justify-end'
-              )}>
+              <div
+                className={cn(
+                  "flex flex-col sm:flex-row gap-4",
+                  // Mobile button alignment
+                  textAlignment.mobile === "left" && "justify-start",
+                  textAlignment.mobile === "center" && "justify-center",
+                  textAlignment.mobile === "right" && "justify-end",
+                  // Desktop button alignment
+                  textAlignment.desktop === "left" && "lg:justify-start",
+                  textAlignment.desktop === "center" && "lg:justify-center",
+                  textAlignment.desktop === "right" && "lg:justify-end"
+                )}
+              >
                 {primaryButton && (
                   <CTAButton
                     text={primaryButton.text}
