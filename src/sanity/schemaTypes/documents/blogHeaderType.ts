@@ -113,6 +113,12 @@ export const blogHeaderType = defineType({
       description: 'Slides for the blog header carousel (1-10 slides)',
     }),
     defineField({
+      name: 'mostPopularText',
+      title: 'Most Popular Section Title',
+      type: 'localeString',
+      description: 'Title for the "Most Popular" section below the header (e.g., "Most Popular", "Más Popular")',
+    }),
+    defineField({
       name: 'backgroundColor',
       title: 'Background Color',
       type: 'string',

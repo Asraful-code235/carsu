@@ -54,6 +54,9 @@ export const structure: StructureResolver = (S) =>
 
               // Footer configurations
               S.documentTypeListItem("footer").title("Footer Configurations"),
+
+              S.divider(),
+
             ])
         ),
 
@@ -72,9 +75,9 @@ export const structure: StructureResolver = (S) =>
             "footer",
             "siteLayout",
             "page",
+            "testimonial",
             'testimonialSection',
-            'productBenefitsListSection',
-            "testimonialSection"
+            'productBenefitsListSection'
 
           ].includes(item.getId()!)
       ),

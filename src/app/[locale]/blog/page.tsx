@@ -34,6 +34,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       <BlogPostsGrid
         posts={blogPosts}
         locale={locale}
+        blogHeader={blogHeader}
       />
     </main>
   );

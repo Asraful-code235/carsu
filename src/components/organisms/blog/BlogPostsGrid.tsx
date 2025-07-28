@@ -1,11 +1,13 @@
 import { BlogCard } from '@/components/molecules/cards/BlogCard';
 import { Pagination } from '@/components/molecules/navigation/Pagination';
+import { getLocalizedValue } from '@/lib/i18n/utils';
 import type { Locale } from '@/lib/i18n/config';
-import type { BlogPost } from '@/lib/services/blogService';
+import type { BlogPost, BlogHeaderData } from '@/lib/services/blogService';
 
 interface BlogPostsGridProps {
   posts: BlogPost[];
   locale: Locale;
+  blogHeader?: BlogHeaderData;
 }
 
 const LOCALIZED_TEXT = {
@@ -26,8 +28,13 @@ const LOCALIZED_TEXT = {
   }
 };
 
-export function BlogPostsGrid({ posts, locale }: BlogPostsGridProps) {
+export function BlogPostsGrid({ posts, locale, blogHeader }: BlogPostsGridProps) {
   const text = LOCALIZED_TEXT[locale] || LOCALIZED_TEXT.en;
+
+  // Use custom text from Sanity if available, otherwise fallback to default
+  const mostPopularTitle = blogHeader?.mostPopularText
+    ? getLocalizedValue(blogHeader.mostPopularText, locale)
+    : text.mostPopular;
 
   // Helper function to format time ago
   const formatTimeAgo = (publishedAt: string, locale: Locale) => {
@@ -69,7 +76,7 @@ export function BlogPostsGrid({ posts, locale }: BlogPostsGridProps) {
       <div className="">
         <div className="flex flex-col gap-[58px] lg:gap-[58px] max-w-[1280px] mx-auto">
           <h2 className="text-[#363849] font-poppins text-[36px] font-bold leading-[42px]">
-            {text.mostPopular}
+            {mostPopularTitle}
           </h2>
 
           {/* Featured Post */}

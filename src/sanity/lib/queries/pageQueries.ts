@@ -528,6 +528,7 @@ export const ALL_PAGES_QUERY = defineQuery(`
 export const BLOG_HEADER_QUERY = defineQuery(`
   *[_type == "blogHeader"][0] {
     title,
+    mostPopularText ${LOCALE_STRING_FRAGMENT},
     slides[] {
       title ${LOCALE_STRING_FRAGMENT},
       bulletPoints[] ${LOCALE_STRING_FRAGMENT},

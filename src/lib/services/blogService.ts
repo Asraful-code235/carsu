@@ -3,6 +3,7 @@ import { BLOG_HEADER_QUERY, BLOG_POSTS_QUERY } from '@/sanity/lib/queries/pageQu
 
 export interface BlogHeaderData {
   title: string;
+  mostPopularText?: any; // Localized string
   slides: Array<{
     title: any; // Localized string
     bulletPoints: Array<any>; // Array of localized strings
