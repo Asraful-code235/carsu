@@ -64,60 +64,7 @@ export function generateWebsiteSchema() {
   };
 }
 
-/**
- * Generate BreadcrumbList structured data
- */
-export function generateBreadcrumbSchema(breadcrumbs: Array<{ name: string; url: string }>) {
-  const baseUrl = getBaseUrl();
 
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: breadcrumbs.map((crumb, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: crumb.name,
-      item: crumb.url.startsWith('http') ? crumb.url : `${baseUrl}${crumb.url}`,
-    })),
-  };
-}
-
-/**
- * Generate SoftwareApplication structured data for Carsu
- */
-export function generateSoftwareApplicationSchema() {
-  const baseUrl = getBaseUrl();
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Carsu',
-    description: 'Comprehensive car shop management software for automotive businesses',
-    url: baseUrl,
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web Browser',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '150',
-      bestRating: '5',
-      worstRating: '1',
-    },
-    featureList: [
-      'Inventory Management',
-      'Customer Management',
-      'Service Scheduling',
-      'Billing & Invoicing',
-      'Multi-language Support',
-    ],
-  };
-}
 
 /**
  * Generate BreadcrumbList structured data
