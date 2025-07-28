@@ -8,12 +8,12 @@ export interface LiveConfig {
 export const liveConfig = {
   // Use different strategies for different environments
   production: {
-    // Disable live updates in production by default
-    enabled: false,
-    // Use CDN for better performance
-    useCdn: true,
-    // Use published perspective
-    perspective: "published" as const,
+    // Enable live updates in production for sales demos and presentations
+    enabled: true,
+    // Don't use CDN for live editing to work properly
+    useCdn: false,
+    // Use previewDrafts for editing capabilities
+    perspective: "previewDrafts" as const,
   },
 
   development: {
@@ -36,21 +36,23 @@ export const liveConfig = {
 // Helper to get environment-specific config
 export function getLiveConfig(): LiveConfig {
   const isDevelopment = process.env.NODE_ENV === "development";
-  const isLiveEnabled = process.env.NEXT_PUBLIC_ENABLE_LIVE_EDITING === "true";
+  const isLiveDisabled =
+    process.env.NEXT_PUBLIC_DISABLE_LIVE_EDITING === "true";
 
-  // Determine if live should be enabled
-  const enabled = isDevelopment || isLiveEnabled;
-
-  // Return appropriate config based on environment
-  if (isDevelopment) {
+  // Allow disabling live editing with explicit env var
+  if (isLiveDisabled) {
     return {
-      ...liveConfig.development,
-      enabled,
+      enabled: false,
+      useCdn: true,
+      perspective: "published",
     };
   }
 
-  return {
-    ...liveConfig.production,
-    enabled,
-  };
+  // Return appropriate config based on environment
+  // Both development and production now have live editing enabled by default
+  if (isDevelopment) {
+    return liveConfig.development;
+  }
+
+  return liveConfig.production;
 }
