@@ -62,7 +62,7 @@ export default async function Page({ params }: PageProps) {
     const { locale: localeParam, slug } = await params;
     
     if (!isValidLocale(localeParam)) {
-      notFound();
+      return
     }
 
     const locale: Locale = localeParam;
