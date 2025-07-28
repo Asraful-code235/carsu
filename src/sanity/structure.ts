@@ -15,6 +15,8 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem("post").title("Posts"),
               S.documentTypeListItem("category").title("Categories"),
               S.documentTypeListItem("author").title("Authors"),
+              S.divider(),
+              S.documentTypeListItem("blogHeader").title("Blog Header Configurations"),
             ])
         ),
 
@@ -65,6 +67,7 @@ export const structure: StructureResolver = (S) =>
             "post",
             "category",
             "author",
+            "blogHeader",
             "header",
             "footer",
             "siteLayout",

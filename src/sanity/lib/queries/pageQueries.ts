@@ -523,3 +523,50 @@ export const ALL_PAGES_QUERY = defineQuery(`
     sections
   }
 `);
+
+// Blog queries
+export const BLOG_HEADER_QUERY = defineQuery(`
+  *[_type == "blogHeader"][0] {
+    title,
+    slides[] {
+      title ${LOCALE_STRING_FRAGMENT},
+      bulletPoints[] ${LOCALE_STRING_FRAGMENT},
+      ctaButton {
+        text ${LOCALE_STRING_FRAGMENT},
+        href,
+        openInNewTab
+      },
+      heroImage {
+        image,
+        alt ${LOCALE_STRING_FRAGMENT}
+      },
+      isActive
+    },
+    backgroundColor,
+    settings {
+      autoplay,
+      autoplayInterval,
+      showIndicators,
+      height
+    }
+  }
+`);
+
+export const BLOG_POSTS_QUERY = defineQuery(`
+  *[_type == "post"] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    excerpt,
+    publishedAt,
+    mainImage,
+    author->{
+      name,
+      image
+    },
+    categories[]->{
+      title,
+      slug
+    }
+  }
+`);

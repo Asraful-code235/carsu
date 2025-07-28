@@ -9,6 +9,7 @@ import { headerType } from "./documents/headerType";
 import { footerType } from "./documents/footerType";
 import { layoutType } from "./documents/layoutType";
 import { pageType } from "./documents/pageType";
+import { blogHeaderType } from "./documents/blogHeaderType";
 
 // Object types
 import { richTextBlockObject } from "./objects/richTextBlock";
@@ -60,6 +61,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     footerType,
     layoutType,
     pageType,
+    blogHeaderType,
 
     // Object types
     richTextBlockObject,
