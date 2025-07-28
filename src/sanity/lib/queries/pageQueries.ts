@@ -273,8 +273,12 @@ const PAGE_HERO_SECTION_FRAGMENT = `
     textAlign,
     cards[] {
       icon ${LOCALIZED_IMAGE_FRAGMENT},
-      title ${LOCALE_STRING_FRAGMENT}
+      title ${LOCALE_STRING_FRAGMENT},
+      expandedTitle ${LOCALE_RICH_TEXT_FRAGMENT},
+      expandedDescription ${LOCALE_RICH_TEXT_FRAGMENT},
+      expandedImage ${LOCALIZED_IMAGE_FRAGMENT}
     },
+    defaultActiveCard,
     backgroundColor { hex },
     padding { top, bottom }
   }

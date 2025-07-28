@@ -40,18 +40,32 @@ const createComponents = (extraClassName?: string,textWhite?: boolean,textCenter
       </a>
     ),
     coloredText: ({ children, value }) => {
-      const colorClass = value?.customColor?.hex
-        ? `text-[${value.customColor.hex}]`
-        : colorClasses[value?.color as keyof typeof colorClasses] || colorClasses.primary;
-
       const fontWeightClass = value?.fontWeight === 'normal' ? 'font-normal' :
                              value?.fontWeight === 'medium' ? 'font-medium' :
                              value?.fontWeight === 'bold' ? 'font-bold' : 'font-semibold';
 
+      if (value?.customColor?.hex) {
+        return (
+          <span
+            className={cn(fontWeightClass, textCenter ? "text-center" : "")}
+            style={{
+              color: value.customColor.hex,
+              fontWeight: value?.fontWeight === 'normal' ? 'normal' :
+                         value?.fontWeight === 'medium' ? '500' :
+                         value?.fontWeight === 'bold' ? 'bold' : '600'
+            }}
+          >
+            {children}
+          </span>
+        );
+      }
+
+      // For predefined colors, use Tailwind classes
+      const colorClass = colorClasses[value?.color as keyof typeof colorClasses] || colorClasses.primary;
+
       return (
         <span
-          className={cn(fontWeightClass, colorClass,textCenter ? "text-center" : "")}
-          style={value?.customColor?.hex ? { color: value.customColor.hex } : undefined}
+          className={cn(fontWeightClass, colorClass, textCenter ? "text-center" : "")}
         >
           {children}
         </span>

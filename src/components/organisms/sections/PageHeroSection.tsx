@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { RichTextRenderer } from "@/components/atoms/text/RichTextRenderer";
+import { InteractiveHeroCards } from "@/components/molecules/cards/InteractiveHeroCards";
 import { cn } from "@/lib/utils/cn";
-import { urlFor } from "@/sanity/lib/image";
 import type { Locale } from "@/lib/i18n/config";
-import { getLocalizedRichText, getLocalizedValue } from "@/lib/i18n/utils";
+import { getLocalizedRichText } from "@/lib/i18n/utils";
 
 interface PageHeroSectionProps {
   data: {
@@ -28,7 +28,25 @@ interface PageHeroSectionProps {
         alt?: any; // Localized string
       };
       title: any; // Localized string
+      expandedTitle: any; // Localized rich text
+      expandedDescription: any; // Localized rich text
+      expandedImage: {
+        image: {
+          asset: {
+            _id: string;
+            url: string;
+            metadata?: {
+              dimensions: {
+                width: number;
+                height: number;
+              };
+            };
+          };
+        };
+        alt?: any; // Localized string
+      };
     }>;
+    defaultActiveCard?: number;
     backgroundColor?: {
       hex: string;
     };
@@ -55,7 +73,7 @@ const alignmentClasses = {
 };
 
 export function PageHeroSection({ data, locale = "en" }: PageHeroSectionProps) {
-  const { title, description, textAlign, cards, backgroundColor, padding } =
+  const { title, description, textAlign, cards, backgroundColor, padding, defaultActiveCard } =
     data;
 
   const topPadding =
@@ -120,42 +138,11 @@ export function PageHeroSection({ data, locale = "en" }: PageHeroSectionProps) {
 
         {/* Hero Cards */}
         {cards && cards.length > 0 && (
-          <div className="mt-14 lg:mt-[200px] h-full">
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 h-full">
-              {cards.map((card, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl p-12 shadow-lg w-full h-full hover:shadow-xl transition-shadow duration-300 max-w-[242.8px]"
-                >
-                  <div className="flex flex-col items-center text-center h-full">
-                    {/* Icon */}
-                    {card.icon?.image?.asset && (
-                      <div className="mb-6 h-full'">
-                        <Image
-                          src={urlFor(card.icon.image.asset)
-                            .width(64)
-                            .height(64)
-                            .url()}
-                          alt={
-                            getLocalizedValue(card.icon.alt, locale) ||
-                            "Card icon"
-                          }
-                          width={64}
-                          height={64}
-                          className="w-[72px] h-[72px] object-contain object-center"
-                        />
-                      </div>
-                    )}
-
-                    {/* Title */}
-                    <h3 className="font-semibold text-gray-900 leading-tight text-lg  w-full h-full">
-                      {getLocalizedValue(card.title, locale)}
-                    </h3>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <InteractiveHeroCards
+            cards={cards}
+            defaultActiveCard={defaultActiveCard || 0}
+            locale={locale}
+          />
         )}
       </div>
     </section>
