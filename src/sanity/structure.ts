@@ -43,7 +43,7 @@ export const structure: StructureResolver = (S) =>
                 .title("Layout Configuration")
                 .id("siteLayout")
                 .child(
-                  S.document()
+                  S.document() 
                     .schemaType("siteLayout")
                     .documentId("siteLayout")
                     .title("Site Layout Configuration")

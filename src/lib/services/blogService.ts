@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client';
-import { BLOG_HEADER_QUERY, BLOG_POSTS_QUERY } from '@/sanity/lib/queries/pageQueries';
+import { BLOG_HEADER_QUERY, BLOG_POSTS_QUERY, BLOG_POST_QUERY } from '@/sanity/lib/queries/pageQueries';
 
 export interface BlogHeaderData {
   title: string;
@@ -48,6 +48,20 @@ export interface BlogPost {
   }>;
 }
 
+export interface BlogPostDetail extends BlogPost {
+  body?: any[];
+  author?: {
+    name: string;
+    image?: any;
+    bio?: string;
+  };
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string;
+  };
+}
+
 export interface BlogData {
   blogHeader: BlogHeaderData | null;
   blogPosts: BlogPost[];
@@ -77,6 +91,19 @@ export async function getBlogData(): Promise<BlogData> {
       blogHeader: null,
       blogPosts: []
     };
+  }
+}
+
+/**
+ * Fetches a single blog post by slug
+ */
+export async function getBlogPost(slug: string): Promise<BlogPostDetail | null> {
+  try {
+    const post = await client.fetch(BLOG_POST_QUERY, { slug });
+    return post;
+  } catch (error) {
+    console.error('Error fetching blog post:', error);
+    return null;
   }
 }
 

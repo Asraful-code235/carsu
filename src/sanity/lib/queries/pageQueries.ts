@@ -571,3 +571,29 @@ export const BLOG_POSTS_QUERY = defineQuery(`
     }
   }
 `);
+
+export const BLOG_POST_QUERY = defineQuery(`
+  *[_type == "post" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    excerpt,
+    publishedAt,
+    mainImage,
+    body,
+    author->{
+      name,
+      image,
+      bio
+    },
+    categories[]->{
+      title,
+      slug
+    },
+    seo {
+      metaTitle,
+      metaDescription,
+      keywords
+    }
+  }
+`);
