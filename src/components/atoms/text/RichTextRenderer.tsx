@@ -47,7 +47,7 @@ const createComponents = (extraClassName?: string,textWhite?: boolean,textCenter
       if (value?.customColor?.hex) {
         return (
           <span
-            className={cn(fontWeightClass, textCenter ? "text-center" : "")}
+            className={cn("font-bold,",fontWeightClass, textCenter ? "text-center" : "")}
             style={{
               color: value.customColor.hex,
               fontWeight: value?.fontWeight === 'normal' ? 'normal' :
