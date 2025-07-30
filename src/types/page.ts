@@ -579,8 +579,8 @@ export interface ServicesSection {
 
 export interface PageHeroSection {
   type: "pageHero";
-  title: any[]; // Rich text array (Portable Text)
-  description: any[]; // Rich text array (Portable Text)
+  title: any; // Localized rich text object
+  description: any; // Localized rich text object
   textAlign: "left" | "center" | "right";
   cards?: Array<{
     icon?: {
@@ -599,7 +599,25 @@ export interface PageHeroSection {
       alt?: any; // Localized string
     };
     title: any; // Localized string
+    expandedTitle: any; // Localized rich text
+    expandedDescription: any; // Localized rich text
+    expandedImage: {
+      image: {
+        asset: {
+          _id: string;
+          url: string;
+          metadata?: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
+          };
+        };
+      };
+      alt?: any; // Localized string
+    };
   }>;
+  defaultActiveCard?: number;
   backgroundColor?: {
     hex: string;
   };
