@@ -76,6 +76,27 @@ export const pageHeroSectionType = defineType({
               validation: (Rule) => Rule.required(),
               description: "Title for the hero card (localized)",
             }),
+            defineField({
+              name: "expandedTitle",
+              title: "Expanded Title",
+              type: "localeRichTextBlock",
+              validation: (Rule) => Rule.required(),
+              description: "Rich text title shown when card is active (localized)",
+            }),
+            defineField({
+              name: "expandedDescription",
+              title: "Expanded Description",
+              type: "localeRichTextBlock",
+              validation: (Rule) => Rule.required(),
+              description: "Rich text description shown when card is active (localized)",
+            }),
+            defineField({
+              name: "expandedImage",
+              title: "Expanded Image",
+              type: "imageWithAlt",
+              validation: (Rule) => Rule.required(),
+              description: "Image shown when card is active",
+            }),
           ],
           preview: {
             select: {
@@ -87,7 +108,7 @@ export const pageHeroSectionType = defineType({
               const translationInfo = titleEs ? ` • ES: ${titleEs}` : "";
               return {
                 title: title || "Hero Card",
-                subtitle: `Card${translationInfo}`,
+                subtitle: `Interactive Card${translationInfo}`,
                 media: icon,
               };
             },
@@ -96,6 +117,14 @@ export const pageHeroSectionType = defineType({
       ],
       validation: (Rule) => Rule.max(6),
       description: "Optional hero cards to display below content (max 6 cards)",
+    }),
+    defineField({
+      name: "defaultActiveCard",
+      title: "Default Active Card",
+      type: "number",
+      initialValue: 0,
+      validation: (Rule) => Rule.min(0).max(5),
+      description: "Index of the card that should be active by default (0-based, max 5)",
     }),
     defineField({
       name: "padding",
